@@ -3,6 +3,7 @@
 // ---------- UI text (interface language, separate from the word deck language) ----------
 const STRINGS = {
   en: {
+    tagline: "Describe. Guess. Beat the clock.",
     yourName: "Your name", joinRoom: "Join a game", roomCode: "Room code", join: "Join",
     newGame: "Start a new game", wordLanguage: "Word language", teams: "Teams",
     target: "Points to win", create: "Create room", howToPlay: "How to play",
@@ -12,19 +13,23 @@ const STRINGS = {
       "Teams take turns and the describer rotates. The first team to reach the finish wins!",
     shareLink: "Share invite link", pickTeam: "Tap a team to join it", shuffle: "Shuffle teams",
     startGame: "Start game", waitHost: "Waiting for the host to start…", team: "Team",
-    you: "you", host: "host", describer: "Describer", yourTurn: "You're describing!",
-    teamTurn: (t, n) => `${t} — ${n} is describing`, guessing: "Guess! Your teammate is describing.",
-    watching: "Watch the words — no cheating!", die: "Die", minus: (d) => `−${d} point${d === 1 ? "" : "s"} this turn`,
+    you: "you", yourTurn: "You're describing!",
+    describes: (n) => `${n} is describing`, guessing: "Guess! 🗣️",
+    watching: "Watch the words — no cheating!", minus: (d) => `−${d} point${d === 1 ? "" : "s"} this turn`,
     startTimer: "Start 30 seconds", waitDescriber: (n) => `Waiting for ${n} to start…`,
     allDone: "All guessed — stop timer", timeUp: "Time's up!",
-    turnScore: (h, d, s) => `${h} guessed − ${d} = ${s} point${s === 1 ? "" : "s"}`,
+    turnScore: (h, d) => `${h} guessed − ${d} (die)`,
     fixHint: "Tap a word to correct it", confirm: "Confirm & next turn", skip: "Skip turn (host)",
     waitConfirm: (n) => `Waiting for ${n} to confirm…`, wins: (t) => `${t} wins!`,
     playAgain: "Play again", leave: "Leave game", copied: "Link copied!",
     leaveConfirm: "Leave this game?", needName: "Enter your name first", needCode: "Enter a room code",
-    reconnecting: "Reconnecting…", roomGone: "That game no longer exists",
+    reconnecting: "Reconnecting…", roomGone: "That game no longer exists", host: (n) => `★ Host: ${n}`,
+    ev_joined: (n) => `👋 ${n} joined`, ev_left: (n) => `🚪 ${n} left the game`,
+    ev_disconnected: (n) => `📵 ${n} lost connection`, ev_reconnected: (n) => `✅ ${n} is back`,
+    ev_new_host: (n) => `★ ${n} is now the host`, ev_you_host: "★ You're now the host",
   },
   nl: {
+    tagline: "Omschrijf. Raad. Versla de klok.",
     yourName: "Je naam", joinRoom: "Meedoen met een spel", roomCode: "Spelcode", join: "Meedoen",
     newGame: "Nieuw spel starten", wordLanguage: "Taal van de woorden", teams: "Teams",
     target: "Punten om te winnen", create: "Spel aanmaken", howToPlay: "Spelregels",
@@ -34,17 +39,20 @@ const STRINGS = {
       "Teams zijn om de beurt en de omschrijver wisselt steeds. Het eerste team bij de finish wint!",
     shareLink: "Deel uitnodigingslink", pickTeam: "Tik op een team om erbij te gaan", shuffle: "Teams husselen",
     startGame: "Start spel", waitHost: "Wachten tot de host het spel start…", team: "Team",
-    you: "jij", host: "host", describer: "Omschrijver", yourTurn: "Jij mag omschrijven!",
-    teamTurn: (t, n) => `${t} — ${n} omschrijft`, guessing: "Raden maar! Je teamgenoot omschrijft.",
-    watching: "Kijk mee — niet valsspelen!", die: "Dobbelsteen", minus: (d) => `−${d} punt${d === 1 ? "" : "en"} deze beurt`,
+    you: "jij", yourTurn: "Jij mag omschrijven!",
+    describes: (n) => `${n} omschrijft`, guessing: "Raden maar! 🗣️",
+    watching: "Kijk mee — niet valsspelen!", minus: (d) => `−${d} punt${d === 1 ? "" : "en"} deze beurt`,
     startTimer: "Start 30 seconden", waitDescriber: (n) => `Wachten tot ${n} start…`,
     allDone: "Alles geraden — stop de tijd", timeUp: "Tijd is om!",
-    turnScore: (h, d, s) => `${h} geraden − ${d} = ${s} punt${s === 1 ? "" : "en"}`,
+    turnScore: (h, d) => `${h} geraden − ${d} (dobbelsteen)`,
     fixHint: "Tik op een woord om te corrigeren", confirm: "Bevestig & volgende beurt", skip: "Beurt overslaan (host)",
     waitConfirm: (n) => `Wachten tot ${n} bevestigt…`, wins: (t) => `${t} wint!`,
     playAgain: "Nog een keer", leave: "Spel verlaten", copied: "Link gekopieerd!",
     leaveConfirm: "Dit spel verlaten?", needName: "Vul eerst je naam in", needCode: "Vul een spelcode in",
-    reconnecting: "Opnieuw verbinden…", roomGone: "Dit spel bestaat niet meer",
+    reconnecting: "Opnieuw verbinden…", roomGone: "Dit spel bestaat niet meer", host: (n) => `★ Host: ${n}`,
+    ev_joined: (n) => `👋 ${n} doet mee`, ev_left: (n) => `🚪 ${n} heeft het spel verlaten`,
+    ev_disconnected: (n) => `📵 ${n} heeft geen verbinding`, ev_reconnected: (n) => `✅ ${n} is terug`,
+    ev_new_host: (n) => `★ ${n} is nu de host`, ev_you_host: "★ Jij bent nu de host",
   },
 };
 
@@ -66,30 +74,69 @@ let state = null;
 let ws = null;
 let reconnectTimer = null;
 let timerInterval = null;
-let localEnd = null; // performance.now() timestamp when the turn ends
-let lastTurnPhase = null;
+let localEnd = null;      // performance.now() timestamp when the turn ends
+let lastPhaseKey = null;  // "turnNumber:phase", to detect transitions
+let rolledTurn = null;    // turn number whose die roll was animated
+let prevHits = [];
+let hitsTurn = null;      // turn number prevHits belongs to
+let lastTickSecond = null;
+let soundOn = store.get("sound") !== false;
+let celebrated = false;
 
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
-function toast(msg, ms = 2500) {
-  const el = $("toast");
+function toast(msg, ms = 3000) {
+  const el = document.createElement("div");
+  el.className = "toast";
   el.textContent = msg;
-  el.hidden = false;
-  clearTimeout(toast.timer);
-  toast.timer = setTimeout(() => { el.hidden = true; }, ms);
+  $("toasts").appendChild(el);
+  setTimeout(() => {
+    el.classList.add("out");
+    setTimeout(() => el.remove(), 300);
+  }, ms);
 }
 
 function show(screen) {
   for (const el of document.querySelectorAll(".screen")) el.hidden = el.id !== `screen-${screen}`;
   $("leave-btn").hidden = screen === "home";
+  $("host-line").hidden = screen === "home" || !state;
 }
 
 function applyStaticText() {
   document.documentElement.lang = uiLang;
   for (const el of document.querySelectorAll("[data-t]")) el.textContent = t(el.dataset.t);
   $("ui-lang").textContent = uiLang === "nl" ? "EN" : "NL";
+  $("sound-btn").textContent = soundOn ? "🔊" : "🔇";
 }
+
+// ---------- sound (generated, no audio files) ----------
+let audioCtx = null;
+function unlockAudio() {
+  try {
+    audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+    if (audioCtx.state === "suspended") audioCtx.resume();
+  } catch { audioCtx = null; }
+}
+function beep(freq, duration = 0.1, type = "sine", volume = 0.2) {
+  if (!soundOn || !audioCtx) return;
+  const osc = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+  osc.type = type;
+  osc.frequency.value = freq;
+  gain.gain.setValueAtTime(volume, audioCtx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+  osc.connect(gain).connect(audioCtx.destination);
+  osc.start();
+  osc.stop(audioCtx.currentTime + duration);
+}
+const sounds = {
+  tick: () => beep(880, 0.08, "square", 0.08),
+  hit: () => { beep(660, 0.08); setTimeout(() => beep(990, 0.12), 70); },
+  buzzer: () => { beep(160, 0.6, "sawtooth", 0.25); beep(120, 0.6, "sawtooth", 0.2); },
+  start: () => [523, 659, 784].forEach((f, i) => setTimeout(() => beep(f, 0.12), i * 90)),
+  win: () => [523, 659, 784, 1047].forEach((f, i) => setTimeout(() => beep(f, 0.18, "triangle", 0.25), i * 130)),
+};
 
 // ---------- networking ----------
 async function api(path, body) {
@@ -108,6 +155,7 @@ function connect() {
   sock.onmessage = (ev) => {
     const msg = JSON.parse(ev.data);
     if (msg.type === "state") { state = msg.state; render(); }
+    else if (msg.type === "event") showEvent(msg);
     else if (msg.type === "error") toast(msg.message);
     else if (msg.type === "gone") { toast(t("roomGone")); leave(false); }
   };
@@ -116,6 +164,11 @@ function connect() {
     toast(t("reconnecting"), 1500);
     reconnectTimer = setTimeout(connect, 1500);
   };
+}
+
+function showEvent({ event, name }) {
+  if (event === "new_host" && state && name === me()?.name) toast(t("ev_you_host"));
+  else if (STRINGS[uiLang][`ev_${event}`]) toast(t(`ev_${event}`, name));
 }
 
 function send(action, extra = {}) {
@@ -132,12 +185,14 @@ function enterRoom(code, playerId) {
 
 function leave(ask = true) {
   if (ask && !confirm(t("leaveConfirm"))) return;
+  const sock = ws;
+  ws = null;
+  if (sock && sock.readyState === WebSocket.OPEN) sock.send(JSON.stringify({ action: "leave" }));
+  else if (sock) sock.close();
   session = null;
   state = null;
   store.del("session");
-  const sock = ws;
-  ws = null;
-  if (sock) sock.close();
+  stopTimerLoop();
   history.replaceState(null, "", "/");
   show("home");
 }
@@ -150,8 +205,9 @@ const isHost = () => state.host_id === state.me;
 
 function render() {
   if (!state) return;
-  if (state.phase === "lobby") { show("lobby"); renderLobby(); }
-  else if (state.phase === "playing") { show("game"); renderBoard($("board")); renderTurn(); }
+  $("host-line").textContent = t("host", playerName(state.host_id));
+  if (state.phase === "lobby") { show("lobby"); renderLobby(); celebrated = false; }
+  else if (state.phase === "playing") { show("game"); renderBoard($("board")); renderTurn(); celebrated = false; }
   else { show("finished"); renderFinished(); }
 }
 
@@ -185,17 +241,31 @@ function renderBoard(el) {
   el.innerHTML = html;
 }
 
+// Pip positions on a 3x3 grid for the die faces 0, 1 and 2.
+const PIPS = { 0: [], 1: [5], 2: [3, 7] };
+function dieHtml(value, rolling) {
+  const cells = Array.from({ length: 9 }, (_, i) => (PIPS[value].includes(i + 1) ? `<span class="pip"></span>` : "<span></span>"));
+  return `<div class="die ${rolling ? "rolling" : ""}" role="img" aria-label="${value}">${cells.join("")}</div>`;
+}
+
+const RING = 2 * Math.PI * 72;
+
 function renderTurn() {
   const turn = state.turn;
   const el = $("turn");
   const amDescriber = turn.describer_id === state.me;
   const describer = esc(playerName(turn.describer_id));
 
-  // Vibrate / sync timer on phase changes.
+  // Phase transitions: sounds + timer sync.
   const phaseKey = `${turn.number}:${turn.phase}`;
-  if (phaseKey !== lastTurnPhase) {
-    if (turn.phase === "review" && lastTurnPhase?.endsWith(":running") && navigator.vibrate) navigator.vibrate([200, 100, 200]);
-    lastTurnPhase = phaseKey;
+  if (phaseKey !== lastPhaseKey) {
+    if (turn.phase === "running" && amDescriber) sounds.start();
+    if (turn.phase === "review" && lastPhaseKey === `${turn.number}:running`) {
+      if (navigator.vibrate) navigator.vibrate([200, 100, 200]);
+      if (amDescriber) sounds.buzzer();
+    }
+    lastPhaseKey = phaseKey;
+    lastTickSecond = null;
   }
   if (turn.phase === "running" && turn.remaining != null) {
     localEnd = performance.now() + turn.remaining * 1000;
@@ -204,63 +274,119 @@ function renderTurn() {
     stopTimerLoop();
   }
 
-  let html = `<div class="turn-title t${turn.team}">${amDescriber ? `<strong>${t("yourTurn")}</strong>` : t("teamTurn", teamName(turn.team), describer)}</div>`;
-  html += `<div><span class="die" title="${t("die")}">${turn.die}</span></div><div class="hint">${t("minus", turn.die)}</div>`;
+  const rolling = rolledTurn !== turn.number;
+  rolledTurn = turn.number;
+  if (hitsTurn !== turn.number) { prevHits = turn.hits; hitsTurn = turn.number; }
+  const newHits = turn.hits.filter((h) => !prevHits.includes(h));
+  if (newHits.length && amDescriber) sounds.hit();
+  prevHits = turn.hits;
+
+  let html = `<div class="turn-title">${amDescriber
+    ? `<strong>${t("yourTurn")}</strong>`
+    : `<span class="team-pill t${turn.team}">${teamName(turn.team)}</span> ${t("describes", describer)}`}</div>`;
+
+  if (turn.phase !== "running") {
+    html += `<div class="die-wrap">${dieHtml(turn.die, rolling)}</div><div class="hint">${t("minus", turn.die)}</div>`;
+  }
 
   if (turn.phase === "ready") {
-    if (amDescriber) html += `<div class="actions" style="margin-top:14px"><button class="primary" data-action="start_timer">${t("startTimer")}</button></div>`;
-    else html += `<p class="hint" style="margin-top:14px">${t("waitDescriber", describer)}</p>`;
+    if (amDescriber) html += `<div class="stack" style="margin-top:16px"><button class="btn primary big" data-action="start_timer">${t("startTimer")}</button></div>`;
+    else html += `<p class="hint" style="margin-top:16px">${t("waitDescriber", describer)}</p>`;
+    if (isHost() && !amDescriber) html += `<button class="link" data-action="next_turn" style="margin-top:6px">${t("skip")}</button>`;
   } else if (turn.phase === "running") {
-    html += `<div id="timer" class="timer"></div>`;
+    html += `<div id="timer-ring" class="timer-ring">
+      <svg viewBox="0 0 170 170"><circle class="ring-bg" cx="85" cy="85" r="72"/><circle id="ring" class="ring-fg" cx="85" cy="85" r="72" stroke-dasharray="${RING}" stroke-dashoffset="0"/></svg>
+      <div id="timer" class="timer-num"></div>
+    </div>`;
     if (turn.words) {
       if (!amDescriber) html += `<p class="hint">${t("watching")}</p>`;
-      html += wordsHtml(turn, amDescriber);
+      html += wordsHtml(turn, amDescriber, newHits);
     } else {
-      html += `<p class="score">${t("guessing")}</p>`;
+      html += `<p class="guessing">${t("guessing")}</p>`;
     }
-    if (amDescriber) html += `<div class="actions"><button class="secondary" data-action="stop_early">${t("allDone")}</button></div>`;
+    if (amDescriber) html += `<button class="btn secondary" data-action="stop_early">${t("allDone")}</button>`;
   } else {
-    html += `<div class="timer">${t("timeUp")}</div>`;
-    html += `<p class="hint">${t("fixHint")}</p>`;
-    html += wordsHtml(turn, true);
-    html += `<div class="score">${t("turnScore", turn.hits.length, turn.die, turn.score)}</div>`;
-    html += `<div class="actions">`;
-    if (amDescriber || isHost()) html += `<button class="primary" data-action="next_turn">${t("confirm")}</button>`;
+    html += `<div class="times-up">${t("timeUp")}</div>`;
+    html += wordsHtml(turn, true, newHits);
+    html += `<div class="score-pop ${turn.score ? "" : "zero"}">+${turn.score}</div>`;
+    html += `<div class="score-calc">${t("turnScore", turn.hits.length, turn.die)}</div>`;
+    html += `<p class="hint" style="margin-bottom:12px">${t("fixHint")}</p>`;
+    if (amDescriber || isHost()) html += `<button class="btn primary big" data-action="next_turn">${t("confirm")}</button>`;
     else html += `<p class="hint">${t("waitConfirm", describer)}</p>`;
-    html += `</div>`;
-  }
-  if (turn.phase === "ready" && isHost() && !amDescriber) {
-    html += `<div class="actions" style="margin-top:10px"><button class="link" data-action="next_turn">${t("skip")}</button></div>`;
   }
   el.innerHTML = html;
   updateTimer();
 }
 
-function wordsHtml(turn, clickable) {
-  return `<div class="words">${turn.words.map((w, i) =>
-    `<button class="word ${turn.hits.includes(i) ? "hit" : ""} ${clickable ? "" : "static"}" ${clickable ? `data-word="${i}"` : "disabled"}>${esc(w)}</button>`
-  ).join("")}</div>`;
+function wordsHtml(turn, clickable, newHits) {
+  return `<div class="words">${turn.words.map((w, i) => {
+    const cls = ["word", turn.hits.includes(i) ? "hit" : "", newHits.includes(i) ? "just-hit" : "", clickable ? "" : "static"].join(" ");
+    return `<button class="${cls}" ${clickable ? `data-word="${i}"` : "disabled"}>${esc(w)}</button>`;
+  }).join("")}</div>`;
 }
 
 function renderFinished() {
   stopTimerLoop();
-  $("winner-text").textContent = t("wins", teamName(state.winner));
-  $("winner-text").className = `t${state.winner}`;
-  $("winner-text").style.color = "var(--team-color)";
+  const winner = $("winner-text");
+  winner.textContent = t("wins", teamName(state.winner));
+  winner.className = `winner t${state.winner}`;
   renderBoard($("final-board"));
   $("again-btn").hidden = !isHost();
   $("wait-host-again").hidden = isHost();
+  if (!celebrated) {
+    celebrated = true;
+    sounds.win();
+    confetti();
+  }
 }
 
 function updateTimer() {
-  const el = $("timer");
-  if (!el || localEnd == null) return;
-  const secs = Math.max(0, Math.ceil((localEnd - performance.now()) / 1000));
-  el.textContent = secs;
-  el.classList.toggle("low", secs <= 5);
+  const num = $("timer");
+  if (!num || localEnd == null) return;
+  const total = state?.turn_seconds || 30;
+  const left = Math.max(0, (localEnd - performance.now()) / 1000);
+  const secs = Math.ceil(left);
+  num.textContent = secs;
+  $("ring").setAttribute("stroke-dashoffset", RING * (1 - left / total));
+  $("timer-ring").classList.toggle("low", secs <= 5);
+
+  if (state.turn?.describer_id === state.me && secs !== lastTickSecond) {
+    if (secs <= 5 && secs > 0) sounds.tick();
+    lastTickSecond = secs;
+  }
 }
-function startTimerLoop() { if (!timerInterval) timerInterval = setInterval(updateTimer, 200); }
+function startTimerLoop() { if (!timerInterval) timerInterval = setInterval(updateTimer, 100); }
 function stopTimerLoop() { clearInterval(timerInterval); timerInterval = null; localEnd = null; }
+
+// ---------- confetti ----------
+function confetti() {
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const canvas = $("confetti");
+  const ctx = canvas.getContext("2d");
+  canvas.width = innerWidth * devicePixelRatio;
+  canvas.height = innerHeight * devicePixelRatio;
+  ctx.scale(devicePixelRatio, devicePixelRatio);
+  const colors = ["#ffc83d", "#ff5d73", "#3e9bff", "#22c38e", "#ff9f1c", "#ffffff"];
+  const parts = Array.from({ length: 160 }, () => ({
+    x: Math.random() * innerWidth, y: -20 - Math.random() * innerHeight * 0.5,
+    vx: (Math.random() - 0.5) * 3, vy: 2 + Math.random() * 3,
+    r: Math.random() * Math.PI, vr: (Math.random() - 0.5) * 0.3,
+    w: 6 + Math.random() * 6, h: 8 + Math.random() * 8,
+    c: colors[Math.floor(Math.random() * colors.length)],
+  }));
+  const end = performance.now() + 4000;
+  (function frame(now) {
+    ctx.clearRect(0, 0, innerWidth, innerHeight);
+    for (const p of parts) {
+      p.x += p.vx; p.y += p.vy; p.vy += 0.04; p.r += p.vr;
+      ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.r);
+      ctx.fillStyle = p.c; ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+      ctx.restore();
+    }
+    if (now < end) requestAnimationFrame(frame);
+    else ctx.clearRect(0, 0, innerWidth, innerHeight);
+  })(performance.now());
+}
 
 // ---------- events ----------
 function getName() {
@@ -273,6 +399,7 @@ function getName() {
 $("create-btn").onclick = async () => {
   const name = getName();
   if (!name) return;
+  unlockAudio();
   try {
     const res = await api("/api/rooms", {
       name, lang: $("lang").value, teams: Number($("teams").value), target: Number($("target").value),
@@ -284,6 +411,7 @@ $("create-btn").onclick = async () => {
 $("join-btn").onclick = async () => {
   const name = getName();
   if (!name) return;
+  unlockAudio();
   const code = $("join-code").value.trim().toUpperCase();
   if (!code) { toast(t("needCode")); return; }
   try {
@@ -308,6 +436,7 @@ $("again-btn").onclick = () => send("start_game");
 $("leave-btn").onclick = () => leave(true);
 
 $("turn").onclick = (e) => {
+  unlockAudio(); // browsers only allow sound after a tap
   const word = e.target.closest("[data-word]");
   if (word) { send("toggle_word", { index: Number(word.dataset.word) }); return; }
   const act = e.target.closest("[data-action]");
@@ -321,6 +450,15 @@ $("ui-lang").onclick = () => {
   render();
 };
 
+$("sound-btn").onclick = () => {
+  soundOn = !soundOn;
+  store.set("sound", soundOn);
+  applyStaticText();
+  if (soundOn) { unlockAudio(); sounds.hit(); }
+};
+
+document.addEventListener("pointerdown", unlockAudio, { once: true });
+
 // Reconnect right away when the phone wakes up / tab becomes visible again.
 document.addEventListener("visibilitychange", () => {
   if (document.visibilityState === "visible" && session && (!ws || ws.readyState > WebSocket.OPEN)) connect();
@@ -333,11 +471,10 @@ $("lang").value = uiLang;
 const roomParam = new URLSearchParams(location.search).get("room");
 if (roomParam) $("join-code").value = roomParam.toUpperCase();
 
+show("home");
 if (session && (!roomParam || roomParam.toUpperCase() === session.code)) {
-  show("home");
   connect();
 } else {
   session = null;
   store.del("session");
-  show("home");
 }

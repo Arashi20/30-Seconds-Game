@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <!-- stopwatch crown + side button -->
+  <rect x="50" y="4" width="20" height="12" rx="4" fill="#1d1442"/>
+  <rect x="55" y="13" width="10" height="9" fill="#1d1442"/>
+  <rect x="92" y="18" width="14" height="10" rx="4" fill="#1d1442" transform="rotate(45 99 23)"/>
+  <!-- body -->
+  <circle cx="60" cy="68" r="48" fill="#1d1442"/>
+  <circle cx="60" cy="68" r="40" fill="#ffc83d"/>
+  <!-- remaining-time wedge -->
+  <path d="M60 68 L60 28 A40 40 0 0 1 100 68 Z" fill="#ff5d73"/>
+  <circle cx="60" cy="68" r="29" fill="#ffc83d"/>
+  <text x="60" y="81" text-anchor="middle" font-family="Fredoka, 'Arial Rounded MT Bold', 'Trebuchet MS', sans-serif" font-weight="700" font-size="36" fill="#1d1442">30</text>
+</svg>

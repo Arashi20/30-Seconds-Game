@@ -19,11 +19,18 @@ from app.game import DEFAULT_TARGET, TURN_SECONDS, GameError, Room, new_room_cod
 
 STATIC_DIR = Path(__file__).parent.parent / "static"
 ROOM_TTL_SECONDS = 6 * 3600
+# A dropped connection is only announced after a short grace period, so a phone
+# that locks its screen for a moment doesn't spam everyone. If the host stays
+# away a bit longer, the host role moves to someone who is still connected.
+OFFLINE_NOTICE_SECONDS = 5
+HOST_HANDOVER_SECONDS = 15
 
 app = FastAPI(title="30 Seconds")
 rooms: dict[str, Room] = {}
 # room code -> {player_id: websocket}
 sockets: dict[str, dict[str, WebSocket]] = {}
+# (room code, player_id) of players whose disconnect was announced
+announced_offline: set[tuple[str, str]] = set()
 
 
 class CreateRoom(BaseModel):
@@ -70,8 +77,56 @@ async def join_room(code: str, body: JoinRoom):
         player = room.add_player(body.name)
     except GameError as e:
         raise HTTPException(400, str(e)) from None
+    await notify(room, "joined", player.name, skip=player.id)
     await broadcast(room)
     return {"code": room.code, "player_id": player.id}
+
+
+async def notify(room: Room, event: str, name: str, skip: str | None = None) -> None:
+    """Send a one-off pop-up message (e.g. "Sam left") to everyone in the room."""
+    msg = {"type": "event", "event": event, "name": name}
+    for pid, ws in list(sockets.get(room.code, {}).items()):
+        if pid == skip:
+            continue
+        try:
+            await ws.send_json(msg)
+        except Exception:
+            pass
+
+
+async def hand_over_host(room: Room) -> None:
+    new_host = room.ensure_host()
+    if new_host:
+        await notify(room, "new_host", room.players[new_host].name)
+
+
+async def watch_disconnect(room: Room, player_id: str) -> None:
+    await asyncio.sleep(OFFLINE_NOTICE_SECONDS)
+    player = room.players.get(player_id)
+    if player is None or player.connected:
+        return
+    announced_offline.add((room.code, player_id))
+    await notify(room, "disconnected", player.name)
+
+    await asyncio.sleep(HOST_HANDOVER_SECONDS - OFFLINE_NOTICE_SECONDS)
+    player = room.players.get(player_id)
+    if player is not None and not player.connected and room.host_id == player_id:
+        await hand_over_host(room)
+        await broadcast(room)
+
+
+async def leave(room: Room, player_id: str) -> None:
+    player = room.players[player_id]
+    new_host = room.remove_player(player_id)
+    announced_offline.discard((room.code, player_id))
+    sockets.get(room.code, {}).pop(player_id, None)
+    if not room.players:
+        rooms.pop(room.code, None)
+        sockets.pop(room.code, None)
+        return
+    await notify(room, "left", player.name, skip=player_id)
+    if new_host:
+        await notify(room, "new_host", room.players[new_host].name)
 
 
 async def broadcast(room: Room) -> None:
@@ -127,13 +182,26 @@ async def websocket_endpoint(ws: WebSocket, code: str, player_id: str):
         except Exception:
             pass
     conns[player_id] = ws
-    room.players[player_id].connected = True
+    player = room.players[player_id]
+    player.connected = True
+    if (room.code, player_id) in announced_offline:
+        announced_offline.discard((room.code, player_id))
+        await notify(room, "reconnected", player.name, skip=player_id)
+    # If the host vanished while nobody else was online, take over now.
+    host = room.players.get(room.host_id)
+    if host is None or (not host.connected and (room.code, host.id) in announced_offline):
+        await hand_over_host(room)
     await broadcast(room)
 
     try:
         while True:
             msg = await ws.receive_json()
             room.touch()
+            if msg.get("action") == "leave":
+                await leave(room, player_id)
+                await broadcast(room)
+                await ws.close()
+                return
             try:
                 handle(room, player_id, msg)
             except (GameError, KeyError, ValueError, TypeError) as e:
@@ -145,8 +213,10 @@ async def websocket_endpoint(ws: WebSocket, code: str, player_id: str):
     finally:
         if conns.get(player_id) is ws:
             del conns[player_id]
-            room.players[player_id].connected = False
-            await broadcast(room)
+            if player_id in room.players:
+                room.players[player_id].connected = False
+                asyncio.create_task(watch_disconnect(room, player_id))
+                await broadcast(room)
 
 
 @app.get("/healthz")
