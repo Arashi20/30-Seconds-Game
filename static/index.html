@@ -112,6 +112,18 @@
     <button id="leave-btn" class="link" data-t="leave" hidden></button>
   </footer>
 
+  <div id="dialog" class="dialog-backdrop" hidden>
+    <div class="dialog card" role="dialog" aria-modal="true" aria-labelledby="dialog-title">
+      <div class="dialog-icon">🚪</div>
+      <h2 id="dialog-title"></h2>
+      <div id="dialog-body" class="dialog-body"></div>
+      <div class="stack">
+        <button id="dialog-no" class="btn primary"></button>
+        <button id="dialog-yes" class="btn accent"></button>
+      </div>
+    </div>
+  </div>
+
   <div id="toasts" aria-live="polite"></div>
   <canvas id="confetti" aria-hidden="true"></canvas>
   <script src="/static/app.js"></script>

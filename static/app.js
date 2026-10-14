@@ -22,7 +22,14 @@ const STRINGS = {
     fixHint: "Tap a word to correct it", confirm: "Confirm & next turn", skip: "Skip turn (host)",
     waitConfirm: (n) => `Waiting for ${n} to confirm…`, wins: (t) => `${t} wins!`,
     playAgain: "Play again", leave: "Leave game", copied: "Link copied!",
-    leaveConfirm: "Leave this game?", needName: "Enter your name first", needCode: "Enter a room code",
+    leaveTitle: "Leave the game?",
+    leaveBody: "Your team keeps its points. Join again with the same name to get back on your team.",
+    leaveHost: "You're the host: another player will take over.",
+    leaveDescriber: "You're describing: your turn ends now.",
+    leaveYes: "Leave", leaveNo: "Stay",
+    describerLeft: (n, t) => `${n} left — the host confirms ${t}'s points.`,
+    confirmFor: (t) => `Confirm ${t}'s points`,
+    needName: "Enter your name first", needCode: "Enter a room code",
     reconnecting: "Reconnecting…", roomGone: "That game no longer exists", host: (n) => `★ Host: ${n}`,
     ev_joined: (n) => `👋 ${n} joined`, ev_left: (n) => `🚪 ${n} left the game`,
     ev_disconnected: (n) => `📵 ${n} lost connection`, ev_reconnected: (n) => `✅ ${n} is back`,
@@ -48,7 +55,14 @@ const STRINGS = {
     fixHint: "Tik op een woord om te corrigeren", confirm: "Bevestig & volgende beurt", skip: "Beurt overslaan (host)",
     waitConfirm: (n) => `Wachten tot ${n} bevestigt…`, wins: (t) => `${t} wint!`,
     playAgain: "Nog een keer", leave: "Spel verlaten", copied: "Link gekopieerd!",
-    leaveConfirm: "Dit spel verlaten?", needName: "Vul eerst je naam in", needCode: "Vul een spelcode in",
+    leaveTitle: "Spel verlaten?",
+    leaveBody: "Je team houdt zijn punten. Doe opnieuw mee met dezelfde naam om terug in je team te komen.",
+    leaveHost: "Jij bent de host: een andere speler neemt het over.",
+    leaveDescriber: "Jij omschrijft nu: je beurt stopt meteen.",
+    leaveYes: "Verlaten", leaveNo: "Blijven",
+    describerLeft: (n, t) => `${n} is weg — de host bevestigt de punten van ${t}.`,
+    confirmFor: (t) => `Bevestig punten van ${t}`,
+    needName: "Vul eerst je naam in", needCode: "Vul een spelcode in",
     reconnecting: "Opnieuw verbinden…", roomGone: "Dit spel bestaat niet meer", host: (n) => `★ Host: ${n}`,
     ev_joined: (n) => `👋 ${n} doet mee`, ev_left: (n) => `🚪 ${n} heeft het spel verlaten`,
     ev_disconnected: (n) => `📵 ${n} heeft geen verbinding`, ev_reconnected: (n) => `✅ ${n} is terug`,
@@ -157,7 +171,7 @@ function connect() {
     if (msg.type === "state") { state = msg.state; render(); }
     else if (msg.type === "event") showEvent(msg);
     else if (msg.type === "error") toast(msg.message);
-    else if (msg.type === "gone") { toast(t("roomGone")); leave(false); }
+    else if (msg.type === "gone") { toast(t("roomGone")); leave(); }
   };
   sock.onclose = () => {
     if (ws !== sock || !session) return;
@@ -183,8 +197,36 @@ function enterRoom(code, playerId) {
   connect();
 }
 
-function leave(ask = true) {
-  if (ask && !confirm(t("leaveConfirm"))) return;
+// A styled yes/no dialog instead of the browser's confirm(). Resolves true/false.
+function askDialog({ title, lines, yes, no }) {
+  return new Promise((resolve) => {
+    const backdrop = $("dialog");
+    $("dialog-title").textContent = title;
+    $("dialog-body").innerHTML = lines.map((l) => `<p>${esc(l)}</p>`).join("");
+    $("dialog-yes").textContent = yes;
+    $("dialog-no").textContent = no;
+    backdrop.hidden = false;
+    $("dialog-no").focus();
+    const close = (answer) => {
+      backdrop.hidden = true;
+      backdrop.onclick = $("dialog-yes").onclick = $("dialog-no").onclick = document.onkeydown = null;
+      resolve(answer);
+    };
+    $("dialog-yes").onclick = () => close(true);
+    $("dialog-no").onclick = () => close(false);
+    backdrop.onclick = (e) => { if (e.target === backdrop) close(false); };
+    document.onkeydown = (e) => { if (e.key === "Escape") close(false); };
+  });
+}
+
+async function confirmLeave() {
+  const lines = [t("leaveBody")];
+  if (state && isHost() && state.players.length > 1) lines.push(t("leaveHost"));
+  if (state?.turn?.phase === "running" && state.turn.describer_id === state.me) lines.push(t("leaveDescriber"));
+  if (await askDialog({ title: t("leaveTitle"), lines, yes: t("leaveYes"), no: t("leaveNo") })) leave();
+}
+
+function leave() {
   const sock = ws;
   ws = null;
   if (sock && sock.readyState === WebSocket.OPEN) sock.send(JSON.stringify({ action: "leave" }));
@@ -233,7 +275,7 @@ function renderBoard(el) {
   for (let i = 0; i < state.num_teams; i++) {
     const pos = state.positions[i];
     html += `<div class="track t${i} ${active === i ? "active" : ""}">
-      <span class="label">${teamName(i)}</span>
+      <span class="label">${teamName(i)}${me()?.team === i ? ` <span class="you-tag">${t("you")}</span>` : ""}</span>
       <span class="bar"><span class="fill" style="width:${(100 * pos) / state.target}%"></span></span>
       <span class="pos">${pos}/${state.target}</span>
     </div>`;
@@ -254,7 +296,7 @@ function renderTurn() {
   const turn = state.turn;
   const el = $("turn");
   const amDescriber = turn.describer_id === state.me;
-  const describer = esc(playerName(turn.describer_id));
+  const describer = esc(turn.describer_name);
 
   // Phase transitions: sounds + timer sync.
   const phaseKey = `${turn.number}:${turn.phase}`;
@@ -311,8 +353,10 @@ function renderTurn() {
     html += `<div class="score-pop ${turn.score ? "" : "zero"}">+${turn.score}</div>`;
     html += `<div class="score-calc">${t("turnScore", turn.hits.length, turn.die)}</div>`;
     html += `<p class="hint" style="margin-bottom:12px">${t("fixHint")}</p>`;
-    if (amDescriber || isHost()) html += `<button class="btn primary big" data-action="next_turn">${t("confirm")}</button>`;
-    else html += `<p class="hint">${t("waitConfirm", describer)}</p>`;
+    if (turn.describer_left) html += `<p class="note">${t("describerLeft", describer, teamName(turn.team))}</p>`;
+    if (amDescriber) html += `<button class="btn primary big" data-action="next_turn">${t("confirm")}</button>`;
+    else if (isHost()) html += `<button class="btn primary big" data-action="next_turn">${turn.describer_left ? t("confirmFor", teamName(turn.team)) : t("confirm")}</button>`;
+    else html += `<p class="hint">${t("waitConfirm", turn.describer_left ? esc(playerName(state.host_id)) : describer)}</p>`;
   }
   el.innerHTML = html;
   updateTimer();
@@ -433,7 +477,7 @@ $("lobby-teams").onclick = (e) => {
 $("shuffle-btn").onclick = () => send("shuffle_teams");
 $("start-btn").onclick = () => send("start_game");
 $("again-btn").onclick = () => send("start_game");
-$("leave-btn").onclick = () => leave(true);
+$("leave-btn").onclick = confirmLeave;
 
 $("turn").onclick = (e) => {
   unlockAudio(); // browsers only allow sound after a tap

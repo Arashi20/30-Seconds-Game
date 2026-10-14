@@ -77,7 +77,10 @@ async def join_room(code: str, body: JoinRoom):
         player = room.add_player(body.name)
     except GameError as e:
         raise HTTPException(400, str(e)) from None
-    await notify(room, "joined", player.name, skip=player.id)
+    if not player.was_online:
+        # A player taking back their own offline seat is not "new"; they get
+        # the "is back" pop-up when their phone connects instead.
+        await notify(room, "joined", player.name, skip=player.id)
     await broadcast(room)
     return {"code": room.code, "player_id": player.id}
 
@@ -183,7 +186,7 @@ async def websocket_endpoint(ws: WebSocket, code: str, player_id: str):
             pass
     conns[player_id] = ws
     player = room.players[player_id]
-    player.connected = True
+    player.connected = player.was_online = True
     if (room.code, player_id) in announced_offline:
         announced_offline.discard((room.code, player_id))
         await notify(room, "reconnected", player.name, skip=player_id)

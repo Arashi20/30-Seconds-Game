@@ -41,6 +41,7 @@ class Player:
     name: str
     team: int | None = None
     connected: bool = False
+    was_online: bool = False  # has connected at least once
 
 
 @dataclass
@@ -48,6 +49,7 @@ class Turn:
     number: int
     team: int
     describer_id: str
+    describer_name: str
     die: int
     words: list[str]
     hits: set[int] = field(default_factory=set)
@@ -77,6 +79,7 @@ class Room:
         self.all_words = load_words(lang)
         self.deck: list[str] = []
         self.players: dict[str, Player] = {}
+        self.left_teams: dict[str, int] = {}  # lowercased name -> team, for players who left
         self.host_id: str | None = None
         self.phase = "lobby"  # lobby | playing | finished
         self.positions = [0] * num_teams
@@ -93,11 +96,21 @@ class Room:
         name = name.strip()[:20]
         if not name:
             raise GameError("Enter a name")
-        if any(p.name.lower() == name.lower() for p in self.players.values()):
-            raise GameError("That name is already taken in this room")
+        existing = next((p for p in self.players.values() if p.name.lower() == name.lower()), None)
+        if existing is not None:
+            if existing.connected or not existing.was_online:
+                raise GameError("That name is already taken in this room")
+            # Same name as an offline player (e.g. their phone died or the
+            # browser forgot the game): take their seat back, team and all.
+            self.touch()
+            return existing
         player = Player(id=secrets.token_urlsafe(12), name=name)
-        # Auto-balance: join the smallest team (works mid-game too).
-        player.team = min(range(self.num_teams), key=lambda t: len(self.team_members(t)))
+        if name.lower() in self.left_teams:
+            # Someone who left and comes back returns to their old team.
+            player.team = self.left_teams.pop(name.lower())
+        else:
+            # Auto-balance: join the smallest team (works mid-game too).
+            player.team = min(range(self.num_teams), key=lambda t: len(self.team_members(t)))
         self.players[player.id] = player
         if self.host_id is None:
             self.host_id = player.id
@@ -120,7 +133,9 @@ class Room:
 
     def remove_player(self, player_id: str) -> str | None:
         """A player leaves on purpose. Returns the new host's id if the host changed."""
-        self._player(player_id)
+        player = self._player(player_id)
+        if player.team is not None:
+            self.left_teams[player.name.lower()] = player.team
         del self.players[player_id]
         self.touch()
         if not self.players:
@@ -254,6 +269,7 @@ class Room:
             number=self.turn_count,
             team=team,
             describer_id=describer.id,
+            describer_name=describer.name,
             die=self.rng.choice(DIE_FACES),
             words=self._draw(WORDS_PER_CARD),
         )
@@ -285,6 +301,8 @@ class Room:
                 "number": t.number,
                 "team": t.team,
                 "describer_id": t.describer_id,
+                "describer_name": t.describer_name,
+                "describer_left": t.describer_id not in self.players,
                 "die": t.die,
                 "phase": t.phase,
                 "words": t.words if show_words else None,
