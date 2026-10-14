@@ -77,9 +77,12 @@ Everyone joins on their **own phone**: no app to install, no account, nothing to
 - If a phone locks, the page reloads or the connection drops, it **reconnects automatically** to the same game.
 - Pop-up messages tell everyone when a player **joins**, **leaves**, **loses connection** or **comes back**. A short connection hiccup (under 5 seconds) isn't announced, so a phone locking its screen for a moment doesn't spam everyone.
 - Offline players are shown greyed out with 💤 in the lobby.
-- **Leave game** really removes you from the match. If you were the describer:
+- **Leave game** asks first in a game-styled pop-up that says what will happen (e.g. "you're the host: another player will take over"). Leaving really removes you from the match. If you were the describer:
   - before your turn started, your team gets a new describer;
-  - during your turn, the timer stops and the host confirms the score.
+  - during your turn, the timer stops and the host confirms the score. Their button reads **Confirm Team 1's points**, so it's clear the points go to *your* team, not theirs.
+- **Teams and points never change when someone leaves or drops out.** Everyone stays on their team, and every team keeps its points.
+- **Coming back:** join again with **the same name** and you're put back on your old team. If your phone died or you closed an incognito window, joining with the same name takes your seat back, with your team and points. (A name is only "taken" while that player is online.)
+- The scoreboard shows a **you** tag next to your own team.
 - **If the host leaves**, the host role moves straight to the player who has been in the game longest and is still connected. **If the host loses connection**, the same happens after 15 seconds. Everyone gets a pop-up, and the footer always shows **★ Host: name**. A host who comes back doesn't take the role back.
 
 **Look and sound**
@@ -210,6 +213,8 @@ What's covered:
 - the timer ends the turn on its own, and a late timer can't end the next turn
 - host skip, winning, playing again
 - leaving: a describer leaving before or during their turn, the last player leaving
+- **teams and points stay the same** when any player leaves, in every phase of the game
+- rejoining with the same name: back to your old team, or taking back your seat after a dropped connection
 - **host handover** when the host leaves or loses connection, pop-up messages for joining, leaving, disconnecting and coming back, and that a quick reconnect is *not* announced (these run against a real server)
 - no repeated words until the deck runs out
 - the HTTP API and WebSocket flow end-to-end, including error handling

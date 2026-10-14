@@ -144,13 +144,18 @@ input:focus, select:focus { outline: none; border-color: var(--bg-2); }
 /* ---------- Scoreboard ---------- */
 .board { display: flex; flex-direction: column; gap: 10px; padding: 14px 16px; }
 .track { display: flex; align-items: center; gap: 10px; font-size: 0.95rem; }
-.track .label { width: 76px; font-weight: 700; color: var(--team-color); white-space: nowrap; }
+.track .label { width: 108px; font-weight: 700; color: var(--team-color); white-space: nowrap; }
 .track .bar {
   position: relative; flex: 1; height: 20px;
   background: var(--soft); border-radius: 10px; overflow: hidden;
   background-image: repeating-linear-gradient(90deg, transparent 0 calc(10% - 2px), var(--line) calc(10% - 2px) 10%);
 }
 .track .fill { height: 100%; background: var(--team-color); border-radius: 10px; transition: width 0.8s cubic-bezier(.3, 1.5, .5, 1); }
+.you-tag {
+  display: inline-block; vertical-align: 1px; margin-left: 2px;
+  padding: 0 7px; border-radius: 999px; font-size: 0.75rem;
+  background: var(--team-color); color: #fff;
+}
 .track .pos { width: 52px; text-align: right; font-weight: 700; font-variant-numeric: tabular-nums; }
 .track.active .label::before { content: "▶ "; }
 .track.active .bar { box-shadow: 0 0 0 3px var(--team-color); }
@@ -209,6 +214,25 @@ input:focus, select:focus { outline: none; border-color: var(--bg-2); }
 .score-pop.zero { color: var(--muted); }
 .score-calc { color: var(--muted); margin-bottom: 14px; }
 
+.note {
+  background: var(--soft); border-radius: 14px; padding: 10px 12px;
+  color: var(--muted); font-size: 0.95rem; margin: 0 0 12px;
+}
+
+/* ---------- Dialog ---------- */
+.dialog-backdrop {
+  position: fixed; inset: 0; z-index: 30;
+  display: grid; place-items: center; padding: 16px;
+  background: rgba(20, 12, 50, 0.65);
+  backdrop-filter: blur(3px);
+  animation: fade-in 0.2s ease-out;
+}
+.dialog { width: 100%; max-width: 380px; text-align: center; animation: pop 0.3s cubic-bezier(.3, 1.6, .5, 1); }
+.dialog-icon { font-size: 2.6rem; line-height: 1; margin-bottom: 6px; }
+.dialog h2 { font-size: 1.5rem; margin-bottom: 8px; }
+.dialog-body { color: var(--muted); margin-bottom: 18px; }
+.dialog-body p { margin: 0 0 8px; }
+
 /* ---------- Finished ---------- */
 .trophy { font-size: 5rem; animation: wobble 2s ease-in-out infinite; }
 .winner { font-size: 2rem; color: var(--team-color); }
@@ -244,6 +268,7 @@ input:focus, select:focus { outline: none; border-color: var(--bg-2); }
   60% { transform: rotate(560deg) scale(1.15); }
   100% { transform: rotate(720deg) scale(1); }
 }
+@keyframes fade-in { from { opacity: 0; } }
 @keyframes toast-in { from { opacity: 0; transform: translateY(-14px) scale(0.95); } }
 
 @media (prefers-reduced-motion: reduce) {

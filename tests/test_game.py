@@ -238,3 +238,55 @@ def test_last_player_leaving_empties_room():
     assert room.remove_player(ids[0]) is None
     assert room.players == {}
     assert room.host_id is None
+
+
+def test_offline_player_can_take_their_seat_back_by_name():
+    room, ids = make_room()
+    room.start_game(ids[0])
+    bob = room.players[ids[1]]
+    bob.was_online = True  # was playing, then the phone died
+    room.positions = [5, 3]
+    again = room.add_player("p1")  # same name, different case
+    assert again.id == bob.id and again.team == bob.team
+    assert len(room.players) == 4
+    assert room.positions == [5, 3]
+
+
+def test_name_of_online_or_never_connected_player_stays_taken():
+    room, ids = make_room()
+    with pytest.raises(GameError):
+        room.add_player("P1")  # never connected yet (e.g. joining right now)
+    room.players[ids[1]].connected = room.players[ids[1]].was_online = True
+    with pytest.raises(GameError):
+        room.add_player("P1")  # online
+
+
+def test_player_who_left_returns_to_their_old_team():
+    room, ids = make_room(players=4)
+    room.start_game(ids[0])
+    host_team = room.players[ids[0]].team
+    room.remove_player(ids[0])
+    # Auto-balance alone would also pick this team; make it ambiguous first.
+    room.left_teams["p0"] = 1 - host_team
+    back = room.add_player("P0")
+    assert back.team == 1 - host_team
+
+
+def test_leaving_never_moves_other_players_or_points():
+    for phase in ("lobby", "ready", "running", "review"):
+        for leaver in range(4):
+            room, ids = make_room(players=4, seed=leaver)
+            connect_all(room)
+            teams_before = {pid: p.team for pid, p in room.players.items()}
+            if phase != "lobby":
+                room.start_game(ids[0])
+                room.positions = [7, 4]
+                if phase != "ready":
+                    room.start_timer(room.turn.describer_id)
+                if phase == "review":
+                    room.finish_turn()
+            room.remove_player(ids[leaver])
+            teams_after = {pid: p.team for pid, p in room.players.items()}
+            assert teams_after == {pid: t for pid, t in teams_before.items() if pid != ids[leaver]}
+            assert room.positions == ([0, 0] if phase == "lobby" else [7, 4])
+            assert room.host_id in room.players
