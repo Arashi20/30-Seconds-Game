@@ -16,11 +16,12 @@ Everyone joins on their **own phone**: no app to install, no account, nothing to
 1. [How the game works](#how-the-game-works)
 2. [Features](#features)
 3. [Quick start: play at home on your Wi-Fi](#quick-start-play-at-home-on-your-wi-fi)
-4. [Host it online on Railway](#host-it-online-on-railway)
-5. [Testing](#testing)
-6. [Adding or changing words](#adding-or-changing-words)
-7. [Project structure](#project-structure)
-8. [Troubleshooting](#troubleshooting)
+4. [Try it without installing anything: GitHub Codespaces](#try-it-without-installing-anything-github-codespaces)
+5. [Host it online on Railway](#host-it-online-on-railway)
+6. [Testing](#testing)
+7. [Adding or changing words](#adding-or-changing-words)
+8. [Project structure](#project-structure)
+9. [Troubleshooting](#troubleshooting)
 
 ---
 
@@ -64,21 +65,38 @@ Everyone joins on their **own phone**: no app to install, no account, nothing to
 
 **During play**
 - A live **scoreboard** shows each team's progress, with ▶ marking the team whose turn it is.
-- A **30-second countdown** turns red in the last 5 seconds, and phones **vibrate** when time is up (on phones that support it).
+- At the start of each turn the **die rolls** on screen (dots, like a real die; a blank face means 0).
+- A **30-second countdown ring** empties as time runs out and turns red and pulses in the last 5 seconds. Phones **vibrate** when time is up (on phones that support it).
 - **"All guessed — stop timer"** button so you don't have to wait out the clock.
 - **Corrections:** after the timer, anyone can tap a word to fix a missed or wrong tick before the score is confirmed.
 - The describer (or the host) taps **Confirm & next turn** to apply the score.
 - The host can **skip a turn**, for example if the describer is away or their phone died.
 - Words don't repeat until the whole deck has been used.
 
-**Robustness**
+**Players coming and going**
 - If a phone locks, the page reloads or the connection drops, it **reconnects automatically** to the same game.
-- Players who are offline are shown greyed out.
+- Pop-up messages tell everyone when a player **joins**, **leaves**, **loses connection** or **comes back**. A short connection hiccup (under 5 seconds) isn't announced, so a phone locking its screen for a moment doesn't spam everyone.
+- Offline players are shown greyed out with 💤 in the lobby.
+- **Leave game** really removes you from the match. If you were the describer:
+  - before your turn started, your team gets a new describer;
+  - during your turn, the timer stops and the host confirms the score.
+- **If the host leaves**, the host role moves straight to the player who has been in the game longest and is still connected. **If the host loses connection**, the same happens after 15 seconds. Everyone gets a pop-up, and the footer always shows **★ Host: name**. A host who comes back doesn't take the role back.
+
+**Look and sound**
+- Its own brand: a stopwatch logo with "30" and a bold **SECONDS** wordmark, on a deep purple background with yellow and coral accents.
+- Chunky game-style buttons that press down when tapped, and a rounded, playful font.
+- Animations: rolling die, pop-in ticks, a big **+score** after each turn, and **confetti** for the winner. They're switched off automatically if the phone is set to reduce motion.
+- **Sounds**, generated in the browser so there are no audio files:
+  - a start jingle;
+  - a blip when a word is ticked;
+  - ticks in the last 5 seconds;
+  - a buzzer at the end, played on the describer's phone only, so a room full of phones isn't beeping out of sync;
+  - a fanfare for the winner, on everyone's phone.
+- The 🔊/🔇 button at the top mutes sound on your phone.
 
 **Other**
 - **Interface language:** Dutch or English. It's picked automatically from the phone's language, and the **NL/EN** button at the top switches it. This is separate from the word language.
 - **Play again** after a game finishes, with the same teams.
-- Dark mode follows the phone's setting.
 
 ---
 
@@ -135,6 +153,23 @@ One person creates the game, and the rest join with the room code or invite link
 
 ---
 
+## Try it without installing anything: GitHub Codespaces
+
+Codespaces gives you VS Code in your browser, running on GitHub's computers. It's handy when you're not on your own laptop. Personal GitHub accounts get free hours every month.
+
+1. On github.com, open this repo → green **Code** button → **Codespaces** tab → **Create codespace on main**.
+2. In the terminal at the bottom, run:
+   ```bash
+   pip install -r requirements.txt
+   python -m uvicorn app.main:app --host 0.0.0.0 --port 8000
+   ```
+   (Use `python -m uvicorn`, not plain `uvicorn`. In Codespaces the plain command often says *command not found*.)
+3. Click **Open in Browser** in the pop-up, or go to the **Ports** tab and click the 🌐 globe next to port 8000.
+4. **Let others join:** in the **Ports** tab, right-click port 8000 → **Port Visibility** → **Public**. Without this, everyone needs to log in to GitHub as you. The first visit may show a GitHub warning page; just click **Continue**.
+5. **When you're done:** press Ctrl+C, then click **Codespaces** in the bottom-left corner → **Stop Current Codespace**. Closing the tab alone keeps it running for another 30 minutes.
+
+---
+
 ## Host it online on Railway
 
 This gives you a permanent public link like `https://30-seconds-production.up.railway.app`, so friends can play from anywhere, even on mobile data, and your laptop doesn't need to be on.
@@ -174,6 +209,8 @@ What's covered:
 - **guessers can't see the words, while opponents can**
 - the timer ends the turn on its own, and a late timer can't end the next turn
 - host skip, winning, playing again
+- leaving: a describer leaving before or during their turn, the last player leaving
+- **host handover** when the host leaves or loses connection, pop-up messages for joining, leaving, disconnecting and coming back, and that a quick reconnect is *not* announced (these run against a real server)
 - no repeated words until the deck runs out
 - the HTTP API and WebSocket flow end-to-end, including error handling
 
@@ -193,8 +230,9 @@ You don't need 4 phones to test. Each **private/incognito window** (or a differe
 6. Let the timer run out, or tap **All guessed**. Fix a tick in any window, check the score maths, then **Confirm & next turn**. The scoreboard should move.
 7. **Reconnect:** refresh a player's window mid-game. They should come straight back into the game.
 8. **Skip:** as Anna (host), tap **Skip turn** while someone else is up.
-9. **Win:** create a new room with *Points to win* = **5** to reach the end quickly, then try **Play again**.
-10. **Languages:** create a room with English words, and tap **NL/EN** at the top to switch the interface.
+9. **Leaving / host handover:** as Anna, tap **Leave game**. The others should get pop-ups ("Anna left the game", "You're now the host"), and the footer should show the new host. To test a lost connection instead, simply close a window. The pop-up appears after about 5 seconds, and if it was the host, the host role moves on after about 15 seconds.
+10. **Win:** create a new room with *Points to win* = **5** to reach the end quickly, then try **Play again**.
+11. **Languages:** create a room with English words, and tap **NL/EN** at the top to switch the interface.
 
 ---
 
@@ -223,7 +261,8 @@ app/
 static/
   index.html     # the single page the phones load
   app.js         # screens, timer, talking to the server
-  style.css      # mobile-first styling (light + dark)
+  style.css      # mobile-first styling, brand colours and animations
+  logo.svg       # the stopwatch logo (also the browser tab icon)
 tests/
   test_game.py   # game-rule tests
   test_api.py    # end-to-end server tests

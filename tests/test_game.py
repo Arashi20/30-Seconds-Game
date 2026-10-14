@@ -173,3 +173,68 @@ def test_no_repeated_words_until_deck_exhausted():
         seen += turn.words
         room.next_turn(room.host_id)  # skip
     assert len(seen) == len(set(seen))
+
+
+def connect_all(room):
+    for p in room.players.values():
+        p.connected = True
+
+
+def test_host_leaving_hands_over_to_next_connected_player():
+    room, ids = make_room()
+    connect_all(room)
+    room.players[ids[1]].connected = False
+    new_host = room.remove_player(ids[0])
+    assert new_host == ids[2]  # ids[1] is offline, so skipped
+    assert room.host_id == ids[2]
+
+
+def test_ensure_host_only_replaces_an_offline_host():
+    room, ids = make_room()
+    connect_all(room)
+    assert room.ensure_host() is None
+    room.players[ids[0]].connected = False
+    assert room.ensure_host() == ids[1]
+    room.players[ids[0]].connected = True
+    assert room.ensure_host() is None  # old host is back, but isn't host anymore
+    assert room.host_id == ids[1]
+
+
+def test_ensure_host_with_nobody_online_keeps_host():
+    room, ids = make_room()
+    assert room.ensure_host() is None
+    assert room.host_id == ids[0]
+
+
+def test_describer_leaving_before_start_gives_team_a_new_describer():
+    room, ids = make_room(players=6)
+    room.start_game(ids[0])
+    turn = room.turn
+    room.remove_player(turn.describer_id)
+    assert room.turn.team == turn.team
+    assert room.turn.describer_id != turn.describer_id
+    assert room.turn.describer_id in room.players
+
+
+def test_describer_leaving_mid_turn_ends_turn_and_host_confirms():
+    room, ids = make_room(players=6)
+    connect_all(room)
+    room.start_game(ids[0])
+    turn = room.turn
+    if turn.describer_id == room.host_id:  # make sure host and describer differ
+        room.next_turn(room.host_id)
+        turn = room.turn
+    turn.die = 0
+    room.start_timer(turn.describer_id)
+    room.toggle_word(turn.describer_id, 0)
+    room.remove_player(turn.describer_id)
+    assert turn.phase == "review"
+    room.next_turn(room.host_id)
+    assert room.positions[turn.team] == 1
+
+
+def test_last_player_leaving_empties_room():
+    room, ids = make_room(players=1)
+    assert room.remove_player(ids[0]) is None
+    assert room.players == {}
+    assert room.host_id is None

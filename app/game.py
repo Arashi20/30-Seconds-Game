@@ -118,6 +118,43 @@ class Room:
         for i, pid in enumerate(ids):
             self.players[pid].team = i % self.num_teams
 
+    def remove_player(self, player_id: str) -> str | None:
+        """A player leaves on purpose. Returns the new host's id if the host changed."""
+        self._player(player_id)
+        del self.players[player_id]
+        self.touch()
+        if not self.players:
+            self.host_id = None
+            return None
+
+        turn = self.turn
+        if self.phase == "playing" and turn and turn.describer_id == player_id:
+            if turn.phase == "ready":
+                # Give the same team a new describer instead of losing the turn.
+                self.next_team = turn.team
+                self._new_turn()
+            elif turn.phase == "running":
+                self.finish_turn()  # the host confirms the score in review
+
+        if self.host_id == player_id:
+            self.host_id = None
+            return self.ensure_host()
+        return None
+
+    def ensure_host(self) -> str | None:
+        """Hand the host role to the longest-present connected player if the
+        current host is gone or offline. Returns the new host's id if it changed."""
+        host = self.players.get(self.host_id) if self.host_id else None
+        if host is not None and host.connected:
+            return None
+        candidate = next((p for p in self.players.values() if p.connected), None)
+        if candidate is None and host is None and self.players:
+            candidate = next(iter(self.players.values()))  # nobody online: keep a placeholder
+        if candidate is None or candidate.id == self.host_id:
+            return None
+        self.host_id = candidate.id
+        return candidate.id
+
     def team_members(self, team: int) -> list[Player]:
         return [p for p in self.players.values() if p.team == team]
 
@@ -183,6 +220,7 @@ class Room:
         turn = self._current_turn()
         is_host = player_id == self.host_id
         if turn.phase == "review":
+            # The describer may have left; then the host confirms.
             if player_id != turn.describer_id and not is_host:
                 raise GameError("The describer or host confirms the score")
             score = turn.score
