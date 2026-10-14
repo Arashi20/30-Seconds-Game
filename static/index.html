@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#1f6f5c">
+  <title>30 Seconds</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header>
+    <h1>30 Seconds</h1>
+    <button id="ui-lang" class="link" type="button" aria-label="Switch interface language">NL</button>
+  </header>
+
+  <main id="app">
+    <!-- Home: create or join a room -->
+    <section id="screen-home" class="screen" hidden>
+      <label><span data-t="yourName"></span>
+        <input id="name" maxlength="20" autocomplete="nickname">
+      </label>
+
+      <div class="card">
+        <h2 data-t="joinRoom"></h2>
+        <label><span data-t="roomCode"></span>
+          <input id="join-code" maxlength="4" autocapitalize="characters" autocomplete="off" class="code-input">
+        </label>
+        <button id="join-btn" class="primary" data-t="join"></button>
+      </div>
+
+      <div class="card">
+        <h2 data-t="newGame"></h2>
+        <label><span data-t="wordLanguage"></span>
+          <select id="lang">
+            <option value="nl">Nederlands</option>
+            <option value="en">English</option>
+          </select>
+        </label>
+        <div class="row">
+          <label><span data-t="teams"></span>
+            <select id="teams">
+              <option>2</option><option>3</option><option>4</option>
+            </select>
+          </label>
+          <label><span data-t="target"></span>
+            <input id="target" type="number" min="5" max="100" value="30">
+          </label>
+        </div>
+        <button id="create-btn" class="primary" data-t="create"></button>
+      </div>
+
+      <details class="card rules">
+        <summary data-t="howToPlay"></summary>
+        <p data-t="rulesText"></p>
+      </details>
+    </section>
+
+    <!-- Lobby -->
+    <section id="screen-lobby" class="screen" hidden>
+      <div class="card center">
+        <div data-t="roomCode"></div>
+        <div id="lobby-code" class="big-code"></div>
+        <button id="share-btn" class="secondary" data-t="shareLink"></button>
+      </div>
+      <p class="hint" data-t="pickTeam"></p>
+      <div id="lobby-teams" class="teams"></div>
+      <div id="host-controls">
+        <button id="shuffle-btn" class="secondary" data-t="shuffle"></button>
+        <button id="start-btn" class="primary" data-t="startGame"></button>
+      </div>
+      <p id="wait-host" class="hint" data-t="waitHost"></p>
+    </section>
+
+    <!-- Game -->
+    <section id="screen-game" class="screen" hidden>
+      <div id="board" class="board"></div>
+      <div id="turn" class="card center"></div>
+    </section>
+
+    <!-- Finished -->
+    <section id="screen-finished" class="screen" hidden>
+      <div class="card center">
+        <div class="trophy">🏆</div>
+        <h2 id="winner-text"></h2>
+        <div id="final-board" class="board"></div>
+        <button id="again-btn" class="primary" data-t="playAgain"></button>
+        <p id="wait-host-again" class="hint" data-t="waitHost"></p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <button id="leave-btn" class="link" data-t="leave" hidden></button>
+  </footer>
+
+  <div id="toast" role="status" hidden></div>
+  <script src="/static/app.js"></script>
+</body>
+</html>

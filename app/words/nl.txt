@@ -1,0 +1,363 @@
+# Nederlandse woorden — één per regel. Regels die met # beginnen worden genegeerd.
+# Voeg gerust eigen woorden toe (namen van vrienden, inside jokes, ...).
+
+# Bekende personen
+Max Verstappen
+Johan Cruijff
+Rembrandt van Rijn
+Vincent van Gogh
+André Hazes
+Koning Willem-Alexander
+Koningin Máxima
+Anne Frank
+Linda de Mol
+Marco Borsato
+Guus Meeuwis
+Martin Garrix
+Tiësto
+Armin van Buuren
+Arjen Robben
+Virgil van Dijk
+Frenkie de Jong
+Sjaak Swart
+Dick Bruna
+Annie M.G. Schmidt
+Paul de Leeuw
+Herman Finkers
+Youp van 't Hek
+Freek Vonk
+Doutzen Kroes
+Famke Janssen
+Dafne Schippers
+Sven Kramer
+Ireen Wüst
+Duncan Laurence
+Emma Wortelboer
+Mark Rutte
+Albert Einstein
+Napoleon
+Cleopatra
+Michael Jackson
+Taylor Swift
+Beyoncé
+Elvis Presley
+Leonardo da Vinci
+Cristiano Ronaldo
+Lionel Messi
+Barack Obama
+Elon Musk
+Harry Potter
+Sinterklaas
+Zwarte Piet
+Kerstman
+Nijntje
+Dikkie Dik
+Bassie en Adriaan
+Kabouter Plop
+Paulus de Boskabouter
+Pipo de Clown
+Sherlock Holmes
+Pippi Langkous
+Shrek
+Mickey Mouse
+SpongeBob
+Pikachu
+Mario
+Batman
+Spider-Man
+Darth Vader
+
+# Plaatsen
+Amsterdam
+Rotterdam
+Den Haag
+Utrecht
+Maastricht
+Groningen
+Eindhoven
+Giethoorn
+Volendam
+Texel
+Schiermonnikoog
+Zandvoort
+Scheveningen
+Kinderdijk
+Keukenhof
+Efteling
+Madurodam
+Afsluitdijk
+Waddenzee
+Veluwe
+De Dam
+Rijksmuseum
+Anne Frank Huis
+Erasmusbrug
+Euromast
+Schiphol
+Parijs
+Eiffeltoren
+Londen
+Big Ben
+New York
+Vrijheidsbeeld
+Rome
+Colosseum
+Barcelona
+Berlijn
+Brussel
+Antwerpen
+Egypte
+Piramides
+Australië
+Japan
+China
+Chinese Muur
+IJsland
+Ibiza
+Hawaï
+Mount Everest
+Sahara
+Amazone
+Noordpool
+Disneyland
+Las Vegas
+Hollywood
+Venetië
+Zwitserland
+Marokko
+Suriname
+Curaçao
+Indonesië
+
+# Eten en drinken
+Stroopwafel
+Bitterbal
+Kroket
+Frikandel
+Patatje oorlog
+Haring
+Kibbeling
+Hagelslag
+Pindakaas
+Erwtensoep
+Stamppot
+Boerenkool
+Poffertjes
+Pannenkoek
+Oliebol
+Appelflap
+Tompouce
+Drop
+Speculaas
+Pepernoten
+Kaassoufflé
+Gouda
+Advocaat
+Jenever
+Chocomel
+Karnemelk
+Sushi
+Pizza
+Lasagne
+Spaghetti
+Hamburger
+Taco
+Shoarma
+Döner kebab
+Croissant
+Wafel
+Popcorn
+Suikerspin
+Milkshake
+Cappuccino
+Champagne
+Bubbelthee
+Avocado
+Ananas
+Watermeloen
+Spruitjes
+Knoflook
+Zuurkool
+Satésaus
+Nasi goreng
+Rijsttafel
+Bami
+Loempia
+Ontbijtkoek
+
+# Dingen en begrippen
+Klompen
+Tulp
+Windmolen
+Fiets
+Bakfiets
+Grachtenpand
+Woonboot
+Dijk
+Polder
+Koningsdag
+Elfstedentocht
+Oranje
+Carnaval
+Pakjesavond
+Oud en Nieuw
+Vuurwerk
+Sinterklaasgedicht
+Gezelligheid
+Paraplu
+Regenboog
+Onweer
+Zonnebrand
+Strandstoel
+Tent
+Camping
+Caravan
+Treinkaartje
+Vertraging
+OV-chipkaart
+Rijbewijs
+Parkeerboete
+Flitspaal
+Rotonde
+Snelweg
+Tandarts
+Huisarts
+Ziekenhuis
+Brandweer
+Politie
+Supermarkt
+Kassabon
+Statiegeld
+Pinautomaat
+Zelfscankassa
+Wasmachine
+Stofzuiger
+Magnetron
+Afstandsbediening
+Smartphone
+Oplader
+Wifi
+Wachtwoord
+Selfie
+Emoji
+Podcast
+Netflix
+TikTok
+Instagram
+WhatsApp
+Spotify
+Videogame
+Bordspel
+Legpuzzel
+Sudoku
+Kruiswoordpuzzel
+Schaakbord
+Dobbelsteen
+Speelkaart
+Verjaardag
+Bruiloft
+Vrijgezellenfeest
+Babyshower
+Kater
+Wekker
+Maandagochtend
+Vrijdagmiddagborrel
+Thuiswerken
+Vergadering
+Sollicitatie
+Salaris
+Belastingaangifte
+Hypotheek
+Verhuizing
+IKEA
+Bouwpakket
+Inbussleutel
+Boormachine
+
+# Dieren
+Koe
+Schaap
+Geit
+Varken
+Paard
+Pony
+Ezel
+Kip
+Haan
+Eend
+Zwaan
+Ooievaar
+Reiger
+Meeuw
+Duif
+Uil
+Papegaai
+Pinguïn
+Flamingo
+Struisvogel
+Leeuw
+Tijger
+Olifant
+Giraffe
+Zebra
+Nijlpaard
+Neushoorn
+Krokodil
+Kangoeroe
+Koala
+Panda
+IJsbeer
+Wolf
+Vos
+Egel
+Eekhoorn
+Konijn
+Hamster
+Cavia
+Goudvis
+Haai
+Dolfijn
+Walvis
+Zeehond
+Kwal
+Octopus
+Krab
+Kreeft
+Slak
+Spin
+Mug
+Bij
+Vlinder
+Lieveheersbeestje
+
+# Sport en hobby's
+Voetbal
+Hockey
+Schaatsen
+Wielrennen
+Tennis
+Golf
+Darts
+Korfbal
+Volleybal
+Basketbal
+Formule 1
+Marathon
+Zwemmen
+Surfen
+Skiën
+Snowboarden
+Boksen
+Judo
+Yoga
+Fitness
+Bowlen
+Midgetgolf
+Karaoke
+Paaseieren zoeken
+Breien
+Tuinieren
+Vissen
+Kamperen
+Pubquiz
+Escaperoom

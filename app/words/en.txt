@@ -1,0 +1,360 @@
+# English words — one per line. Lines starting with # are ignored.
+# Feel free to add your own (friends' names, inside jokes, ...).
+
+# Famous people & characters
+Albert Einstein
+Napoleon
+Cleopatra
+Julius Caesar
+Queen Elizabeth
+William Shakespeare
+Leonardo da Vinci
+Vincent van Gogh
+Pablo Picasso
+Mozart
+Beethoven
+Michael Jackson
+Elvis Presley
+Madonna
+Beyoncé
+Taylor Swift
+Ed Sheeran
+Adele
+Rihanna
+Lady Gaga
+Freddie Mercury
+The Beatles
+Bob Marley
+Eminem
+Snoop Dogg
+Barack Obama
+Abraham Lincoln
+Nelson Mandela
+Martin Luther King
+Gandhi
+Elon Musk
+Steve Jobs
+Bill Gates
+Mark Zuckerberg
+Oprah Winfrey
+Kim Kardashian
+Cristiano Ronaldo
+Lionel Messi
+Serena Williams
+Usain Bolt
+Michael Jordan
+Muhammad Ali
+Max Verstappen
+Lewis Hamilton
+Tom Cruise
+Leonardo DiCaprio
+Brad Pitt
+Meryl Streep
+Charlie Chaplin
+Marilyn Monroe
+Harry Potter
+Hermione Granger
+Sherlock Holmes
+James Bond
+Darth Vader
+Yoda
+Batman
+Superman
+Spider-Man
+Wonder Woman
+Shrek
+Mickey Mouse
+SpongeBob
+Homer Simpson
+Pikachu
+Mario
+Sonic the Hedgehog
+Santa Claus
+Easter Bunny
+Tooth Fairy
+Robin Hood
+Cinderella
+Snow White
+Peter Pan
+Winnie the Pooh
+Frankenstein
+Dracula
+
+# Places
+London
+Big Ben
+Paris
+Eiffel Tower
+New York
+Statue of Liberty
+Times Square
+Rome
+Colosseum
+Venice
+Amsterdam
+Barcelona
+Berlin
+Tokyo
+Beijing
+Great Wall of China
+Egypt
+Pyramids
+Australia
+Sydney Opera House
+Grand Canyon
+Niagara Falls
+Mount Everest
+Sahara
+Amazon Rainforest
+North Pole
+Antarctica
+Hawaii
+Las Vegas
+Hollywood
+Disneyland
+Silicon Valley
+Iceland
+Switzerland
+Mexico
+Brazil
+India
+Taj Mahal
+Dubai
+Ibiza
+Stonehenge
+Buckingham Palace
+White House
+Mount Rushmore
+Golden Gate Bridge
+Machu Picchu
+Atlantis
+Area 51
+Bermuda Triangle
+Hogwarts
+
+# Food & drink
+Pizza
+Hamburger
+Hot dog
+French fries
+Sushi
+Taco
+Burrito
+Spaghetti
+Lasagne
+Pancake
+Waffle
+Croissant
+Bagel
+Donut
+Cupcake
+Cheesecake
+Brownie
+Ice cream
+Popcorn
+Cotton candy
+Peanut butter
+Avocado toast
+Fish and chips
+Full English breakfast
+Scrambled eggs
+Bacon
+Chicken nuggets
+Barbecue
+Fondue
+Curry
+Kebab
+Dumplings
+Ramen
+Smoothie
+Milkshake
+Cappuccino
+Espresso
+Champagne
+Cocktail
+Lemonade
+Bubble tea
+Hot chocolate
+Pineapple
+Watermelon
+Banana
+Coconut
+Brussels sprouts
+Garlic
+Chili pepper
+Birthday cake
+
+# Things & concepts
+Umbrella
+Rainbow
+Thunderstorm
+Snowman
+Sunscreen
+Beach towel
+Sandcastle
+Tent
+Campfire
+Caravan
+Road trip
+Traffic jam
+Speeding ticket
+Roundabout
+Driving test
+Airport
+Passport
+Jet lag
+Suitcase
+Hotel
+Dentist
+Hospital
+Fire truck
+Police car
+Ambulance
+Supermarket
+Shopping cart
+Receipt
+ATM
+Credit card
+Washing machine
+Vacuum cleaner
+Microwave
+Remote control
+Smartphone
+Charger
+Wi-Fi
+Password
+Selfie
+Emoji
+Podcast
+Netflix
+TikTok
+Instagram
+YouTube
+Spotify
+Video game
+Board game
+Jigsaw puzzle
+Crossword
+Chess
+Dice
+Playing cards
+Birthday party
+Wedding
+Bachelor party
+Baby shower
+Hangover
+Alarm clock
+Monday morning
+Happy hour
+Working from home
+Meeting
+Job interview
+Salary
+Taxes
+Mortgage
+Moving house
+IKEA
+Allen key
+Power drill
+Haunted house
+Time machine
+Treasure map
+Magic wand
+Crystal ball
+Fortune cookie
+Horoscope
+Halloween
+Christmas tree
+Fireworks
+New Year's Eve
+Valentine's Day
+Thanksgiving
+Bicycle
+Windmill
+Tulip
+Wooden shoes
+
+# Animals
+Cow
+Sheep
+Goat
+Pig
+Horse
+Donkey
+Chicken
+Rooster
+Duck
+Swan
+Owl
+Parrot
+Penguin
+Flamingo
+Ostrich
+Eagle
+Lion
+Tiger
+Elephant
+Giraffe
+Zebra
+Hippo
+Rhino
+Crocodile
+Kangaroo
+Koala
+Panda
+Polar bear
+Wolf
+Fox
+Hedgehog
+Squirrel
+Rabbit
+Hamster
+Goldfish
+Shark
+Dolphin
+Whale
+Seal
+Jellyfish
+Octopus
+Crab
+Lobster
+Snail
+Spider
+Mosquito
+Bee
+Butterfly
+Ladybug
+Unicorn
+Dragon
+
+# Sports & hobbies
+Football
+Hockey
+Ice skating
+Cycling
+Tennis
+Golf
+Darts
+Volleyball
+Basketball
+Baseball
+Formula 1
+Marathon
+Swimming
+Surfing
+Skiing
+Snowboarding
+Boxing
+Judo
+Yoga
+Gym
+Bowling
+Mini golf
+Karaoke
+Knitting
+Gardening
+Fishing
+Pub quiz
+Escape room
+Skateboarding
+Rock climbing

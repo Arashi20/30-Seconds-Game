@@ -1,0 +1,307 @@
+"""Core game logic for 30 Seconds, independent of the web layer.
+
+Flow of a turn:
+    ready   -> the describer sees a "Start" button, die is already rolled
+    running -> 30s timer; describer sees the words and ticks the guessed ones
+    review  -> everyone sees the card; score = max(0, hits - die)
+"""
+
+from __future__ import annotations
+
+import random
+import secrets
+import string
+import time
+from dataclasses import dataclass, field
+from pathlib import Path
+
+TURN_SECONDS = 30
+WORDS_PER_CARD = 5
+DIE_FACES = (0, 0, 1, 1, 2, 2)  # the original die: two blanks, two 1s, two 2s
+DEFAULT_TARGET = 30
+LANGUAGES = ("nl", "en")
+WORDS_DIR = Path(__file__).parent / "words"
+
+
+class GameError(Exception):
+    """Raised on an invalid action; the message is shown to the player."""
+
+
+def load_words(lang: str) -> list[str]:
+    if lang not in LANGUAGES:
+        raise GameError(f"Unknown language: {lang}")
+    lines = (WORDS_DIR / f"{lang}.txt").read_text(encoding="utf-8").splitlines()
+    words = [w.strip() for w in lines if w.strip() and not w.startswith("#")]
+    return list(dict.fromkeys(words))  # dedupe, keep order
+
+
+@dataclass
+class Player:
+    id: str
+    name: str
+    team: int | None = None
+    connected: bool = False
+
+
+@dataclass
+class Turn:
+    number: int
+    team: int
+    describer_id: str
+    die: int
+    words: list[str]
+    hits: set[int] = field(default_factory=set)
+    phase: str = "ready"  # ready | running | review
+    ends_at: float | None = None
+    score: int = 0
+
+
+class Room:
+    def __init__(
+        self,
+        code: str,
+        lang: str = "nl",
+        num_teams: int = 2,
+        target: int = DEFAULT_TARGET,
+        rng: random.Random | None = None,
+    ):
+        if not 2 <= num_teams <= 4:
+            raise GameError("Choose 2 to 4 teams")
+        if not 5 <= target <= 100:
+            raise GameError("Target must be between 5 and 100")
+        self.code = code
+        self.lang = lang
+        self.num_teams = num_teams
+        self.target = target
+        self.rng = rng or random.Random()
+        self.all_words = load_words(lang)
+        self.deck: list[str] = []
+        self.players: dict[str, Player] = {}
+        self.host_id: str | None = None
+        self.phase = "lobby"  # lobby | playing | finished
+        self.positions = [0] * num_teams
+        self.winner: int | None = None
+        self.turn: Turn | None = None
+        self.turn_count = 0
+        self.next_team = 0
+        self.describer_index = [0] * num_teams
+        self.last_activity = time.time()
+
+    # ----- lobby -----
+
+    def add_player(self, name: str) -> Player:
+        name = name.strip()[:20]
+        if not name:
+            raise GameError("Enter a name")
+        if any(p.name.lower() == name.lower() for p in self.players.values()):
+            raise GameError("That name is already taken in this room")
+        player = Player(id=secrets.token_urlsafe(12), name=name)
+        # Auto-balance: join the smallest team (works mid-game too).
+        player.team = min(range(self.num_teams), key=lambda t: len(self.team_members(t)))
+        self.players[player.id] = player
+        if self.host_id is None:
+            self.host_id = player.id
+        self.touch()
+        return player
+
+    def set_team(self, player_id: str, team: int) -> None:
+        self._require_phase("lobby")
+        if not 0 <= team < self.num_teams:
+            raise GameError("Invalid team")
+        self._player(player_id).team = team
+
+    def shuffle_teams(self, player_id: str) -> None:
+        self._require_host(player_id)
+        self._require_phase("lobby")
+        ids = list(self.players)
+        self.rng.shuffle(ids)
+        for i, pid in enumerate(ids):
+            self.players[pid].team = i % self.num_teams
+
+    def team_members(self, team: int) -> list[Player]:
+        return [p for p in self.players.values() if p.team == team]
+
+    def start_game(self, player_id: str) -> None:
+        self._require_host(player_id)
+        if self.phase == "playing":
+            raise GameError("Game already started")
+        for t in range(self.num_teams):
+            if len(self.team_members(t)) < 2:
+                raise GameError(f"Team {t + 1} needs at least 2 players")
+        self.phase = "playing"
+        self.positions = [0] * self.num_teams
+        self.winner = None
+        self.next_team = 0
+        self.describer_index = [0] * self.num_teams
+        self._new_turn()
+
+    # ----- turns -----
+
+    def start_timer(self, player_id: str, now: float | None = None) -> Turn:
+        turn = self._current_turn("ready")
+        if player_id != turn.describer_id:
+            raise GameError("Only the describer can start")
+        turn.phase = "running"
+        turn.ends_at = (now or time.time()) + TURN_SECONDS
+        return turn
+
+    def toggle_word(self, player_id: str, index: int) -> None:
+        turn = self._current_turn()
+        if turn.phase not in ("running", "review"):
+            raise GameError("The turn hasn't started")
+        # Describer ticks words live; during review anyone may correct mistakes.
+        if turn.phase == "running" and player_id != turn.describer_id:
+            raise GameError("Only the describer can tick words")
+        if not 0 <= index < len(turn.words):
+            raise GameError("Invalid word")
+        turn.hits ^= {index}
+        if turn.phase == "review":
+            turn.score = max(0, len(turn.hits) - turn.die)
+
+    def finish_turn(self, turn_number: int | None = None) -> bool:
+        """Stop the timer and go to review. Returns False if nothing changed
+        (e.g. a stale timer task for an earlier turn)."""
+        turn = self.turn
+        if turn is None or turn.phase != "running":
+            return False
+        if turn_number is not None and turn.number != turn_number:
+            return False
+        turn.phase = "review"
+        turn.ends_at = None
+        turn.score = max(0, len(turn.hits) - turn.die)
+        return True
+
+    def stop_early(self, player_id: str) -> None:
+        turn = self._current_turn("running")
+        if player_id != turn.describer_id:
+            raise GameError("Only the describer can stop the timer")
+        self.finish_turn()
+
+    def next_turn(self, player_id: str) -> None:
+        """Apply the score and move on. The describer confirms the review;
+        the host can also skip a turn (e.g. describer left) with 0 points."""
+        turn = self._current_turn()
+        is_host = player_id == self.host_id
+        if turn.phase == "review":
+            if player_id != turn.describer_id and not is_host:
+                raise GameError("The describer or host confirms the score")
+            score = turn.score
+        elif is_host:
+            score = 0  # skip
+        else:
+            raise GameError("Only the host can skip a turn")
+
+        self.positions[turn.team] = min(self.target, self.positions[turn.team] + score)
+        if self.positions[turn.team] >= self.target:
+            self.winner = turn.team
+            self.phase = "finished"
+            self.turn = None
+            return
+        self._new_turn()
+
+    def _new_turn(self) -> None:
+        # Find the next team that has players (someone may have left).
+        for _ in range(self.num_teams):
+            team = self.next_team
+            self.next_team = (self.next_team + 1) % self.num_teams
+            members = self.team_members(team)
+            if members:
+                break
+        else:
+            raise GameError("No players left")
+        describer = members[self.describer_index[team] % len(members)]
+        self.describer_index[team] += 1
+        self.turn_count += 1
+        self.turn = Turn(
+            number=self.turn_count,
+            team=team,
+            describer_id=describer.id,
+            die=self.rng.choice(DIE_FACES),
+            words=self._draw(WORDS_PER_CARD),
+        )
+
+    def _draw(self, n: int) -> list[str]:
+        if len(self.deck) < n:
+            fresh = [w for w in self.all_words if w not in self.deck]
+            self.rng.shuffle(fresh)
+            self.deck = fresh + self.deck
+        drawn, self.deck = self.deck[-n:], self.deck[:-n]
+        return drawn
+
+    # ----- views -----
+
+    def state_for(self, player_id: str, now: float | None = None) -> dict:
+        now = now or time.time()
+        me = self.players.get(player_id)
+        turn_state = None
+        if self.turn:
+            t = self.turn
+            is_describer = player_id == t.describer_id
+            on_turn_team = me is not None and me.team == t.team
+            # Guessers must not see the words while playing; opponents may
+            # (to check for cheating), just like with the physical cards.
+            show_words = t.phase == "review" or (
+                t.phase == "running" and (is_describer or not on_turn_team)
+            )
+            turn_state = {
+                "number": t.number,
+                "team": t.team,
+                "describer_id": t.describer_id,
+                "die": t.die,
+                "phase": t.phase,
+                "words": t.words if show_words else None,
+                "hits": sorted(t.hits),
+                "score": t.score,
+                "remaining": max(0.0, t.ends_at - now) if t.ends_at else None,
+            }
+        return {
+            "code": self.code,
+            "lang": self.lang,
+            "phase": self.phase,
+            "num_teams": self.num_teams,
+            "target": self.target,
+            "host_id": self.host_id,
+            "me": player_id,
+            "players": [
+                {"id": p.id, "name": p.name, "team": p.team, "connected": p.connected}
+                for p in self.players.values()
+            ],
+            "positions": self.positions,
+            "winner": self.winner,
+            "turn": turn_state,
+            "turn_seconds": TURN_SECONDS,
+        }
+
+    # ----- helpers -----
+
+    def touch(self) -> None:
+        self.last_activity = time.time()
+
+    def _player(self, player_id: str) -> Player:
+        try:
+            return self.players[player_id]
+        except KeyError:
+            raise GameError("Unknown player") from None
+
+    def _require_host(self, player_id: str) -> None:
+        if player_id != self.host_id:
+            raise GameError("Only the host can do that")
+
+    def _require_phase(self, phase: str) -> None:
+        if self.phase != phase:
+            raise GameError("Not possible right now")
+
+    def _current_turn(self, phase: str | None = None) -> Turn:
+        if self.phase != "playing" or self.turn is None:
+            raise GameError("No turn in progress")
+        if phase and self.turn.phase != phase:
+            raise GameError("Not possible right now")
+        return self.turn
+
+
+def new_room_code(existing) -> str:
+    alphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ"  # no I/O to avoid confusion
+    while True:
+        code = "".join(secrets.choice(alphabet) for _ in range(4))
+        if code not in existing:
+            return code
