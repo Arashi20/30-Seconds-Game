@@ -7,7 +7,9 @@ from __future__ import annotations
 
 import asyncio
 import os
+import secrets
 import time
+from contextlib import asynccontextmanager
 from pathlib import Path
 
 from fastapi import FastAPI, HTTPException, WebSocket, WebSocketDisconnect
@@ -18,14 +20,48 @@ from pydantic import BaseModel
 from app.game import DEFAULT_TARGET, TURN_SECONDS, GameError, Room, new_room_code
 
 STATIC_DIR = Path(__file__).parent.parent / "static"
-ROOM_TTL_SECONDS = 6 * 3600
+# A room with no real action (joining, starting a turn, ticking words, ...) for
+# this long is closed, even if a forgotten tab is still open and sending
+# heartbeats. That way the app can go back to sleep after game night.
+IDLE_CLOSE_SECONDS = 30 * 60
+IDLE_CHECK_SECONDS = 60
 # A dropped connection is only announced after a short grace period, so a phone
 # that locks its screen for a moment doesn't spam everyone. If the host stays
 # away a bit longer, the host role moves to someone who is still connected.
 OFFLINE_NOTICE_SECONDS = 5
 HOST_HANDOVER_SECONDS = 15
 
-app = FastAPI(title="30 Seconds")
+
+
+async def close_idle_rooms() -> None:
+    cutoff = time.time() - IDLE_CLOSE_SECONDS
+    for code, room in list(rooms.items()):
+        if room.last_activity >= cutoff:
+            continue
+        rooms.pop(code, None)
+        announced_offline.difference_update({key for key in announced_offline if key[0] == code})
+        for ws in sockets.pop(code, {}).values():
+            try:
+                await ws.send_json({"type": "closed", "minutes": round(IDLE_CLOSE_SECONDS / 60)})
+                await ws.close()
+            except Exception:
+                pass
+
+
+async def close_idle_rooms_forever() -> None:
+    while True:
+        await asyncio.sleep(IDLE_CHECK_SECONDS)
+        await close_idle_rooms()
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    task = asyncio.create_task(close_idle_rooms_forever())
+    yield
+    task.cancel()
+
+
+app = FastAPI(title="30 Seconds", lifespan=lifespan)
 
 
 @app.middleware("http")
@@ -37,6 +73,8 @@ async def always_revalidate(request, call_next):
     if request.url.path == "/" or request.url.path.startswith("/static/"):
         response.headers["Cache-Control"] = "no-cache"
     return response
+
+
 rooms: dict[str, Room] = {}
 # room code -> {player_id: websocket}
 sockets: dict[str, dict[str, WebSocket]] = {}
@@ -49,17 +87,18 @@ class CreateRoom(BaseModel):
     lang: str = "nl"
     teams: int = 2
     target: int = DEFAULT_TARGET
+    password: str = ""
+
+
+def create_password() -> str:
+    """Optional password for creating rooms, set as an environment variable
+    (e.g. in Railway) so it never ends up in the repo. Unset = no password.
+    Joining a room never needs it."""
+    return os.environ.get("CREATE_PASSWORD", "")
 
 
 class JoinRoom(BaseModel):
     name: str
-
-
-def cleanup_rooms() -> None:
-    cutoff = time.time() - ROOM_TTL_SECONDS
-    for code in [c for c, r in rooms.items() if r.last_activity < cutoff and not sockets.get(c)]:
-        rooms.pop(code, None)
-        sockets.pop(code, None)
 
 
 def get_room(code: str) -> Room:
@@ -70,8 +109,11 @@ def get_room(code: str) -> Room:
 
 
 @app.post("/api/rooms")
-def create_room(body: CreateRoom):
-    cleanup_rooms()
+async def create_room(body: CreateRoom):
+    required = create_password()
+    if required and not secrets.compare_digest(body.password.encode(), required.encode()):
+        await asyncio.sleep(1)  # slow down anyone trying to guess it
+        raise HTTPException(403, "Wrong password")
     try:
         room = Room(new_room_code(rooms), lang=body.lang, num_teams=body.teams, target=body.target)
         player = room.add_player(body.name)
@@ -210,12 +252,14 @@ async def websocket_endpoint(ws: WebSocket, code: str, player_id: str):
     try:
         while True:
             msg = await ws.receive_json()
-            room.touch()
             if msg.get("action") == "ping":
                 # Heartbeat from the phone: keeps the connection (and a
                 # Serverless app) awake during quiet moments in a game.
+                # Deliberately not counted as activity, so a forgotten tab
+                # can't keep a room open forever (see IDLE_CLOSE_SECONDS).
                 await ws.send_json({"type": "pong"})
                 continue
+            room.touch()
             if msg.get("action") == "leave":
                 await leave(room, player_id)
                 await broadcast(room)
@@ -236,6 +280,11 @@ async def websocket_endpoint(ws: WebSocket, code: str, player_id: str):
                 room.players[player_id].connected = False
                 asyncio.create_task(watch_disconnect(room, player_id))
                 await broadcast(room)
+
+
+@app.get("/api/config")
+def config():
+    return {"needs_password": bool(create_password())}
 
 
 @app.get("/healthz")

@@ -183,15 +183,26 @@ This gives you a permanent public link like `https://30-seconds-production.up.ra
 2. Click **New Project → Deploy from GitHub repo** and pick this repository (`30-Seconds-Game`).
 3. Railway detects Python automatically, installs `requirements.txt`, and starts the server with the command in the `Procfile`. Nothing to configure.
 4. When the deploy is done, open the service → **Settings → Networking → Generate Domain**.
-5. Open that URL on your phone and share it with friends. 🎉
+5. **Set a password for creating games:** in the service, go to **Variables → New Variable**, set the name to `CREATE_PASSWORD`, and set the value to a password of your choice. Railway redeploys automatically. (See [Who can play?](#who-can-play) below.)
+6. Open that URL on your phone and share it with friends. 🎉
 
 Every time you push to the branch Railway is watching, it redeploys automatically. You can choose the branch under **Settings → Source**.
 
 **Good to know**
-- Games are kept **in memory**. A redeploy or restart ends any game in progress, which is fine for a party game. Old, idle rooms are cleaned up automatically after 6 hours.
+- Games are kept **in memory**. A redeploy or restart ends any game in progress, which is fine for a party game. A game with **no real action for 30 minutes** (nobody joining, starting a turn or ticking words) is closed automatically. Open tabs get the pop-up "💤 Game closed after 30 minutes without activity" and go back to the start page.
 - Run a **single instance** (Railway's default). Multiple replicas wouldn't share game state.
-- **Serverless** (Settings → Serverless) is recommended. The app sleeps after about 10 minutes with nobody connected, so it costs almost nothing. The first visit after that takes a few seconds to wake it up. While anyone has the game open, the phones' heartbeat keeps it awake, so it only sleeps when nobody is playing and no game is lost.
+- **Serverless** (Settings → Serverless) is recommended. The app sleeps after about 10 minutes with nobody connected, so it costs almost nothing. The first visit after that takes a few seconds to wake it up. While a game is going, the phones' heartbeat keeps it awake, so it never sleeps mid-game. The heartbeat doesn't count as activity, though. If someone forgets to close their tab after game night, the game closes after 30 quiet minutes, the tab stops pinging, and about 10 minutes later the app is asleep again.
 - Health check URL: `/healthz`
+- **Spending cap:** in Railway under **Workspace → Usage → Usage limits** you can set an email alert and a hard limit (e.g. $10). It's a good safety net for all your Railway apps.
+
+### Who can play?
+
+The Railway link is public. Anyone who has it, or a bot that finds it, can open the page. That's OK:
+- With `CREATE_PASSWORD` set, only people who know the password can **create** a game. The field only shows up when a password is set, and each phone remembers it after the first correct entry.
+- **Joining** never needs the password. Friends just use the invite link or room code, and nobody can get into a game without the code of a game that's running right now.
+- The password lives only in Railway's settings, never in this (public) repo. A wrong guess takes a second to answer, which makes guessing slow.
+- Locally and in Codespaces there's no password unless you set the variable yourself (e.g. `CREATE_PASSWORD=secret python -m uvicorn app.main:app --host 0.0.0.0 --port 8000`).
+- Bots waking the app up now and then is normal for any public site. At worst they keep it awake, which costs about the same as an always-on app: roughly $0.50 a month for this one.
 
 ---
 
@@ -221,6 +232,8 @@ What's covered:
 - **host handover** when the host leaves or loses connection, pop-up messages for joining, leaving, disconnecting and coming back, and that a quick reconnect is *not* announced (these run against a real server)
 - no repeated words until the deck runs out
 - the HTTP API and WebSocket flow end-to-end, including error handling
+- the create-room password: only required when `CREATE_PASSWORD` is set, never needed to join
+- idle games close after 30 minutes without real actions, even if a forgotten tab keeps sending heartbeats
 - heartbeat: a ping gets a pong (and nothing else); page, CSS and JS are sent with "check for updates" headers
 
 ### Try every feature by hand on one computer
