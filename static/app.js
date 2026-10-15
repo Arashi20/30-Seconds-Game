@@ -31,7 +31,8 @@ const STRINGS = {
     describerLeft: (n, t) => `${n} left — the host confirms ${t}'s points.`,
     confirmFor: (t) => `Confirm ${t}'s points`,
     needName: "Enter your name first", needCode: "Enter a room code",
-    reconnecting: "Reconnecting…", roomGone: "That game no longer exists", host: (n) => `★ Host: ${n}`,
+    reconnecting: "Reconnecting…", roomGone: "That game no longer exists",
+    idleClosed: (m) => `💤 Game closed after ${m} minutes without activity`, host: (n) => `★ Host: ${n}`,
     ev_joined: (n) => `👋 ${n} joined`, ev_left: (n) => `🚪 ${n} left the game`,
     ev_disconnected: (n) => `📵 ${n} lost connection`, ev_reconnected: (n) => `✅ ${n} is back`,
     ev_new_host: (n) => `★ ${n} is now the host`, ev_you_host: "★ You're now the host",
@@ -65,7 +66,8 @@ const STRINGS = {
     describerLeft: (n, t) => `${n} is weg — de host bevestigt de punten van ${t}.`,
     confirmFor: (t) => `Bevestig punten van ${t}`,
     needName: "Vul eerst je naam in", needCode: "Vul een spelcode in",
-    reconnecting: "Opnieuw verbinden…", roomGone: "Dit spel bestaat niet meer", host: (n) => `★ Host: ${n}`,
+    reconnecting: "Opnieuw verbinden…", roomGone: "Dit spel bestaat niet meer",
+    idleClosed: (m) => `💤 Spel gesloten na ${m} minuten zonder activiteit`, host: (n) => `★ Host: ${n}`,
     ev_joined: (n) => `👋 ${n} doet mee`, ev_left: (n) => `🚪 ${n} heeft het spel verlaten`,
     ev_disconnected: (n) => `📵 ${n} heeft geen verbinding`, ev_reconnected: (n) => `✅ ${n} is terug`,
     ev_new_host: (n) => `★ ${n} is nu de host`, ev_you_host: "★ Jij bent nu de host",
@@ -177,6 +179,7 @@ function connect() {
     else if (msg.type === "event") showEvent(msg);
     else if (msg.type === "error") toast(msg.message);
     else if (msg.type === "gone") { toast(t("roomGone")); leave(); }
+    else if (msg.type === "closed") { toast(t("idleClosed", msg.minutes), 6000); leave(); }
   };
   sock.onclose = () => {
     if (ws !== sock || !session) return;

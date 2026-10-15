@@ -1,5 +1,6 @@
 """End-to-end test: create a room, four players join over WebSockets, play a turn."""
 
+import asyncio
 import json
 import time
 from contextlib import contextmanager
@@ -148,6 +149,7 @@ def live_server(monkeypatch):
 
     monkeypatch.setattr(main, "OFFLINE_NOTICE_SECONDS", 0.1)
     monkeypatch.setattr(main, "HOST_HANDOVER_SECONDS", 0.3)
+    monkeypatch.setattr(main, "IDLE_CHECK_SECONDS", 0.1)
     with socket.socket() as sock:
         sock.bind(("127.0.0.1", 0))
         port = sock.getsockname()[1]
@@ -172,11 +174,13 @@ class LiveSocket:
 
     def pending(self):
         """Everything received so far, without waiting for more."""
+        from websockets.exceptions import ConnectionClosed
+
         msgs = []
         while True:
             try:
                 msgs.append(self.receive_json(timeout=0.2))
-            except TimeoutError:
+            except (TimeoutError, ConnectionClosed):
                 return msgs
 
 
@@ -257,3 +261,30 @@ def test_create_needs_password_only_when_set(monkeypatch):
 
     # Joining never needs the password.
     assert client.post(f"/api/rooms/{res.json()['code']}/join", json={"name": "B"}).status_code == 200
+
+
+def test_idle_room_is_closed_even_with_heartbeats(live_server, monkeypatch):
+    import app.main as main
+
+    monkeypatch.setattr(main, "IDLE_CLOSE_SECONDS", 1.0)
+    base, host, bob = live_room(live_server)
+    code = base.rsplit("/", 1)[-1]
+    with live_socket(f"{base}/{host}") as ws:
+        receive_state(ws)
+        closed = None
+        for _ in range(20):  # a forgotten tab: only heartbeats, no real actions
+            ws.ws.send(json.dumps({"action": "ping"}))
+            closed = next((m for m in ws.pending() if m["type"] == "closed"), None)
+            if closed:
+                break
+        assert closed is not None  # closed by the server's own background sweep
+    assert code not in rooms
+
+
+def test_active_room_is_not_closed(monkeypatch):
+    import app.main as main
+
+    res = client.post("/api/rooms", json={"name": "Host", "lang": "en"}).json()
+    monkeypatch.setattr(main, "IDLE_CLOSE_SECONDS", 60)
+    asyncio.run(main.close_idle_rooms())
+    assert res["code"] in rooms

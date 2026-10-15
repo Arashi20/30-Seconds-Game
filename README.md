@@ -189,9 +189,9 @@ This gives you a permanent public link like `https://30-seconds-production.up.ra
 Every time you push to the branch Railway is watching, it redeploys automatically. You can choose the branch under **Settings → Source**.
 
 **Good to know**
-- Games are kept **in memory**. A redeploy or restart ends any game in progress, which is fine for a party game. Old, idle rooms are cleaned up automatically after 6 hours.
+- Games are kept **in memory**. A redeploy or restart ends any game in progress, which is fine for a party game. A game with **no real action for 30 minutes** (nobody joining, starting a turn or ticking words) is closed automatically. Open tabs get the pop-up "💤 Game closed after 30 minutes without activity" and go back to the start page.
 - Run a **single instance** (Railway's default). Multiple replicas wouldn't share game state.
-- **Serverless** (Settings → Serverless) is recommended. The app sleeps after about 10 minutes with nobody connected, so it costs almost nothing. The first visit after that takes a few seconds to wake it up. While anyone has the game open, the phones' heartbeat keeps it awake, so it only sleeps when nobody is playing and no game is lost.
+- **Serverless** (Settings → Serverless) is recommended. The app sleeps after about 10 minutes with nobody connected, so it costs almost nothing. The first visit after that takes a few seconds to wake it up. While a game is going, the phones' heartbeat keeps it awake, so it never sleeps mid-game. The heartbeat doesn't count as activity, though. If someone forgets to close their tab after game night, the game closes after 30 quiet minutes, the tab stops pinging, and about 10 minutes later the app is asleep again.
 - Health check URL: `/healthz`
 - **Spending cap:** in Railway under **Workspace → Usage → Usage limits** you can set an email alert and a hard limit (e.g. $10). It's a good safety net for all your Railway apps.
 
@@ -233,6 +233,7 @@ What's covered:
 - no repeated words until the deck runs out
 - the HTTP API and WebSocket flow end-to-end, including error handling
 - the create-room password: only required when `CREATE_PASSWORD` is set, never needed to join
+- idle games close after 30 minutes without real actions, even if a forgotten tab keeps sending heartbeats
 - heartbeat: a ping gets a pong (and nothing else); page, CSS and JS are sent with "check for updates" headers
 
 ### Try every feature by hand on one computer
