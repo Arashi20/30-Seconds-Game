@@ -45,7 +45,8 @@ h2 { font-size: 1.25rem; font-weight: 700; margin: 0 0 12px; }
 /* ---------- Header / brand ---------- */
 header {
   display: flex; justify-content: space-between; align-items: center;
-  padding: 14px 0 10px;
+  /* extra room for the iPhone status bar when opened from the home screen */
+  padding: calc(14px + env(safe-area-inset-top)) 0 10px;
 }
 .brand { display: flex; align-items: center; gap: 8px; text-decoration: none; }
 .brand img { filter: drop-shadow(0 3px 0 rgba(0, 0, 0, 0.25)); }
