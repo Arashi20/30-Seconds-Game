@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import asyncio
 import os
+import secrets
 import time
 from pathlib import Path
 
@@ -49,6 +50,14 @@ class CreateRoom(BaseModel):
     lang: str = "nl"
     teams: int = 2
     target: int = DEFAULT_TARGET
+    password: str = ""
+
+
+def create_password() -> str:
+    """Optional password for creating rooms, set as an environment variable
+    (e.g. in Railway) so it never ends up in the repo. Unset = no password.
+    Joining a room never needs it."""
+    return os.environ.get("CREATE_PASSWORD", "")
 
 
 class JoinRoom(BaseModel):
@@ -70,7 +79,11 @@ def get_room(code: str) -> Room:
 
 
 @app.post("/api/rooms")
-def create_room(body: CreateRoom):
+async def create_room(body: CreateRoom):
+    required = create_password()
+    if required and not secrets.compare_digest(body.password.encode(), required.encode()):
+        await asyncio.sleep(1)  # slow down anyone trying to guess it
+        raise HTTPException(403, "Wrong password")
     cleanup_rooms()
     try:
         room = Room(new_room_code(rooms), lang=body.lang, num_teams=body.teams, target=body.target)
@@ -236,6 +249,11 @@ async def websocket_endpoint(ws: WebSocket, code: str, player_id: str):
                 room.players[player_id].connected = False
                 asyncio.create_task(watch_disconnect(room, player_id))
                 await broadcast(room)
+
+
+@app.get("/api/config")
+def config():
+    return {"needs_password": bool(create_password())}
 
 
 @app.get("/healthz")

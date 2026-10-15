@@ -241,3 +241,19 @@ def test_page_and_assets_are_always_revalidated():
     etag = client.get("/static/app.js").headers["etag"]
     assert client.get("/static/app.js", headers={"If-None-Match": etag}).status_code == 304
     assert "cache-control" not in client.get("/healthz").headers
+
+
+def test_create_needs_password_only_when_set(monkeypatch):
+    monkeypatch.delenv("CREATE_PASSWORD", raising=False)
+    assert client.get("/api/config").json() == {"needs_password": False}
+    assert client.post("/api/rooms", json={"name": "A"}).status_code == 200
+
+    monkeypatch.setenv("CREATE_PASSWORD", "spelavond")
+    assert client.get("/api/config").json() == {"needs_password": True}
+    assert client.post("/api/rooms", json={"name": "A"}).status_code == 403
+    assert client.post("/api/rooms", json={"name": "A", "password": "nope"}).status_code == 403
+    res = client.post("/api/rooms", json={"name": "A", "password": "spelavond"})
+    assert res.status_code == 200
+
+    # Joining never needs the password.
+    assert client.post(f"/api/rooms/{res.json()['code']}/join", json={"name": "B"}).status_code == 200

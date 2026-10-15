@@ -22,6 +22,7 @@ const STRINGS = {
     fixHint: "Tap a word to correct it", confirm: "Confirm & next turn", skip: "Skip turn (host)",
     waitConfirm: (n) => `Waiting for ${n} to confirm…`, wins: (t) => `${t} wins!`,
     playAgain: "Play again", leave: "Leave game", copied: "Link copied!",
+    password: "Password (only to create a game)", wrongPassword: "Wrong password",
     leaveTitle: "Leave the game?",
     leaveBody: "Your team keeps its points. Join again with the same name to get back on your team.",
     leaveHost: "You're the host: another player will take over.",
@@ -55,6 +56,7 @@ const STRINGS = {
     fixHint: "Tik op een woord om te corrigeren", confirm: "Bevestig & volgende beurt", skip: "Beurt overslaan (host)",
     waitConfirm: (n) => `Wachten tot ${n} bevestigt…`, wins: (t) => `${t} wint!`,
     playAgain: "Nog een keer", leave: "Spel verlaten", copied: "Link gekopieerd!",
+    password: "Wachtwoord (alleen om een spel aan te maken)", wrongPassword: "Verkeerd wachtwoord",
     leaveTitle: "Spel verlaten?",
     leaveBody: "Je team houdt zijn punten. Doe opnieuw mee met dezelfde naam om terug in je team te komen.",
     leaveHost: "Jij bent de host: een andere speler neemt het over.",
@@ -156,7 +158,7 @@ const sounds = {
 async function api(path, body) {
   const res = await fetch(path, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
   const data = await res.json().catch(() => ({}));
-  if (!res.ok) throw new Error(data.detail || res.statusText);
+  if (!res.ok) throw Object.assign(new Error(data.detail || res.statusText), { status: res.status });
   return data;
 }
 
@@ -469,11 +471,21 @@ $("create-btn").onclick = async () => {
   if (!name) return;
   unlockAudio();
   try {
+    const password = $("password").value;
     const res = await api("/api/rooms", {
-      name, lang: $("lang").value, teams: Number($("teams").value), target: Number($("target").value),
+      name, lang: $("lang").value, teams: Number($("teams").value), target: Number($("target").value), password,
     });
+    if (password) store.set("password", password);
     enterRoom(res.code, res.player_id);
-  } catch (e) { toast(e.message); }
+  } catch (e) {
+    if (e.status === 403) {
+      $("password-row").hidden = false;
+      $("password").value = "";
+      store.del("password");
+      $("password").focus();
+      toast(t("wrongPassword"));
+    } else toast(e.message);
+  }
 };
 
 $("join-btn").onclick = async () => {
@@ -537,6 +549,11 @@ document.addEventListener("visibilitychange", () => {
 // ---------- boot ----------
 applyStaticText();
 $("name").value = store.get("name") || "";
+$("password").value = store.get("password") || "";
+// Only show the password field when the server has one set (e.g. on Railway).
+fetch("/api/config").then((r) => r.json()).then((cfg) => {
+  $("password-row").hidden = !cfg.needs_password || Boolean(store.get("password"));
+}).catch(() => {});
 $("lang").value = uiLang;
 const roomParam = new URLSearchParams(location.search).get("room");
 if (roomParam) $("join-code").value = roomParam.toUpperCase();
