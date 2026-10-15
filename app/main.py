@@ -26,6 +26,17 @@ OFFLINE_NOTICE_SECONDS = 5
 HOST_HANDOVER_SECONDS = 15
 
 app = FastAPI(title="30 Seconds")
+
+
+@app.middleware("http")
+async def always_revalidate(request, call_next):
+    """Make browsers check for a newer version of the page, CSS and JS on every
+    load. Unchanged files still come from the cache (a quick 304 response), but
+    after an update every phone gets the new version straight away."""
+    response = await call_next(request)
+    if request.url.path == "/" or request.url.path.startswith("/static/"):
+        response.headers["Cache-Control"] = "no-cache"
+    return response
 rooms: dict[str, Room] = {}
 # room code -> {player_id: websocket}
 sockets: dict[str, dict[str, WebSocket]] = {}
@@ -200,6 +211,11 @@ async def websocket_endpoint(ws: WebSocket, code: str, player_id: str):
         while True:
             msg = await ws.receive_json()
             room.touch()
+            if msg.get("action") == "ping":
+                # Heartbeat from the phone: keeps the connection (and a
+                # Serverless app) awake during quiet moments in a game.
+                await ws.send_json({"type": "pong"})
+                continue
             if msg.get("action") == "leave":
                 await leave(room, player_id)
                 await broadcast(room)

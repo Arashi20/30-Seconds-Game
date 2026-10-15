@@ -75,6 +75,8 @@ Everyone joins on their **own phone**: no app to install, no account, nothing to
 
 **Players coming and going**
 - If a phone locks, the page reloads or the connection drops, it **reconnects automatically** to the same game.
+- Every phone sends a small "still here" ping every 25 seconds. This keeps the connection open during quiet moments, so networks don't cut it and Railway's Serverless mode doesn't put the app to sleep mid-game. If the server hasn't answered for a minute, the phone assumes the connection died silently and reconnects by itself.
+- **Updates show up straight away:** the server tells browsers to check for a newer version of the page on every load. After you deploy a change, nobody gets stuck with an old design. (Unchanged files still load from the phone's cache, so it stays fast.)
 - Pop-up messages tell everyone when a player **joins**, **leaves**, **loses connection** or **comes back**. A short connection hiccup (under 5 seconds) isn't announced, so a phone locking its screen for a moment doesn't spam everyone.
 - Offline players are shown greyed out with 💤 in the lobby.
 - **Leave game** asks first in a game-styled pop-up that says what will happen (e.g. "you're the host: another player will take over"). Leaving really removes you from the match. If you were the describer:
@@ -188,6 +190,7 @@ Every time you push to the branch Railway is watching, it redeploys automaticall
 **Good to know**
 - Games are kept **in memory**. A redeploy or restart ends any game in progress, which is fine for a party game. Old, idle rooms are cleaned up automatically after 6 hours.
 - Run a **single instance** (Railway's default). Multiple replicas wouldn't share game state.
+- **Serverless** (Settings → Serverless) is recommended. The app sleeps after about 10 minutes with nobody connected, so it costs almost nothing. The first visit after that takes a few seconds to wake it up. While anyone has the game open, the phones' heartbeat keeps it awake, so it only sleeps when nobody is playing and no game is lost.
 - Health check URL: `/healthz`
 
 ---
@@ -218,6 +221,7 @@ What's covered:
 - **host handover** when the host leaves or loses connection, pop-up messages for joining, leaving, disconnecting and coming back, and that a quick reconnect is *not* announced (these run against a real server)
 - no repeated words until the deck runs out
 - the HTTP API and WebSocket flow end-to-end, including error handling
+- heartbeat: a ping gets a pong (and nothing else); page, CSS and JS are sent with "check for updates" headers
 
 ### Try every feature by hand on one computer
 

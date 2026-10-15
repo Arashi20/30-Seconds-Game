@@ -166,8 +166,11 @@ function connect() {
   const proto = location.protocol === "https:" ? "wss" : "ws";
   const sock = new WebSocket(`${proto}://${location.host}/ws/${session.code}/${session.playerId}`);
   ws = sock;
+  sock.onopen = () => { lastHeard = Date.now(); };
   sock.onmessage = (ev) => {
+    lastHeard = Date.now();
     const msg = JSON.parse(ev.data);
+    if (msg.type === "pong") return;
     if (msg.type === "state") { state = msg.state; render(); }
     else if (msg.type === "event") showEvent(msg);
     else if (msg.type === "error") toast(msg.message);
@@ -179,6 +182,27 @@ function connect() {
     reconnectTimer = setTimeout(connect, 1500);
   };
 }
+
+// Heartbeat: a ping every 25 s keeps the connection (and a Serverless app)
+// awake during quiet moments. If the server stays silent for a minute the
+// connection is dead without the browser noticing (common on phones), so
+// throw it away and reconnect.
+const PING_EVERY_MS = 25000;
+const DEAD_AFTER_MS = 60000;
+let lastHeard = 0;
+
+function reconnectNow() {
+  const dead = ws;
+  ws = null; // its onclose will now ignore it
+  if (dead) dead.close();
+  connect();
+}
+
+setInterval(() => {
+  if (!session || !ws || ws.readyState !== WebSocket.OPEN) return;
+  if (Date.now() - lastHeard > DEAD_AFTER_MS) reconnectNow();
+  else ws.send(JSON.stringify({ action: "ping" }));
+}, PING_EVERY_MS);
 
 function showEvent({ event, name }) {
   if (event === "new_host" && state && name === me()?.name) toast(t("ev_you_host"));
@@ -505,7 +529,9 @@ document.addEventListener("pointerdown", unlockAudio, { once: true });
 
 // Reconnect right away when the phone wakes up / tab becomes visible again.
 document.addEventListener("visibilitychange", () => {
-  if (document.visibilityState === "visible" && session && (!ws || ws.readyState > WebSocket.OPEN)) connect();
+  if (document.visibilityState !== "visible" || !session) return;
+  if (!ws || ws.readyState > WebSocket.OPEN) connect();
+  else if (ws.readyState === WebSocket.OPEN && Date.now() - lastHeard > DEAD_AFTER_MS) reconnectNow();
 });
 
 // ---------- boot ----------

@@ -221,3 +221,23 @@ def test_quick_reconnect_is_not_announced(live_server):
             events = [m["event"] for m in host_ws.pending() if m["type"] == "event"]
             assert "disconnected" not in events
             assert "reconnected" not in events
+
+
+def test_ping_gets_pong_without_broadcasting():
+    res = client.post("/api/rooms", json={"name": "Host", "lang": "en"}).json()
+    code, host = res["code"], res["player_id"]
+    with client.websocket_connect(f"/ws/{code}/{host}") as ws:
+        receive_state(ws)
+        ws.send_json({"action": "ping"})
+        assert ws.receive_json() == {"type": "pong"}  # nothing else in between
+
+
+def test_page_and_assets_are_always_revalidated():
+    for path in ("/", "/static/app.js", "/static/style.css", "/static/logo.svg"):
+        res = client.get(path)
+        assert res.status_code == 200
+        assert res.headers["cache-control"] == "no-cache"
+        assert "etag" in res.headers or "last-modified" in res.headers
+    etag = client.get("/static/app.js").headers["etag"]
+    assert client.get("/static/app.js", headers={"If-None-Match": etag}).status_code == 304
+    assert "cache-control" not in client.get("/healthz").headers
