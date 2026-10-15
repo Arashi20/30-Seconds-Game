@@ -193,6 +193,15 @@ Every time you push to the branch Railway is watching, it redeploys automaticall
 - Run a **single instance** (Railway's default). Multiple replicas wouldn't share game state.
 - **Serverless** (Settings → Serverless) is recommended. The app sleeps after about 10 minutes with nobody connected, so it costs almost nothing. The first visit after that takes a few seconds to wake it up. While a game is going, the phones' heartbeat keeps it awake, so it never sleeps mid-game. The heartbeat doesn't count as activity, though. If someone forgets to close their tab after game night, the game closes after 30 quiet minutes, the tab stops pinging, and about 10 minutes later the app is asleep again.
 - Health check URL: `/healthz`
+
+### Put it on your home screen like an app 📱
+
+Once it's online, everyone can add the game to their phone's home screen. It then gets the stopwatch icon and opens full-screen, without the browser's address bar.
+
+- **iPhone:** open the link in **Safari** → tap the **Share** button (square with an arrow) → **Add to Home Screen** → **Add**.
+- **Android:** open the link in **Chrome** → **⋮** menu → **Add to Home screen** (or **Install app**).
+
+It's still the same website underneath, so updates you deploy show up in the app automatically, and it needs an internet connection to play. One thing to know: an invite link someone sends you opens in the browser, not the home-screen app. You can also just open the app and type the room code.
 - **Spending cap:** in Railway under **Workspace → Usage → Usage limits** you can set an email alert and a hard limit (e.g. $10). It's a good safety net for all your Railway apps.
 
 ### Who can play?
@@ -234,6 +243,7 @@ What's covered:
 - the HTTP API and WebSocket flow end-to-end, including error handling
 - the create-room password: only required when `CREATE_PASSWORD` is set, never needed to join
 - idle games close after 30 minutes without real actions, even if a forgotten tab keeps sending heartbeats
+- the home-screen app setup: manifest, icons and iPhone tags are served correctly
 - heartbeat: a ping gets a pong (and nothing else); page, CSS and JS are sent with "check for updates" headers
 
 ### Try every feature by hand on one computer
@@ -285,6 +295,8 @@ static/
   app.js         # screens, timer, talking to the server
   style.css      # mobile-first styling, brand colours and animations
   logo.svg       # the stopwatch logo (also the browser tab icon)
+  manifest.webmanifest, apple-touch-icon.png, icon-*.png
+                 # make it installable as a home-screen app
 tests/
   test_game.py   # game-rule tests
   test_api.py    # end-to-end server tests

@@ -288,3 +288,17 @@ def test_active_room_is_not_closed(monkeypatch):
     monkeypatch.setattr(main, "IDLE_CLOSE_SECONDS", 60)
     asyncio.run(main.close_idle_rooms())
     assert res["code"] in rooms
+
+
+def test_installable_as_home_screen_app():
+    manifest = client.get("/static/manifest.webmanifest")
+    assert manifest.status_code == 200
+    assert manifest.headers["content-type"].startswith("application/manifest+json")
+    data = manifest.json()
+    assert data["display"] == "standalone" and data["start_url"] == "/"
+    for icon in data["icons"]:
+        assert client.get(icon["src"]).headers["content-type"] == "image/png"
+    page = client.get("/").text
+    for tag in ('rel="manifest"', 'rel="apple-touch-icon"', 'apple-mobile-web-app-capable'):
+        assert tag in page
+    assert client.get("/static/apple-touch-icon.png").status_code == 200
