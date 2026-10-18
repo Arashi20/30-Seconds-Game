@@ -35,6 +35,35 @@ def load_words(lang: str) -> list[str]:
     return list(dict.fromkeys(words))  # dedupe, keep order
 
 
+class Deck:
+    """A shuffled pile of words: none repeats until every word has been drawn."""
+
+    def __init__(self, words: list[str], rng: random.Random):
+        self.words = words
+        self.rng = rng
+        self.pile: list[str] = []
+
+    def draw(self, n: int) -> list[str]:
+        if len(self.pile) < n:
+            fresh = [w for w in self.words if w not in self.pile]
+            self.rng.shuffle(fresh)
+            self.pile = fresh + self.pile
+        drawn, self.pile = self.pile[-n:], self.pile[:-n]
+        return drawn
+
+
+# One deck per language, shared by all rooms: a new game carries on where the
+# previous one stopped instead of reshuffling, so words don't come back night
+# after night. (A server restart or Serverless sleep starts a fresh shuffle.)
+_shared_decks: dict[str, Deck] = {}
+
+
+def shared_deck(lang: str) -> Deck:
+    if lang not in _shared_decks:
+        _shared_decks[lang] = Deck(load_words(lang), random.Random())
+    return _shared_decks[lang]
+
+
 @dataclass
 class Player:
     id: str
@@ -76,8 +105,9 @@ class Room:
         self.num_teams = num_teams
         self.target = target
         self.rng = rng or random.Random()
-        self.all_words = load_words(lang)
-        self.deck: list[str] = []
+        # A room with its own rng (tests) gets a private, reproducible deck.
+        self.deck = Deck(load_words(lang), self.rng) if rng else shared_deck(lang)
+        self.all_words = self.deck.words
         self.players: dict[str, Player] = {}
         self.left_teams: dict[str, int] = {}  # lowercased name -> team, for players who left
         self.host_id: str | None = None
@@ -275,12 +305,7 @@ class Room:
         )
 
     def _draw(self, n: int) -> list[str]:
-        if len(self.deck) < n:
-            fresh = [w for w in self.all_words if w not in self.deck]
-            self.rng.shuffle(fresh)
-            self.deck = fresh + self.deck
-        drawn, self.deck = self.deck[-n:], self.deck[:-n]
-        return drawn
+        return self.deck.draw(n)
 
     # ----- views -----
 

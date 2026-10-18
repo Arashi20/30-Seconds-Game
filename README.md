@@ -3,7 +3,7 @@
 A free, home-made version of the party game **30 Seconds** that you play in the browser.
 Everyone joins on their **own phone**: no app to install, no account, nothing to pay for.
 
-- 🇳🇱 Dutch and 🇬🇧 English word decks (≈350 words each; add your own easily)
+- 🇳🇱 Dutch and 🇬🇧 English word decks (about 1,600 Dutch and 1,400 English words; add your own easily)
 - 📱 Every player uses their own phone, and the game stays in sync live
 - 🏠 Play on your home Wi-Fi from your laptop, **or** host it online on Railway
 
@@ -71,7 +71,7 @@ Everyone joins on their **own phone**: no app to install, no account, nothing to
 - **Corrections:** after the timer, anyone can tap a word to fix a missed or wrong tick before the score is confirmed.
 - The describer (or the host) taps **Confirm & next turn** to apply the score.
 - The host can **skip a turn**, for example if the describer is away or their phone died.
-- Words don't repeat until the whole deck has been used.
+- Words don't repeat until the whole deck has been used, **even across games**. All rooms share one deck per language, so a new game carries on where the last one stopped instead of reshuffling. A server restart (or Railway's Serverless sleep) starts a fresh shuffle.
 
 **Players coming and going**
 - If a phone locks, the page reloads or the connection drops, it **reconnects automatically** to the same game.
@@ -227,7 +227,8 @@ python -m pytest -v
 ```
 
 What's covered:
-- word lists load, are large enough and have no duplicates
+- word lists load, have over 1,000 words each, and have no duplicates or near-duplicates (different capitals, accents or spacing count as the same word)
+- new games continue the shared deck: no word comes back across 160 games in a row
 - joining, unique names, auto-balanced teams, the host role
 - the game won't start until every team has 2 or more players
 - score = guessed − die, never negative, and corrections during review
