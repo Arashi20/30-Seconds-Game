@@ -358,3 +358,1070 @@ Pub quiz
 Escape room
 Skateboarding
 Rock climbing
+
+# Famous people (extra)
+Isaac Newton
+Charles Darwin
+Galileo
+Marie Curie
+Nikola Tesla
+Stephen Hawking
+Christopher Columbus
+Alexander the Great
+Joan of Arc
+Princess Diana
+Prince Harry
+King Charles
+Winston Churchill
+Donald Trump
+Kim Jong-un
+Dalai Lama
+The Pope
+Bach
+Elton John
+David Bowie
+John Lennon
+Paul McCartney
+Mick Jagger
+Justin Bieber
+Billie Eilish
+Shakira
+Bruno Mars
+Drake
+Kanye West
+Jay-Z
+Dolly Parton
+Celine Dion
+Whitney Houston
+Britney Spears
+Ariana Grande
+Harry Styles
+One Direction
+Spice Girls
+ABBA
+Coldplay
+Jeff Bezos
+Walt Disney
+Audrey Hepburn
+Johnny Depp
+Will Smith
+Dwayne Johnson
+Arnold Schwarzenegger
+Jackie Chan
+Bruce Lee
+Mr. Bean
+Angelina Jolie
+Jennifer Lopez
+Tom Hanks
+Morgan Freeman
+Keanu Reeves
+Steven Spielberg
+Gordon Ramsay
+Jamie Oliver
+David Attenborough
+Bob Ross
+Roger Federer
+Rafael Nadal
+Michael Schumacher
+Tiger Woods
+Kylian Mbappé
+Zlatan Ibrahimović
+Neymar
+Pelé
+Diego Maradona
+David Beckham
+Simone Biles
+Michael Phelps
+Mike Tyson
+LeBron James
+Johan Cruyff
+Anne Frank
+Rembrandt
+Frida Kahlo
+Salvador Dalí
+Andy Warhol
+Banksy
+Michelangelo
+J.K. Rowling
+Agatha Christie
+Charles Dickens
+Roald Dahl
+Dr. Seuss
+Neil Armstrong
+Amelia Earhart
+Marco Polo
+Martin Garrix
+Tiësto
+
+# Characters (extra)
+Voldemort
+Dumbledore
+Gandalf
+Frodo
+Gollum
+Indiana Jones
+Rambo
+The Hulk
+Iron Man
+Captain America
+Thor
+The Joker
+Luke Skywalker
+Princess Leia
+Chewbacca
+R2-D2
+Simba
+Nemo
+Dory
+Buzz Lightyear
+Woody
+Elsa
+Olaf
+Little Red Riding Hood
+Sleeping Beauty
+Rapunzel
+Goldilocks
+Hansel and Gretel
+Pinocchio
+Tinker Bell
+Captain Hook
+Alice in Wonderland
+Mad Hatter
+Asterix
+Obelix
+Tintin
+Garfield
+Snoopy
+Popeye
+Scooby-Doo
+Tom and Jerry
+Bugs Bunny
+Bart Simpson
+Peppa Pig
+Barbie
+Lara Croft
+Pac-Man
+Luigi
+Princess Peach
+Bowser
+Donkey Kong
+Zelda
+Kermit the Frog
+Miss Piggy
+Elmo
+Cookie Monster
+Big Bird
+Zorro
+Tarzan
+Mowgli
+Aladdin
+Mulan
+The Little Mermaid
+Paddington Bear
+The Smurfs
+Bambi
+Dumbo
+Mary Poppins
+Willy Wonka
+The Grinch
+Rudolph
+Godzilla
+King Kong
+E.T.
+Shaun the Sheep
+Wallace and Gromit
+Minions
+Puss in Boots
+Hercule Poirot
+Ronald McDonald
+Patrick Star
+Donald Duck
+Goofy
+Scrooge McDuck
+Thomas the Tank Engine
+Bob the Builder
+Teletubbies
+Dora the Explorer
+Miffy
+Lucky Luke
+
+# Places (extra)
+Bangkok
+Bali
+Istanbul
+Moscow
+Athens
+Acropolis
+Madrid
+Lisbon
+Vienna
+Prague
+Budapest
+Copenhagen
+Stockholm
+Norway
+Finland
+Lapland
+Scotland
+Ireland
+Wales
+Greece
+Crete
+Turkey
+Spain
+Portugal
+Italy
+Tuscany
+Leaning Tower of Pisa
+Vatican City
+Sicily
+France
+Monaco
+Mont Blanc
+The Alps
+Austria
+Germany
+Belgium
+Bruges
+Luxembourg
+Poland
+Russia
+Siberia
+Mumbai
+Nepal
+Thailand
+Vietnam
+South Korea
+Singapore
+Hong Kong
+New Zealand
+Fiji
+Canada
+Alaska
+Cuba
+Jamaica
+Rio de Janeiro
+Argentina
+Peru
+Chile
+Easter Island
+Galápagos Islands
+Florida
+California
+San Francisco
+Chicago
+Texas
+Washington D.C.
+Miami
+New Orleans
+South Africa
+Cape Town
+Kenya
+Kilimanjaro
+Madagascar
+The Nile
+Loch Ness
+Tower Bridge
+The Louvre
+Mona Lisa
+Notre-Dame
+Arc de Triomphe
+Sagrada Família
+Trevi Fountain
+Brandenburg Gate
+Berlin Wall
+Central Park
+Empire State Building
+Petra
+Angkor Wat
+Uluru
+Christ the Redeemer
+Mount Fuji
+Santorini
+Maldives
+Caribbean
+Mediterranean Sea
+Pacific Ocean
+Dead Sea
+Yellowstone
+Route 66
+Wall Street
+Broadway
+Alcatraz
+Wimbledon
+Oxford
+Edinburgh
+Liverpool
+Windsor Castle
+Neuschwanstein Castle
+Transylvania
+Mount Olympus
+South Pole
+Equator
+Greenland
+Legoland
+Rotterdam
+Giethoorn
+Keukenhof
+Efteling
+
+# Food and drink (extra)
+Macaroni and cheese
+Mashed potatoes
+Baked beans
+Sunday roast
+Shepherd's pie
+Meatballs
+Steak
+Ribs
+Chicken wings
+Fried chicken
+Pulled pork
+Club sandwich
+Grilled cheese
+Toast
+Garlic bread
+Baguette
+Pretzel
+Muffin
+Scone
+Cinnamon roll
+Apple pie
+Pumpkin pie
+Banana bread
+Carrot cake
+Tiramisu
+Crème brûlée
+Pudding
+Jelly
+Custard
+Eclair
+Macaron
+Churros
+Crêpe
+Raclette
+Paella
+Risotto
+Ravioli
+Pesto
+Couscous
+Hummus
+Falafel
+Gyros
+Moussaka
+Naan bread
+Dim sum
+Peking duck
+Spring rolls
+Fried rice
+Noodles
+Pad Thai
+Wasabi
+Soy sauce
+Nachos
+Guacamole
+Quesadilla
+Chili con carne
+Ketchup
+Mustard
+Mayonnaise
+Pickles
+Olives
+Honey
+Jam
+Maple syrup
+Nutella
+Marshmallow
+Gummy bears
+Lollipop
+Candy cane
+Chocolate bar
+Jelly beans
+Licorice
+Chewing gum
+Popsicle
+Sundae
+Banana split
+Cereal
+Porridge
+Yogurt
+Boiled egg
+Fried egg
+Omelette
+Sausage
+Pepperoni
+Cheeseburger
+Veggie burger
+Tofu
+Salmon
+Tuna
+Shrimp
+Oysters
+Mussels
+Caviar
+Stroopwafel
+Bitterballen
+Poffertjes
+Apple
+Pear
+Orange
+Lemon
+Grapes
+Cherry
+Strawberry
+Raspberry
+Blueberry
+Kiwi
+Mango
+Pomegranate
+Peach
+Plum
+Melon
+Fig
+Tomato
+Cucumber
+Carrot
+Potato
+Onion
+Broccoli
+Cauliflower
+Spinach
+Lettuce
+Pumpkin
+Corn on the cob
+Mushroom
+Asparagus
+Eggplant
+Zucchini
+Bell pepper
+Ginger
+Peas
+Coffee
+Tea
+Milk
+Orange juice
+Cola
+Energy drink
+Iced tea
+Beer
+Red wine
+Mulled wine
+Mojito
+Piña colada
+Sangria
+Whisky
+Vodka
+Tequila
+Gin and tonic
+McDonald's
+KFC
+Starbucks
+Coca-Cola
+
+# At home
+Fridge
+Freezer
+Oven
+Kettle
+Coffee machine
+Toaster
+Air fryer
+Blender
+Dishwasher
+Iron
+Ironing board
+Clothes peg
+Broom
+Mop
+Bucket
+Feather duster
+Trash can
+Toilet paper
+Toothbrush
+Toothpaste
+Shampoo
+Shower
+Bathtub
+Hairdryer
+Razor
+Comb
+Mirror
+Lipstick
+Nail polish
+Perfume
+Deodorant
+Soap
+Bathrobe
+Pajamas
+Slippers
+Pillow
+Blanket
+Mattress
+Bunk bed
+Hammock
+Sofa
+Rocking chair
+Desk
+Bookcase
+Curtains
+Lamp
+Candle
+Fireplace
+Smoke alarm
+Doorbell
+Padlock
+Mailbox
+Stairs
+Elevator
+Escalator
+Attic
+Basement
+Garden shed
+Lawn mower
+Wheelbarrow
+Watering can
+Garden gnome
+Trampoline
+Swing
+Slide
+Sandbox
+Swimming pool
+Hot tub
+Sauna
+
+# Clothes and accessories
+Raincoat
+Jeans
+Shorts
+Skirt
+Sweater
+Hoodie
+Tie
+Bow tie
+Socks
+Sneakers
+Boots
+High heels
+Beanie
+Baseball cap
+Scarf
+Gloves
+Mittens
+Belt
+Suspenders
+Handbag
+Backpack
+Wallet
+Watch
+Necklace
+Earrings
+Engagement ring
+Glasses
+Contact lenses
+Tattoo
+Piercing
+Wedding dress
+Tuxedo
+Kilt
+Crown
+Cowboy hat
+Top hat
+Sombrero
+Sunglasses
+Flip-flops
+Swimsuit
+Air mattress
+
+# School and work
+Blackboard
+Chalk
+Eraser
+Pencil sharpener
+Ruler
+Calculator
+Report card
+Diploma
+Exam
+Homework
+School trip
+Summer camp
+Gym class
+Recess
+Teacher
+Principal
+Janitor
+Cafeteria
+Lunchbox
+School bus
+Detention
+Graduation
+Internship
+Promotion
+Coffee break
+Office
+Boss
+Video call
+Spreadsheet
+Email
+Deadline
+Overtime
+Day off
+Sick day
+Coworker
+Team building
+
+# Jobs and characters
+Pilot
+Flight attendant
+Firefighter
+Police officer
+Doctor
+Nurse
+Vet
+Baker
+Butcher
+Chef
+Waiter
+Hairdresser
+Painter
+Carpenter
+Plumber
+Electrician
+Farmer
+Fisherman
+Postman
+Bus driver
+Taxi driver
+Garbage collector
+Lawyer
+Judge
+Journalist
+Photographer
+Influencer
+YouTuber
+DJ
+Magician
+Clown
+Acrobat
+Butler
+Detective
+Spy
+Pirate
+Knight
+Princess
+King
+Emperor
+Witch
+Wizard
+Vampire
+Zombie
+Ghost
+Werewolf
+Mermaid
+Giant
+Dwarf
+Elf
+Fairy
+Angel
+Devil
+Ninja
+Samurai
+Cowboy
+Viking
+Gladiator
+Pharaoh
+Mummy
+Superhero
+Astronaut
+Scientist
+Lifeguard
+Referee
+Cheerleader
+Bodyguard
+Babysitter
+
+# Outings, celebrations and places
+Christmas
+Easter
+Mother's Day
+Father's Day
+Carnival
+Funfair
+Ferris wheel
+Roller coaster
+Bumper cars
+Merry-go-round
+Circus
+Zoo
+Theme park
+Cinema
+Theater
+Concert
+Music festival
+Musical
+Opera
+Ballet
+Museum
+Library
+Church
+Castle
+Town hall
+Prison
+Train station
+Bus stop
+Gas station
+Parking garage
+Pub
+Nightclub
+Hostel
+Campsite
+Ski resort
+Ski lift
+Après-ski
+Summer vacation
+Backpacking
+Customs
+Baggage claim
+Boarding pass
+Postcard
+Souvenir
+Sunburn
+Mosquito bite
+Hay fever
+Common cold
+Flu
+Hiccups
+Sneeze
+Snoring
+Sleepwalking
+Nightmare
+Daydreaming
+Déjà vu
+Homesick
+Stage fright
+Butterflies in your stomach
+Goosebumps
+Bruise
+Band-Aid
+Plaster cast
+Crutches
+Wheelchair
+Thermometer
+Stethoscope
+X-ray
+Vaccination
+Lighthouse
+Pier
+Sailboat
+Canoe
+Ferry
+Cruise ship
+Submarine
+Airplane
+Helicopter
+Hot air balloon
+Rocket
+Moon
+Sun
+Shooting star
+Comet
+Planet
+Black hole
+UFO
+Alien
+Robot
+
+# Tech and games
+Laptop
+Tablet
+Keyboard
+Computer mouse
+Printer
+Headphones
+Earbuds
+Power bank
+Bluetooth
+PlayStation
+Nintendo
+Fortnite
+Minecraft
+Pokémon
+Tetris
+Candy Crush
+Snapchat
+Google
+Facebook
+WhatsApp
+Uber
+Amazon
+Monopoly
+Scrabble
+Cluedo
+Pictionary
+Uno
+Poker
+Blackjack
+Bingo
+Lottery
+Scratch card
+Hide and seek
+Jump rope
+Hopscotch
+Marbles
+Kite
+Sidewalk chalk
+Water gun
+Tamagotchi
+Yo-yo
+Fidget spinner
+Rubik's Cube
+Lego
+Teddy bear
+Dollhouse
+Coloring book
+Comic book
+Checkers
+Twister
+Jenga
+Charades
+Tug of war
+Sack race
+Musical chairs
+Hula hoop
+
+# Music
+Guitar
+Piano
+Drums
+Violin
+Trumpet
+Saxophone
+Flute
+Recorder
+Harp
+Accordion
+Harmonica
+Bagpipes
+Triangle
+Xylophone
+Ukulele
+Double bass
+Microphone
+Record player
+Cassette tape
+Walkman
+CD
+Radio
+Television
+Jukebox
+Air guitar
+Conductor
+Choir
+Boy band
+Rapper
+
+# Nature and weather
+Hail
+Snow
+Snowball fight
+Fog
+Storm
+Hurricane
+Tornado
+Heatwave
+Lightning
+Thunder
+Sunset
+Northern Lights
+Earthquake
+Volcano
+Tsunami
+Flood
+Waterfall
+Cave
+Desert
+Jungle
+Island
+Glacier
+Iceberg
+River
+Canal
+Bridge
+Tunnel
+Mountain
+Forest
+Tree house
+Four-leaf clover
+Sunflower
+Cactus
+Palm tree
+Stinging nettle
+Beach
+Sand dune
+Seashell
+
+# Sports (extra)
+Horse riding
+Karate
+Taekwondo
+Kickboxing
+Wrestling
+Fencing
+Archery
+Rowing
+Kayaking
+Sailing
+Kitesurfing
+Scuba diving
+Snorkeling
+Water polo
+Badminton
+Table tennis
+Squash
+Padel
+Rugby
+American football
+Cricket
+Ice hockey
+Curling
+Ski jumping
+Bobsled
+Figure skating
+Gymnastics
+Pole vault
+High jump
+Long jump
+Shot put
+Javelin
+Hurdles
+Relay race
+Triathlon
+Mountain biking
+BMX
+Parkour
+Paragliding
+Skydiving
+Bungee jumping
+Billiards
+Snooker
+Foosball
+Air hockey
+Olympics
+World Cup
+Super Bowl
+Tour de France
+Champions League
+Penalty
+Red card
+Offside
+Hat-trick
+Slam dunk
+Hole in one
+Checkmate
+Knockout
+Gold medal
+Trophy
+Mascot
+Stadium
+Mexican wave
+Self-defense
+
+# Animals (extra)
+Mouse
+Rat
+Mole
+Badger
+Otter
+Beaver
+Deer
+Wild boar
+Hare
+Frog
+Toad
+Salamander
+Lizard
+Snake
+Turtle
+Chameleon
+Iguana
+Gecko
+Alligator
+Brown bear
+Raccoon
+Skunk
+Sloth
+Anteater
+Armadillo
+Llama
+Alpaca
+Camel
+Bison
+Antelope
+Gazelle
+Cheetah
+Leopard
+Jaguar
+Lynx
+Hyena
+Gorilla
+Chimpanzee
+Orangutan
+Monkey
+Baboon
+Lemur
+Meerkat
+Bat
+Cat
+Dog
+Puppy
+Kitten
+Canary
+Budgie
+Peacock
+Goose
+Pheasant
+Woodpecker
+Crow
+Magpie
+Sparrow
+Robin
+Hummingbird
+Toucan
+Pelican
+Albatross
+Vulture
+Falcon
+Seagull
+Pigeon
+Stork
+Heron
+Emu
+Walrus
+Sea lion
+Orca
+Narwhal
+Seahorse
+Starfish
+Sea urchin
+Stingray
+Eel
+Clownfish
+Piranha
+Swordfish
+Squid
+Earthworm
+Centipede
+Scorpion
+Grasshopper
+Dragonfly
+Ant
+Wasp
+Bumblebee
+Fly
+Cockroach
+Flea
+Caterpillar
+Firefly
+T. rex
+Mammoth
+Sabre-toothed tiger

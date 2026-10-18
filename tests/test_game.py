@@ -290,3 +290,34 @@ def test_leaving_never_moves_other_players_or_points():
             assert teams_after == {pid: t for pid, t in teams_before.items() if pid != ids[leaver]}
             assert room.positions == ([0, 0] if phase == "lobby" else [7, 4])
             assert room.host_id in room.players
+
+
+def test_new_rooms_continue_the_shared_deck():
+    from app.game import WORDS_PER_CARD, load_words, shared_deck
+
+    deck = shared_deck("nl")
+    deck.pile = []  # start from a fresh shuffle
+    seen = []
+    rounds = len(load_words("nl")) // WORDS_PER_CARD // 2
+    for i in range(rounds):
+        room = Room(f"R{i}", lang="nl")  # a brand-new game every time
+        assert room.deck is deck
+        ids = [room.add_player(f"P{j}").id for j in range(4)]
+        room.start_game(ids[0])
+        seen += room.turn.words
+    assert len(seen) == len(set(seen))  # no word came back across all those games
+
+
+def test_word_lists_have_no_near_duplicates():
+    import re
+    import unicodedata
+
+    def key(word):
+        w = unicodedata.normalize("NFKD", word.casefold())
+        return re.sub(r"[^a-z0-9]", "", "".join(c for c in w if not unicodedata.combining(c)))
+
+    for lang in LANGUAGES:
+        words = load_words(lang)
+        assert len(words) >= 1000
+        keys = [key(w) for w in words]
+        assert len(keys) == len(set(keys)), [w for w, k in zip(words, keys) if keys.count(k) > 1]

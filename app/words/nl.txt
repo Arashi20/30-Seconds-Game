@@ -361,3 +361,1292 @@ Vissen
 Kamperen
 Pubquiz
 Escaperoom
+
+# Bekende Nederlanders (extra)
+Johan Derksen
+René van der Gijp
+Wilfred Genee
+Humberto Tan
+Chantal Janzen
+Jan Smit
+Frans Bauer
+Gerard Joling
+Ali B
+Snelle
+Davina Michelle
+Anouk
+Ilse DeLange
+Golden Earring
+Doe Maar
+Hardwell
+Afrojack
+Ronnie Flex
+Frenna
+Boef
+Enzo Knol
+Dylan Haegens
+Rob Kemps
+Wendy van Dijk
+Beau van Erven Dorens
+Arjen Lubach
+Eva Jinek
+Matthijs van Nieuwkerk
+Erik Scherder
+André van Duin
+Herman van Veen
+Toon Hermans
+Ruud Gullit
+Marco van Basten
+Dennis Bergkamp
+Wesley Sneijder
+Robin van Persie
+Memphis Depay
+Louis van Gaal
+Ronald Koeman
+Edwin van der Sar
+Lieke Martens
+Vivianne Miedema
+Sifan Hassan
+Femke Bol
+Epke Zonderland
+Pieter van den Hoogenband
+Ranomi Kromowidjojo
+Anky van Grunsven
+Tom Dumoulin
+Mathieu van der Poel
+Joop Zoetemelk
+Richard Krajicek
+Raymond van Barneveld
+Michael van Gerwen
+Jos Verstappen
+Erasmus
+Christiaan Huygens
+Johannes Vermeer
+Piet Mondriaan
+M.C. Escher
+Jeroen Bosch
+Michiel de Ruyter
+Willem van Oranje
+Koningin Beatrix
+Prinses Amalia
+Koningin Wilhelmina
+Abel Tasman
+Multatuli
+Paul Verhoeven
+Rutger Hauer
+Carice van Houten
+Hans Klok
+Yvon Jaspers
+John de Mol
+Joop van den Ende
+Dick Advocaat
+Nikkie de Jager
+Glennis Grace
+Rolf Sanchez
+
+# Wereldberoemd (extra)
+Isaac Newton
+Charles Darwin
+Galileo Galilei
+Marie Curie
+Nikola Tesla
+Stephen Hawking
+Christoffel Columbus
+Julius Caesar
+Alexander de Grote
+Karel de Grote
+Jeanne d'Arc
+Koningin Elizabeth
+Prinses Diana
+Prins Harry
+Koning Charles
+Winston Churchill
+Nelson Mandela
+Martin Luther King
+Gandhi
+Abraham Lincoln
+Donald Trump
+Kim Jong-un
+Dalai Lama
+De paus
+Mozart
+Beethoven
+Freddie Mercury
+The Beatles
+John Lennon
+Madonna
+Rihanna
+Lady Gaga
+Ed Sheeran
+Adele
+Justin Bieber
+Billie Eilish
+Shakira
+Bruno Mars
+Eminem
+Snoop Dogg
+Drake
+Kanye West
+Kim Kardashian
+Oprah Winfrey
+Steve Jobs
+Bill Gates
+Mark Zuckerberg
+Jeff Bezos
+Walt Disney
+Charlie Chaplin
+Marilyn Monroe
+Tom Cruise
+Brad Pitt
+Leonardo DiCaprio
+Johnny Depp
+Will Smith
+Dwayne Johnson
+Arnold Schwarzenegger
+Jackie Chan
+Bruce Lee
+Mr. Bean
+Angelina Jolie
+Jennifer Lopez
+Serena Williams
+Roger Federer
+Rafael Nadal
+Usain Bolt
+Michael Jordan
+Muhammad Ali
+Lewis Hamilton
+Michael Schumacher
+Tiger Woods
+Kylian Mbappé
+Zlatan Ibrahimović
+Neymar
+Pelé
+Diego Maradona
+David Beckham
+Pablo Picasso
+Michelangelo
+Frida Kahlo
+Salvador Dalí
+J.K. Rowling
+Roald Dahl
+Neil Armstrong
+Marco Polo
+David Attenborough
+Gordon Ramsay
+
+# Figuren uit films, boeken en tekenfilms
+Hermione Griffel
+Voldemort
+Perkamentus
+Gandalf
+Frodo
+Gollum
+James Bond
+Indiana Jones
+Rambo
+Superman
+Wonder Woman
+Hulk
+Iron Man
+Captain America
+Thor
+Joker
+Yoda
+Luke Skywalker
+Prinses Leia
+Chewbacca
+Simba
+Nemo
+Dory
+Buzz Lightyear
+Woody
+Elsa
+Olaf
+Assepoester
+Sneeuwwitje
+Roodkapje
+Doornroosje
+Repelsteeltje
+Hans en Grietje
+Pinokkio
+Peter Pan
+Tinkerbell
+Kapitein Haak
+Robin Hood
+Asterix
+Obelix
+Kuifje
+Suske en Wiske
+Jommeke
+Kabouter Wesley
+Bob de Bouwer
+Thomas de Trein
+Teletubbies
+Winnie de Poeh
+Garfield
+Snoopy
+Popeye
+Scooby-Doo
+Tom en Jerry
+Bugs Bunny
+Homer Simpson
+Bart Simpson
+Dora
+Peppa Pig
+Barbie
+Sonic
+Lara Croft
+Pac-Man
+Luigi
+Prinses Peach
+Kermit de Kikker
+Miss Piggy
+Elmo
+Koekiemonster
+Frankenstein
+Dracula
+Zorro
+Tarzan
+Mowgli
+Aladdin
+Mulan
+Ariel
+Paddington
+De Smurfen
+Gargamel
+Bambi
+Dombo
+Lucky Luke
+Meneer de Uil
+Mary Poppins
+Willy Wonka
+De Grinch
+Rudolf het rendier
+Godzilla
+King Kong
+E.T.
+Shaun het Schaap
+Minions
+Gelaarsde Kat
+Hercule Poirot
+Ronald McDonald
+Patrick Ster
+Donald Duck
+Goofy
+Pluto
+Dagobert Duck
+Kwik, Kwek en Kwak
+Alfred J. Kwak
+Sesamstraat
+Pino
+
+# Nederland (extra)
+Haarlem
+Leiden
+Delft
+Alkmaar
+Zwolle
+Nijmegen
+Arnhem
+Tilburg
+Breda
+Den Bosch
+Almere
+Leeuwarden
+Enschede
+Middelburg
+Zaanse Schans
+Marken
+Urk
+Ameland
+Terschelling
+Vlieland
+De Hoge Veluwe
+Deltawerken
+Kalverstraat
+Vondelpark
+De Wallen
+Jordaan
+Leidseplein
+Binnenhof
+Paleis Het Loo
+Concertgebouw
+Van Gogh Museum
+Ahoy
+Johan Cruijff ArenA
+De Kuip
+Walibi
+Duinrell
+Slagharen
+Toverland
+Artis
+Blijdorp
+Beekse Bergen
+Apenheul
+Vaalserberg
+Domtoren
+Markthal
+Kubuswoningen
+Waddeneilanden
+IJsselmeer
+Noordzee
+Biesbosch
+Drielandenpunt
+Zeeland
+Friesland
+Limburg
+Brabant
+Drenthe
+Randstad
+
+# Wereld (extra)
+Tokio
+Peking
+Bangkok
+Bali
+Dubai
+Istanbul
+Moskou
+Athene
+Madrid
+Lissabon
+Wenen
+Praag
+Boedapest
+Kopenhagen
+Stockholm
+Noorwegen
+Finland
+Lapland
+Schotland
+Ierland
+Griekenland
+Kreta
+Turkije
+Spanje
+Portugal
+Italië
+Toscane
+Toren van Pisa
+Vaticaan
+Sicilië
+Frankrijk
+Côte d'Azur
+Monaco
+Mont Blanc
+Alpen
+Oostenrijk
+Duitsland
+Zwarte Woud
+België
+Brugge
+Gent
+Atomium
+Manneken Pis
+Luxemburg
+Polen
+Rusland
+Siberië
+India
+Taj Mahal
+Nepal
+Thailand
+Vietnam
+Zuid-Korea
+Singapore
+Hongkong
+Sydney
+Nieuw-Zeeland
+Canada
+Niagarawatervallen
+Alaska
+Mexico
+Cuba
+Jamaica
+Brazilië
+Rio de Janeiro
+Argentinië
+Peru
+Machu Picchu
+Paaseiland
+Grand Canyon
+Florida
+Californië
+San Francisco
+Golden Gate Bridge
+Witte Huis
+Zuid-Afrika
+Kaapstad
+Kenia
+Kilimanjaro
+Madagaskar
+Nijl
+Antarctica
+Zuidpool
+Bermudadriehoek
+Atlantis
+Stonehenge
+Loch Ness
+Buckingham Palace
+Tower Bridge
+Louvre
+Mona Lisa
+Notre-Dame
+Arc de Triomphe
+Sagrada Família
+Trevifontein
+Brandenburger Tor
+Berlijnse Muur
+Times Square
+Central Park
+Area 51
+Mount Rushmore
+Petra
+Uluru
+Maldiven
+Santorini
+Caribisch gebied
+Middellandse Zee
+Stille Oceaan
+Dode Zee
+Groenland
+Transsylvanië
+
+# Eten en drinken (extra)
+Kapsalon
+Broodje kroket
+Tosti
+Uitsmijter
+Hutspot
+Rookworst
+Hachee
+Slavink
+Gehaktbal
+Berenklauw
+Kipcorn
+Mayonaise
+Appelmoes
+Rode kool
+Wentelteefjes
+Krentenbol
+Beschuit met muisjes
+Boterham
+Stokbrood
+Edammer
+Oude kaas
+Komijnekaas
+Smeerkaas
+Kaasstengel
+Worstenbroodje
+Saucijzenbroodje
+Bossche bol
+Limburgse vlaai
+Bokkenpootje
+Gevulde koek
+Krakeling
+Kruidnoten
+Taaitaai
+Chocoladeletter
+Marsepein
+Banketstaaf
+Kerststol
+Appelbeignet
+Slagroom
+Vla
+Appelstroop
+Zoute drop
+Winegums
+Zure matten
+Spekjes
+Kauwgom
+Lolly
+Raketje
+Magnum
+Softijs
+Tiramisu
+Brownie
+Muffin
+Cupcake
+Donut
+Cheesecake
+Appeltaart
+Slagroomtaart
+Verjaardagstaart
+Bruidstaart
+Fondue
+Gourmetten
+Raclette
+Barbecue
+Hotdog
+Burrito
+Nachos
+Guacamole
+Paella
+Risotto
+Ravioli
+Pesto
+Couscous
+Hummus
+Falafel
+Gyros
+Tzatziki
+Moussaka
+Curry
+Naanbrood
+Dim sum
+Pekingeend
+Ramen
+Noedels
+Wasabi
+Sojasaus
+Macaroni
+Chips
+Pinda's
+Cashewnoten
+Pistachenoten
+Walnoot
+Kokosnoot
+Banaan
+Appel
+Peer
+Sinaasappel
+Mandarijn
+Citroen
+Druif
+Kers
+Aardbei
+Framboos
+Bosbes
+Kiwi
+Mango
+Granaatappel
+Perzik
+Pruim
+Meloen
+Vijg
+Rozijn
+Tomaat
+Komkommer
+Paprika
+Ui
+Wortel
+Aardappel
+Broccoli
+Bloemkool
+Spinazie
+Prei
+Courgette
+Aubergine
+Champignon
+Maïskolf
+Asperge
+Pompoen
+Radijs
+Gember
+Honing
+Jam
+Ketchup
+Mosterd
+Augurk
+Olijf
+Spiegelei
+Roerei
+Gekookt ei
+Omelet
+Bacon
+Salami
+Biefstuk
+Kipnuggets
+Spareribs
+Saté
+Garnalen
+Mosselen
+Oesters
+Zalm
+Tonijn
+Kaviaar
+Koffie
+Thee
+Melk
+Fristi
+Cola
+Sinas
+Ranja
+Limonade
+IJsthee
+Bier
+Rode wijn
+Glühwein
+Mojito
+Piña colada
+Sangria
+Whisky
+Wodka
+Tequila
+Jägermeister
+Radler
+Energiedrank
+Heineken
+McDonald's
+Febo
+
+# In huis
+Koelkast
+Vriezer
+Oven
+Waterkoker
+Koffiezetapparaat
+Broodrooster
+Tosti-ijzer
+Airfryer
+Blender
+Vaatwasser
+Droger
+Strijkijzer
+Strijkplank
+Wasknijper
+Bezem
+Dweil
+Emmer
+Plumeau
+Prullenbak
+Vuilniszak
+Kliko
+Wc-papier
+Tandenborstel
+Tandpasta
+Shampoo
+Douche
+Bad
+Föhn
+Scheermes
+Kam
+Spiegel
+Lippenstift
+Mascara
+Nagellak
+Parfum
+Deodorant
+Zeep
+Badjas
+Pyjama
+Pantoffels
+Kussen
+Dekbed
+Matras
+Stapelbed
+Hangmat
+Bank
+Schommelstoel
+Bureau
+Boekenkast
+Kapstok
+Gordijnen
+Kaars
+Open haard
+Radiator
+Thermostaat
+Rookmelder
+Deurbel
+Sleutelbos
+Brievenbus
+Trap
+Lift
+Roltrap
+Zolder
+Kelder
+Schuur
+Grasmaaier
+Kruiwagen
+Gieter
+Tuinkabouter
+Trampoline
+Schommel
+Glijbaan
+Zandbak
+Zwembad
+Jacuzzi
+Sauna
+
+# Kleding en spullen
+Regenjas
+Spijkerbroek
+Korte broek
+Rok
+Jurk
+Trui
+Hoodie
+Overhemd
+Stropdas
+Vlinderdas
+Maatpak
+Sokken
+Sneakers
+Laarzen
+Hakken
+Muts
+Pet
+Sjaal
+Handschoenen
+Wanten
+Riem
+Bretels
+Handtas
+Rugzak
+Koffer
+Portemonnee
+Horloge
+Ketting
+Oorbellen
+Verlovingsring
+Bril
+Contactlenzen
+Tattoo
+Piercing
+Trouwjurk
+Kroon
+Cowboyhoed
+Hoge hoed
+Sombrero
+Zonnebril
+Slippers
+Badpak
+Zwembroek
+Strandlaken
+Luchtbed
+
+# School en werk
+Schoolbord
+Krijt
+Gum
+Puntenslijper
+Liniaal
+Rekenmachine
+Rapport
+Diploma
+Examen
+Spiekbriefje
+Huiswerk
+Schoolreisje
+Schoolkamp
+Gymles
+Juf
+Meester
+Conciërge
+Kantine
+Broodtrommel
+Schoolbus
+Strafwerk
+Studentenhuis
+Tentamen
+Scriptie
+Stage
+Bijbaantje
+Ontslag
+Promotie
+Koffieautomaat
+Kantoortuin
+Videobellen
+Deadline
+Overuren
+Vrije dag
+Ziekmelding
+Vakantiedagen
+Baas
+Collega
+Teamuitje
+
+# Beroepen en figuren
+Piloot
+Stewardess
+Brandweerman
+Politieagent
+Dokter
+Verpleegkundige
+Dierenarts
+Bakker
+Slager
+Kok
+Ober
+Kapper
+Schilder
+Timmerman
+Loodgieter
+Elektricien
+Boer
+Visser
+Postbode
+Buschauffeur
+Taxichauffeur
+Vuilnisman
+Leraar
+Rechter
+Journalist
+Fotograaf
+Influencer
+YouTuber
+DJ
+Goochelaar
+Clown
+Acrobaat
+Butler
+Detective
+Spion
+Piraat
+Ridder
+Prinses
+Koning
+Keizer
+Heks
+Tovenaar
+Vampier
+Zombie
+Spook
+Weerwolf
+Zeemeermin
+Eenhoorn
+Draak
+Reus
+Dwerg
+Fee
+Engel
+Duivel
+Ninja
+Samoerai
+Cowboy
+Viking
+Gladiator
+Farao
+Mummie
+Superheld
+Wetenschapper
+Badmeester
+Scheidsrechter
+Cheerleader
+Bodyguard
+Oppas
+Astronaut
+Brandweerauto
+Politieauto
+Ambulance
+
+# Uitjes, feesten en plekken
+Kerstmis
+Kerstboom
+Pasen
+Paashaas
+Halloween
+Valentijnsdag
+Moederdag
+Vaderdag
+Bevrijdingsdag
+Prinsjesdag
+Kermis
+Reuzenrad
+Achtbaan
+Botsauto's
+Spookhuis
+Draaimolen
+Circus
+Dierentuin
+Pretpark
+Bioscoop
+Theater
+Concert
+Festival
+Musical
+Opera
+Ballet
+Museum
+Bibliotheek
+Kerk
+Kasteel
+Stadhuis
+Gevangenis
+Treinstation
+Bushalte
+Tankstation
+Parkeergarage
+Snackbar
+Kroeg
+Discotheek
+Hotel
+Hostel
+Bungalowpark
+Wintersport
+Skilift
+Après-ski
+Zomervakantie
+Roadtrip
+Backpacken
+Jetlag
+Paspoort
+Douane
+Bagageband
+Handbagage
+Instapkaart
+Ansichtkaart
+Souvenir
+Zonnesteek
+Muggenbult
+Hooikoorts
+Verkoudheid
+Griep
+De hik
+Niezen
+Snurken
+Slaapwandelen
+Nachtmerrie
+Dagdromen
+Déjà vu
+Heimwee
+Plankenkoorts
+Vlinders in je buik
+Kippenvel
+Spierpijn
+Blauwe plek
+Pleister
+Gips
+Krukken
+Rolstoel
+Thermometer
+Röntgenfoto
+Vaccinatie
+Vuurtoren
+Zandkasteel
+Duinen
+Pier
+Zeilboot
+Kano
+Veerpont
+Cruiseschip
+Duikboot
+Vliegtuig
+Helikopter
+Luchtballon
+Raket
+Maan
+Zon
+Vallende ster
+Komeet
+Planeet
+Zwart gat
+Ufo
+Alien
+Robot
+
+# Techniek en spellen
+Laptop
+Tablet
+Toetsenbord
+Computermuis
+Printer
+Koptelefoon
+Oortjes
+Powerbank
+Bluetooth
+Router
+PlayStation
+Nintendo
+Fortnite
+Minecraft
+Pokémon
+Tetris
+Candy Crush
+Snapchat
+YouTube
+Google
+Facebook
+Tinder
+Uber
+Thuisbezorgd
+Marktplaats
+Albert Heijn
+HEMA
+Action
+Kruidvat
+Jumbo
+Lidl
+Gamma
+Coolblue
+Primark
+Monopoly
+Risk
+Cluedo
+Pictionary
+Kwartet
+Uno
+Pesten
+Klaverjassen
+Poker
+Bingo
+Loterij
+Kraslot
+Verstoppertje
+Tikkertje
+Touwtjespringen
+Hinkelen
+Knikkeren
+Vliegeren
+Stoepkrijt
+Waterpistool
+Tamagotchi
+Jojo
+Fidget spinner
+Rubiks kubus
+Lego
+Playmobil
+Knuffel
+Poppenhuis
+Kleurboek
+Stripboek
+Dammen
+Twister
+Jenga
+Hints
+Touwtrekken
+Zaklopen
+Eierlopen
+Stoelendans
+Hoela-hoep
+
+# Muziek
+Gitaar
+Piano
+Drumstel
+Viool
+Trompet
+Saxofoon
+Dwarsfluit
+Blokfluit
+Harp
+Accordeon
+Mondharmonica
+Draaiorgel
+Doedelzak
+Triangel
+Xylofoon
+Ukelele
+Contrabas
+Microfoon
+Platenspeler
+Cassettebandje
+Walkman
+Cd
+Radio
+Televisie
+Jukebox
+Luchtgitaar
+Dirigent
+Koor
+Boyband
+Rapper
+
+# Natuur en weer
+Hagel
+Sneeuw
+Sneeuwpop
+Sneeuwballengevecht
+Mist
+Storm
+Orkaan
+Tornado
+Hittegolf
+Bliksem
+Donder
+Zonsondergang
+Noorderlicht
+Aardbeving
+Vulkaan
+Tsunami
+Overstroming
+Waterval
+Grot
+Woestijn
+Oerwoud
+Eiland
+Gletsjer
+IJsberg
+Rivier
+Kanaal
+Brug
+Sluis
+Tunnel
+Berg
+Bos
+Boomhut
+Kampvuur
+Paddenstoel
+Klavertje vier
+Zonnebloem
+Cactus
+Palmboom
+Kerstster
+Brandnetel
+
+# Sport (extra)
+Paardrijden
+Karate
+Taekwondo
+Kickboksen
+Worstelen
+Schermen
+Boogschieten
+Roeien
+Zeilen
+Kitesurfen
+Duiken
+Snorkelen
+Waterpolo
+Badminton
+Tafeltennis
+Squash
+Padel
+Honkbal
+Rugby
+American football
+Cricket
+IJshockey
+Curling
+Schansspringen
+Bobsleeën
+Kunstschaatsen
+Turnen
+Polsstokhoogspringen
+Hoogspringen
+Verspringen
+Kogelstoten
+Speerwerpen
+Hordelopen
+Estafette
+Triatlon
+Mountainbiken
+BMX
+Skateboarden
+Klimmen
+Paragliding
+Parachutespringen
+Bungeejumpen
+Jeu de boules
+Biljart
+Tafelvoetbal
+Airhockey
+Olympische Spelen
+WK voetbal
+Tour de France
+Champions League
+Penalty
+Rode kaart
+Buitenspel
+Hattrick
+Slam dunk
+Hole-in-one
+Schaakmat
+Knock-out
+Gouden medaille
+Beker
+Mascotte
+Stadion
+Wave
+Zelfverdediging
+
+# Dieren (extra)
+Muis
+Rat
+Mol
+Das
+Otter
+Bever
+Hert
+Everzwijn
+Haas
+Kikker
+Pad
+Salamander
+Hagedis
+Slang
+Schildpad
+Kameleon
+Leguaan
+Gekko
+Alligator
+Bruine beer
+Wasbeer
+Stinkdier
+Luiaard
+Miereneter
+Gordeldier
+Lama
+Alpaca
+Kameel
+Bizon
+Antilope
+Gazelle
+Jachtluipaard
+Luipaard
+Jaguar
+Lynx
+Hyena
+Gorilla
+Chimpansee
+Orang-oetan
+Aap
+Baviaan
+Lemuur
+Stokstaartje
+Vleermuis
+Kat
+Hond
+Puppy
+Kanarie
+Parkiet
+Pauw
+Kalkoen
+Gans
+Fazant
+Specht
+Kraai
+Ekster
+Mus
+Roodborstje
+Zwaluw
+Kolibrie
+Toekan
+Pelikaan
+Adelaar
+Valk
+Gier
+Emoe
+Walrus
+Zeeleeuw
+Orka
+Narwal
+Zeepaardje
+Zeester
+Zee-egel
+Rog
+Paling
+Snoek
+Karper
+Clownvis
+Piranha
+Zwaardvis
+Regenworm
+Duizendpoot
+Schorpioen
+Sprinkhaan
+Krekel
+Libelle
+Mier
+Wesp
+Hommel
+Vlieg
+Kakkerlak
+Vlo
+Teek
+Rups
+Glimworm
+Dinosaurus
+T-rex
+Mammoet
+Sabeltandtijger
