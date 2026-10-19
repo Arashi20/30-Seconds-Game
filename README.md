@@ -35,6 +35,13 @@ Everyone joins on their **own phone**: no app to install, no account, nothing to
 6. **Score.** When time runs out (or the describer taps *All guessed*), the turn score is **guessed words − die**, never below 0. The team moves that many steps forward.
 7. **Win.** The first team to reach the finish wins. The finish is **30 points** by default, and you can change it when creating a game.
 
+### One-phone mode (game master)
+
+Don't feel like having everyone join? Under **Start a new game**, choose **📱 One phone** instead of **👥 Teams**:
+- Nobody joins and there are no teams or room code. **You're the game master**: you see the 5 words, start the 30 seconds and describe, while everyone around you shouts their guesses. Pass the phone around if you like.
+- The die still subtracts points. The top of the screen shows the **round** and the **running total**.
+- There's no finish line. Tap **End game** whenever you like to see your total, the number of rounds and your best round. **Play again** starts a fresh total.
+
 ### Who sees what
 
 | Player | Before start | During the 30 seconds | After the timer |
@@ -59,9 +66,14 @@ Everyone joins on their **own phone**: no app to install, no account, nothing to
 - The game won't start unless every team has at least 2 players.
 
 **Game settings** (chosen when creating the room)
+- **Mode:** Teams (everyone joins on their own phone) or One phone (a game master describes, everyone guesses)
 - **Word language:** Nederlands or English
-- **Number of teams:** 2, 3 or 4
-- **Points to win:** 5 to 100 (default 30)
+- **Number of teams:** 2, 3 or 4 (teams mode)
+- **Points to win:** 5 to 100 (default 30, teams mode)
+
+**Themes** (chosen by the host in the lobby, before starting)
+- By default the cards come from **all themes**. The host can instead pick any mix of: famous people, characters, places, food & drink, animals, sports & hobbies, everyday life, outings/parties & games, and nature & weather.
+- Each theme shows how many words it has, and the lobby shows the size of the resulting deck. Other players see the choice live but can't change it.
 
 **During play**
 - A live **scoreboard** shows each team's progress, with ▶ marking the team whose turn it is.
@@ -243,6 +255,8 @@ What's covered:
 - no repeated words until the deck runs out
 - the HTTP API and WebSocket flow end-to-end, including error handling
 - the create-room password: only required when `CREATE_PASSWORD` is set, never needed to join
+- one-phone mode: nobody can join, the running total and rounds are kept with no finish line, and ending the game counts the last round
+- themes: every word has a known theme, only the host can pick them (and only before the game), cards come only from the chosen themes, and "all" or "none" means the full deck
 - idle games close after 30 minutes without real actions, even if a forgotten tab keeps sending heartbeats
 - the home-screen app setup: manifest, icons and iPhone tags are served correctly
 - heartbeat: a ping gets a pong (and nothing else); page, CSS and JS are sent with "check for updates" headers
@@ -276,7 +290,7 @@ The words are plain text files, **one word per line**:
 - `app/words/nl.txt`: Dutch
 - `app/words/en.txt`: English
 
-Lines starting with `#` are comments and are ignored. Duplicates are removed automatically. Add your friends' names, inside jokes, favourite series… then restart the server (or push, if you're on Railway). Run `python -m pytest` afterwards as a quick sanity check.
+A line like `## food` starts a **theme**: every word below it belongs to that theme, until the next `## ...` line. The theme ids are `people`, `characters`, `places`, `food`, `animals`, `sports`, `everyday`, `fun` and `nature` (listed in `THEMES` in `app/game.py`). Put new words under the theme they fit. Other lines starting with `#` are comments and are ignored. Duplicates are removed automatically. Add your friends' names, inside jokes, favourite series… then restart the server (or push, if you're on Railway). Run `python -m pytest` afterwards as a quick sanity check.
 
 Want a third language? Add `app/words/de.txt` and add `"de"` to `LANGUAGES` in `app/game.py` and to the language dropdown in `static/index.html`.
 

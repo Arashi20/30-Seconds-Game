@@ -88,6 +88,7 @@ class CreateRoom(BaseModel):
     teams: int = 2
     target: int = DEFAULT_TARGET
     password: str = ""
+    mode: str = "teams"
 
 
 def create_password() -> str:
@@ -115,7 +116,9 @@ async def create_room(body: CreateRoom):
         await asyncio.sleep(1)  # slow down anyone trying to guess it
         raise HTTPException(403, "Wrong password")
     try:
-        room = Room(new_room_code(rooms), lang=body.lang, num_teams=body.teams, target=body.target)
+        room = Room(
+            new_room_code(rooms), lang=body.lang, num_teams=body.teams, target=body.target, mode=body.mode
+        )
         player = room.add_player(body.name)
     except GameError as e:
         raise HTTPException(400, str(e)) from None
@@ -217,6 +220,11 @@ def handle(room: Room, player_id: str, msg: dict) -> None:
         room.stop_early(player_id)
     elif action == "next_turn":
         room.next_turn(player_id)
+    elif action == "set_themes":
+        themes = msg.get("themes")
+        room.set_themes(player_id, list(themes) if themes else None)
+    elif action == "end_game":
+        room.end_game(player_id)
     else:
         raise GameError("Unknown action")
 

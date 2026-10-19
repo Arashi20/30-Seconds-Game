@@ -55,13 +55,21 @@
 
       <div class="card">
         <h2 data-t="newGame"></h2>
+        <div class="mode-pick" role="radiogroup">
+          <button type="button" class="mode on" data-mode="teams" role="radio" aria-checked="true">
+            <span class="mode-icon">👥</span><strong data-t="modeTeams"></strong><small data-t="modeTeamsHint"></small>
+          </button>
+          <button type="button" class="mode" data-mode="solo" role="radio" aria-checked="false">
+            <span class="mode-icon">📱</span><strong data-t="modeSolo"></strong><small data-t="modeSoloHint"></small>
+          </button>
+        </div>
         <label><span data-t="wordLanguage"></span>
           <select id="lang">
             <option value="nl">🇳🇱 Nederlands</option>
             <option value="en">🇬🇧 English</option>
           </select>
         </label>
-        <div class="row">
+        <div id="teams-row" class="row">
           <label><span data-t="teams"></span>
             <select id="teams">
               <option>2</option><option>3</option><option>4</option>
@@ -85,13 +93,23 @@
 
     <!-- Lobby -->
     <section id="screen-lobby" class="screen" hidden>
-      <div class="card center">
+      <div id="solo-intro" class="card center" hidden>
+        <div class="mode-icon big">📱</div>
+        <h2 data-t="soloTitle"></h2>
+        <p class="hint" data-t="soloIntro"></p>
+      </div>
+      <div id="code-card" class="card center">
         <div class="label-small" data-t="roomCode"></div>
         <div id="lobby-code" class="big-code"></div>
         <button id="share-btn" class="btn secondary" data-t="shareLink"></button>
       </div>
-      <p class="hint" data-t="pickTeam"></p>
+      <p id="pick-team" class="hint" data-t="pickTeam"></p>
       <div id="lobby-teams" class="teams"></div>
+      <div id="themes-card" class="card">
+        <h2 data-t="themesTitle"></h2>
+        <div id="theme-chips" class="chips"></div>
+        <p id="deck-size" class="hint"></p>
+      </div>
       <div id="host-controls" class="stack">
         <button id="shuffle-btn" class="btn secondary" data-t="shuffle"></button>
         <button id="start-btn" class="btn primary big" data-t="startGame"></button>
@@ -108,7 +126,7 @@
     <!-- Finished -->
     <section id="screen-finished" class="screen" hidden>
       <div class="card center">
-        <div class="trophy">🏆</div>
+        <div id="trophy" class="trophy">🏆</div>
         <h2 id="winner-text" class="winner"></h2>
         <div id="final-board" class="board"></div>
         <button id="again-btn" class="btn primary big" data-t="playAgain"></button>
