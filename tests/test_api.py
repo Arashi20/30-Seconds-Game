@@ -322,3 +322,19 @@ def test_one_phone_game_over_websocket():
         ws.send_json({"action": "end_game"})
         state = drain(ws, lambda s: s["phase"] == "finished")
         assert state["positions"] == [0]
+
+
+def test_finglish_game():
+    res = client.post("/api/rooms", json={"name": "Maman", "lang": "fa", "mode": "solo"}).json()
+    code, gm = res["code"], res["player_id"]
+    with client.websocket_connect(f"/ws/{code}/{gm}") as ws:
+        state = receive_state(ws)
+        assert state["lang"] == "fa" and state["deck_size"] >= 700
+        ws.send_json({"action": "set_themes", "themes": ["food"]})
+        drain(ws, lambda s: s["themes"] == ["food"])
+        ws.send_json({"action": "start_game"})
+        ws.send_json({"action": "start_timer"})
+        state = drain(ws, lambda s: s["phase"] == "playing" and s["turn"]["phase"] == "running")
+        from app.game import load_themes
+
+        assert set(state["turn"]["words"]) <= set(load_themes("fa")["food"])

@@ -653,7 +653,8 @@ $("password").value = store.get("password") || "";
 fetch("/api/config").then((r) => r.json()).then((cfg) => {
   $("password-row").hidden = !cfg.needs_password || Boolean(store.get("password"));
 }).catch(() => {});
-$("lang").value = uiLang;
+// Word language: Finglish for Persian phones, otherwise the interface language.
+$("lang").value = (navigator.language || "").toLowerCase().startsWith("fa") ? "fa" : uiLang;
 const roomParam = new URLSearchParams(location.search).get("room");
 if (roomParam) $("join-code").value = roomParam.toUpperCase();
 
