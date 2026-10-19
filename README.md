@@ -42,6 +42,17 @@ Don't feel like having everyone join? Under **Start a new game**, choose **📱 
 - The die still subtracts points. The top of the screen shows the **round** and the **running total**.
 - There's no finish line. Tap **End game** whenever you like to see your total, the number of rounds and your best round. **Play again** starts a fresh total.
 
+### ⚡ Blitz!
+
+A second game type next to the classic 30 seconds. Choose **⚡ Blitz!** under **Start a new game**:
+- Each turn lasts **2 minutes**. You see 5 cards at a time and try to clear as many as you can.
+- **+1 point per word**, and a **+3 bonus** when you guess all 5 cards of a set. A full set is worth 8 points, and the next set appears right away.
+- **Stuck? Skip ⏭.** The words you already guessed still count, but the new set stays hidden for **3 seconds** while the clock keeps running. You can't go back to the old set.
+- No die.
+- **Teams:** the host picks the number of **rounds** (1 to 5, default 3). Every team gets that many Blitz turns, and the highest total wins. A tie is possible 🤝.
+- **One phone:** rounds with a running total, until you tap **End game**.
+- Blitz always uses **all themes**, because a 2-minute turn goes through dozens of cards and small themes would start repeating.
+
 ### Who sees what
 
 | Player | Before start | During the 30 seconds | After the timer |
@@ -66,10 +77,12 @@ Don't feel like having everyone join? Under **Start a new game**, choose **📱 
 - The game won't start unless every team has at least 2 players.
 
 **Game settings** (chosen when creating the room)
+- **Game type:** Classic (30 seconds, the die, first to the finish) or ⚡ Blitz! (2 minutes, as many cards as you can, fixed rounds)
 - **Mode:** Teams (everyone joins on their own phone) or One phone (a game master describes, everyone guesses)
 - **Word language:** Nederlands, English or Finglish (Persian written in Latin letters, e.g. *chelo kabab*, *mehmooni*, *taarof*). Phones set to Persian pick Finglish automatically.
 - **Number of teams:** 2, 3 or 4 (teams mode)
-- **Points to win:** 5 to 100 (default 30, teams mode)
+- **Points to win:** 5 to 100 (default 30, classic with teams)
+- **Rounds:** 1 to 5 turns per team (default 3, Blitz with teams)
 
 **Themes** (chosen by the host in the lobby, before starting)
 - By default the cards come from **all themes**. The host can instead pick any mix of: famous people, characters, places, food & drink, animals, sports & hobbies, everyday life, outings/parties & games, and nature & weather.
@@ -256,6 +269,7 @@ What's covered:
 - the HTTP API and WebSocket flow end-to-end, including error handling
 - the create-room password: only required when `CREATE_PASSWORD` is set, never needed to join
 - one-phone mode: nobody can join, the running total and rounds are kept with no finish line, and ending the game counts the last round
+- Blitz: a full set scores 5 + 3 and deals new cards at once; a skip keeps the guessed words, hides the new set for 3 seconds and never brings the old set back; teams play a fixed number of rounds (with winner or tie); one-phone Blitz keeps a running total; Blitz has no themes, and skipping only exists in Blitz
 - themes: every word has a known theme, only the host can pick them (and only before the game), cards come only from the chosen themes, and "all" or "none" means the full deck
 - idle games close after 30 minutes without real actions, even if a forgotten tab keeps sending heartbeats
 - the home-screen app setup: manifest, icons and iPhone tags are served correctly

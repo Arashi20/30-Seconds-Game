@@ -56,6 +56,14 @@
       <div class="card">
         <h2 data-t="newGame"></h2>
         <div class="mode-pick" role="radiogroup">
+          <button type="button" class="mode on" data-style="classic" role="radio" aria-checked="true">
+            <span class="mode-icon">⏱️</span><strong data-t="styleClassic"></strong><small data-t="styleClassicHint"></small>
+          </button>
+          <button type="button" class="mode" data-style="blitz" role="radio" aria-checked="false">
+            <span class="mode-icon">⚡</span><strong data-t="styleBlitz"></strong><small data-t="styleBlitzHint"></small>
+          </button>
+        </div>
+        <div class="mode-pick" role="radiogroup">
           <button type="button" class="mode on" data-mode="teams" role="radio" aria-checked="true">
             <span class="mode-icon">👥</span><strong data-t="modeTeams"></strong><small data-t="modeTeamsHint"></small>
           </button>
@@ -76,8 +84,13 @@
               <option>2</option><option>3</option><option>4</option>
             </select>
           </label>
-          <label><span data-t="target"></span>
+          <label id="target-label"><span data-t="target"></span>
             <input id="target" type="number" min="5" max="100" value="30">
+          </label>
+          <label id="rounds-label" hidden><span data-t="rounds"></span>
+            <select id="rounds">
+              <option>1</option><option>2</option><option selected>3</option><option>4</option><option>5</option>
+            </select>
           </label>
         </div>
         <label id="password-row" hidden><span data-t="password"></span>
@@ -106,6 +119,12 @@
       </div>
       <p id="pick-team" class="hint" data-t="pickTeam"></p>
       <div id="lobby-teams" class="teams"></div>
+      <div id="blitz-card" class="card center" hidden>
+        <div class="mode-icon big">⚡</div>
+        <h2 data-t="styleBlitz"></h2>
+        <p class="hint" data-t="blitzRules"></p>
+        <p class="hint" data-t="blitzThemes"></p>
+      </div>
       <div id="themes-card" class="card">
         <h2 data-t="themesTitle"></h2>
         <div id="theme-chips" class="chips"></div>

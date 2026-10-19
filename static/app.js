@@ -11,19 +11,29 @@ const STRINGS = {
       "Split into teams. Each turn one player is the describer: they see 5 words and have 30 seconds to make their team guess as many as possible — without saying the word itself.\n\n" +
       "The describer taps every word their team guesses. Before the turn a die is rolled (0, 1 or 2) — that many points are subtracted from the turn's score.\n\n" +
       "Teams take turns and the describer rotates. The first team to reach the finish wins!\n\n" +
-      "No time for everyone to join? Choose \"One phone\": a game master describes, the rest guesses out loud, and you just play rounds for a total score.",
+      "No time for everyone to join? Choose \"One phone\": a game master describes, the rest guesses out loud, and you just play rounds for a total score.\n\n" +
+      "⚡ Blitz!: 2 minutes per turn to clear as many cards as you can. +1 per word, +3 for a full set of 5. Skip a set if you're stuck, but the new cards take 3 seconds to show.",
     shareLink: "Share invite link", pickTeam: "Tap a team to join it", shuffle: "Shuffle teams",
     startGame: "Start game", waitHost: "Waiting for the host to start…", team: "Team",
     you: "you", yourTurn: "You're describing!",
     describes: (n) => `${n} is describing`, guessing: "Guess! 🗣️",
     watching: "Watch the words — no cheating!", minus: (d) => `−${d} point${d === 1 ? "" : "s"} this turn`,
-    startTimer: "Start 30 seconds", waitDescriber: (n) => `Waiting for ${n} to start…`,
+    startTimer: "Start 30 seconds", startBlitz: "Start 2 minutes ⚡", waitDescriber: (n) => `Waiting for ${n} to start…`,
     allDone: "All guessed — stop timer", timeUp: "Time's up!",
     turnScore: (h, d) => `${h} guessed − ${d} (die)`,
     fixHint: "Tap a word to correct it", confirm: "Confirm & next turn", skip: "Skip turn (host)",
     waitConfirm: (n) => `Waiting for ${n} to confirm…`, wins: (t) => `${t} wins!`,
     playAgain: "Play again", leave: "Leave game", copied: "Link copied!",
     password: "Password (only to create a game)", wrongPassword: "Wrong password",
+    styleClassic: "Classic", styleClassicHint: "30 seconds, 5 cards and the die",
+    styleBlitz: "Blitz!", styleBlitzHint: "2 minutes: clear as many cards as you can",
+    rounds: "Rounds (turns per team)",
+    blitzRules: "2 minutes per turn. +1 per word, and +3 bonus when you guess all 5 cards of a set. Stuck? Skip to a new set: the cards are hidden for 3 seconds and the old set is gone for good.",
+    blitzThemes: "Blitz always uses all themes.",
+    blitzReady: "2 minutes · +1 per word · +3 for all 5 · skipping costs 3 s",
+    skipSet: "Skip set ⏭", newCardsIn: (n) => `New cards in ${n}…`, livePoints: (n) => `⚡ ${n} point${n === 1 ? "" : "s"}`,
+    blitzBreakdown: (w, s) => `${w} word${w === 1 ? "" : "s"} · ${s} full set${s === 1 ? "" : "s"} × +3`,
+    roundOf: (r, n) => `⚡ Round ${r} of ${n}`, tie: "It's a tie!",
     modeTeams: "Teams", modeTeamsHint: "Everyone joins on their own phone",
     modeSolo: "One phone", modeSoloHint: "A game master describes, everyone guesses",
     soloTitle: "One-phone game",
@@ -60,19 +70,29 @@ const STRINGS = {
       "Verdeel je in teams. Elke beurt is één speler de omschrijver: die ziet 5 woorden en heeft 30 seconden om zijn team er zoveel mogelijk te laten raden — zonder het woord zelf te zeggen.\n\n" +
       "De omschrijver tikt elk geraden woord aan. Vóór de beurt wordt er gegooid met een dobbelsteen (0, 1 of 2) — dat aantal punten gaat van de score van de beurt af.\n\n" +
       "Teams zijn om de beurt en de omschrijver wisselt steeds. Het eerste team bij de finish wint!\n\n" +
-      "Geen zin om iedereen te laten meedoen? Kies \"Eén telefoon\": een spelleider omschrijft, de rest raadt hardop, en jullie spelen gewoon rondes voor een totaalscore.",
+      "Geen zin om iedereen te laten meedoen? Kies \"Eén telefoon\": een spelleider omschrijft, de rest raadt hardop, en jullie spelen gewoon rondes voor een totaalscore.\n\n" +
+      "⚡ Blitz!: 2 minuten per beurt om zoveel mogelijk kaarten te raden. +1 per woord, +3 voor een volle set van 5. Vast? Sla de set over, maar de nieuwe kaarten verschijnen pas na 3 seconden.",
     shareLink: "Deel uitnodigingslink", pickTeam: "Tik op een team om erbij te gaan", shuffle: "Teams husselen",
     startGame: "Start spel", waitHost: "Wachten tot de host het spel start…", team: "Team",
     you: "jij", yourTurn: "Jij mag omschrijven!",
     describes: (n) => `${n} omschrijft`, guessing: "Raden maar! 🗣️",
     watching: "Kijk mee — niet valsspelen!", minus: (d) => `−${d} punt${d === 1 ? "" : "en"} deze beurt`,
-    startTimer: "Start 30 seconden", waitDescriber: (n) => `Wachten tot ${n} start…`,
+    startTimer: "Start 30 seconden", startBlitz: "Start 2 minuten ⚡", waitDescriber: (n) => `Wachten tot ${n} start…`,
     allDone: "Alles geraden — stop de tijd", timeUp: "Tijd is om!",
     turnScore: (h, d) => `${h} geraden − ${d} (dobbelsteen)`,
     fixHint: "Tik op een woord om te corrigeren", confirm: "Bevestig & volgende beurt", skip: "Beurt overslaan (host)",
     waitConfirm: (n) => `Wachten tot ${n} bevestigt…`, wins: (t) => `${t} wint!`,
     playAgain: "Nog een keer", leave: "Spel verlaten", copied: "Link gekopieerd!",
     password: "Wachtwoord (alleen om een spel aan te maken)", wrongPassword: "Verkeerd wachtwoord",
+    styleClassic: "Klassiek", styleClassicHint: "30 seconden, 5 kaarten en de dobbelsteen",
+    styleBlitz: "Blitz!", styleBlitzHint: "2 minuten: zoveel mogelijk kaarten",
+    rounds: "Rondes (beurten per team)",
+    blitzRules: "2 minuten per beurt. +1 per woord, en +3 bonus als je alle 5 kaarten van een set raadt. Vast? Sla over naar een nieuwe set: de kaarten zijn dan 3 seconden verborgen en de oude set is weg.",
+    blitzThemes: "Blitz gebruikt altijd alle thema's.",
+    blitzReady: "2 minuten · +1 per woord · +3 voor alle 5 · overslaan kost 3 s",
+    skipSet: "Set overslaan ⏭", newCardsIn: (n) => `Nieuwe kaarten over ${n}…`, livePoints: (n) => `⚡ ${n} punt${n === 1 ? "" : "en"}`,
+    blitzBreakdown: (w, s) => `${w} woord${w === 1 ? "" : "en"} · ${s} volle set${s === 1 ? "" : "s"} × +3`,
+    roundOf: (r, n) => `⚡ Ronde ${r} van ${n}`, tie: "Gelijkspel!",
     modeTeams: "Teams", modeTeamsHint: "Iedereen doet mee op z'n eigen telefoon",
     modeSolo: "Eén telefoon", modeSoloHint: "Een spelleider omschrijft, iedereen raadt",
     soloTitle: "Spel op één telefoon",
@@ -129,6 +149,9 @@ let lastTickSecond = null;
 let soundOn = store.get("sound") !== false;
 let celebrated = false;
 let createMode = "teams"; // home screen choice: "teams" or "solo"
+let createStyle = "classic"; // home screen choice: "classic" or "blitz"
+let localBlockEnd = null; // blitz: performance.now() when skipped-to cards show
+let seenFullSets = 0; // blitz: full sets already celebrated this turn
 const THEMES = ["people", "characters", "places", "food", "animals", "sports", "everyday", "fun", "nature"];
 
 const $ = (id) => document.getElementById(id);
@@ -183,6 +206,8 @@ const sounds = {
   hit: () => { beep(660, 0.08); setTimeout(() => beep(990, 0.12), 70); },
   buzzer: () => { beep(160, 0.6, "sawtooth", 0.25); beep(120, 0.6, "sawtooth", 0.2); },
   start: () => [523, 659, 784].forEach((f, i) => setTimeout(() => beep(f, 0.12), i * 90)),
+  fullSet: () => [784, 988, 1175].forEach((f, i) => setTimeout(() => beep(f, 0.1, "triangle", 0.22), i * 70)),
+  skip: () => { beep(330, 0.12, "square", 0.08); setTimeout(() => beep(220, 0.18, "square", 0.08), 90); },
   win: () => [523, 659, 784, 1047].forEach((f, i) => setTimeout(() => beep(f, 0.18, "triangle", 0.25), i * 130)),
 };
 
@@ -304,6 +329,7 @@ const playerName = (id) => (state.players.find((p) => p.id === id) || { name: "?
 const me = () => state.players.find((p) => p.id === state.me);
 const isHost = () => state.host_id === state.me;
 const isSolo = () => state?.mode === "solo";
+const isBlitz = () => state?.style === "blitz";
 
 function render() {
   if (!state) return;
@@ -316,6 +342,8 @@ function render() {
 function renderLobby() {
   const solo = isSolo();
   $("solo-intro").hidden = !solo;
+  $("blitz-card").hidden = !isBlitz();
+  $("themes-card").hidden = isBlitz();
   for (const id of ["code-card", "pick-team", "lobby-teams", "shuffle-btn"]) $(id).hidden = solo;
   renderThemes();
   $("lobby-code").textContent = state.code;
@@ -365,13 +393,20 @@ function renderBoard(el) {
     return;
   }
   const active = state.turn?.team;
+  const blitz = isBlitz();
+  // Blitz has no finish line: bars are relative to the leader, plus a round counter.
+  const scale = blitz ? Math.max(1, ...state.positions) : state.target;
   let html = "";
+  if (blitz) {
+    const round = Math.min(state.rounds, Math.min(...state.turns_played) + 1);
+    html += `<div class="label-small round-line">${t("roundOf", round, state.rounds)}</div>`;
+  }
   for (let i = 0; i < state.num_teams; i++) {
     const pos = state.positions[i];
     html += `<div class="track t${i} ${active === i ? "active" : ""}">
       <span class="label">${teamName(i)}${me()?.team === i ? ` <span class="you-tag">${t("you")}</span>` : ""}</span>
-      <span class="bar"><span class="fill" style="width:${(100 * pos) / state.target}%"></span></span>
-      <span class="pos">${pos}/${state.target}</span>
+      <span class="bar"><span class="fill" style="width:${(100 * pos) / scale}%"></span></span>
+      <span class="pos">${blitz ? pos : `${pos}/${state.target}`}</span>
     </div>`;
   }
   el.innerHTML = html;
@@ -402,7 +437,13 @@ function renderTurn() {
     }
     lastPhaseKey = phaseKey;
     lastTickSecond = null;
+    if (turn.phase === "running") seenFullSets = turn.full_sets;
   }
+  if (turn.full_sets > seenFullSets) {
+    seenFullSets = turn.full_sets;
+    if (amDescriber) sounds.fullSet();
+  }
+  localBlockEnd = turn.blocked ? performance.now() + turn.blocked * 1000 : null;
   if (turn.phase === "running" && turn.remaining != null) {
     localEnd = performance.now() + turn.remaining * 1000;
     startTimerLoop();
@@ -421,12 +462,14 @@ function renderTurn() {
     ? `<strong>${isSolo() ? t("soloTurn") : t("yourTurn")}</strong>`
     : `<span class="team-pill t${turn.team}">${teamName(turn.team)}</span> ${t("describes", describer)}`}</div>`;
 
-  if (turn.phase !== "running") {
+  if (isBlitz()) {
+    if (turn.phase === "ready") html += `<p class="hint blitz-hint">${t("blitzReady")}</p>`;
+  } else if (turn.phase !== "running") {
     html += `<div class="die-wrap">${dieHtml(turn.die, rolling)}</div><div class="hint">${t("minus", turn.die)}</div>`;
   }
 
   if (turn.phase === "ready") {
-    if (amDescriber) html += `<div class="stack" style="margin-top:16px"><button class="btn primary big" data-action="start_timer">${t("startTimer")}</button></div>`;
+    if (amDescriber) html += `<div class="stack" style="margin-top:16px"><button class="btn primary big" data-action="start_timer">${isBlitz() ? t("startBlitz") : t("startTimer")}</button></div>`;
     else html += `<p class="hint" style="margin-top:16px">${t("waitDescriber", describer)}</p>`;
     if (isHost() && !amDescriber) html += `<button class="link" data-action="next_turn" style="margin-top:6px">${t("skip")}</button>`;
     if (isSolo() && isHost()) html += `<button class="link" data-action="end_game" style="margin-top:6px">${t("endGame")}</button>`;
@@ -435,24 +478,28 @@ function renderTurn() {
       <svg viewBox="0 0 170 170"><circle class="ring-bg" cx="85" cy="85" r="72"/><circle id="ring" class="ring-fg" cx="85" cy="85" r="72" stroke-dasharray="${RING}" stroke-dashoffset="0"/></svg>
       <div id="timer" class="timer-num"></div>
     </div>`;
-    if (turn.words) {
+    if (isBlitz()) html += `<div class="live-score">${t("livePoints", turn.live_score)}</div>`;
+    if (turn.blocked) {
+      html += `<div class="blocked"><span id="blocked-num">${t("newCardsIn", Math.ceil(turn.blocked))}</span></div>`;
+    } else if (turn.words) {
       if (!amDescriber) html += `<p class="hint">${t("watching")}</p>`;
       html += wordsHtml(turn, amDescriber, newHits);
     } else {
       html += `<p class="guessing">${t("guessing")}</p>`;
     }
-    if (amDescriber) html += `<button class="btn secondary" data-action="stop_early">${t("allDone")}</button>`;
+    if (amDescriber && isBlitz()) html += `<button class="btn secondary" data-action="skip_set" ${turn.blocked ? "disabled" : ""}>${t("skipSet")}</button>`;
+    else if (amDescriber) html += `<button class="btn secondary" data-action="stop_early">${t("allDone")}</button>`;
   } else {
     html += `<div class="times-up">${t("timeUp")}</div>`;
     html += wordsHtml(turn, true, newHits);
     html += `<div class="score-pop ${turn.score ? "" : "zero"}">+${turn.score}</div>`;
-    html += `<div class="score-calc">${t("turnScore", turn.hits.length, turn.die)}</div>`;
+    html += `<div class="score-calc">${isBlitz() ? t("blitzBreakdown", turn.words_guessed, turn.full_sets) : t("turnScore", turn.hits.length, turn.die)}</div>`;
     html += `<p class="hint" style="margin-bottom:12px">${t("fixHint")}</p>`;
     if (turn.describer_left) html += `<p class="note">${t("describerLeft", describer, teamName(turn.team))}</p>`;
     if (amDescriber) html += `<button class="btn primary big" data-action="next_turn">${isSolo() ? t("nextRound") : t("confirm")}</button>`;
-    if (isSolo() && isHost()) html += `<button class="link" data-action="end_game" style="margin-top:8px">${t("endGame")}</button>`;
     else if (isHost()) html += `<button class="btn primary big" data-action="next_turn">${turn.describer_left ? t("confirmFor", teamName(turn.team)) : t("confirm")}</button>`;
     else html += `<p class="hint">${t("waitConfirm", turn.describer_left ? esc(playerName(state.host_id)) : describer)}</p>`;
+    if (isSolo() && isHost()) html += `<button class="link" data-action="end_game" style="margin-top:8px">${t("endGame")}</button>`;
   }
   el.innerHTML = html;
   updateTimer();
@@ -478,9 +525,9 @@ function renderFinished() {
       <span class="label-small">${t("soloStats", rounds, rounds ? Math.max(...state.round_scores) : 0)}</span>
     </div>`;
   } else {
-    $("trophy").textContent = "🏆";
-    winner.textContent = t("wins", teamName(state.winner));
-    winner.className = `winner t${state.winner}`;
+    $("trophy").textContent = state.tie ? "🤝" : "🏆";
+    winner.textContent = state.tie ? t("tie") : t("wins", teamName(state.winner));
+    winner.className = state.tie ? "winner" : `winner t${state.winner}`;
     renderBoard($("final-board"));
   }
   $("again-btn").hidden = !isHost();
@@ -501,6 +548,10 @@ function updateTimer() {
   num.textContent = secs;
   $("ring").setAttribute("stroke-dashoffset", RING * (1 - left / total));
   $("timer-ring").classList.toggle("low", secs <= 5);
+  const blockedEl = $("blocked-num");
+  if (blockedEl && localBlockEnd != null) {
+    blockedEl.textContent = t("newCardsIn", Math.max(1, Math.ceil((localBlockEnd - performance.now()) / 1000)));
+  }
 
   if (state.turn?.describer_id === state.me && secs !== lastTickSecond) {
     if (secs <= 5 && secs > 0) sounds.tick();
@@ -548,14 +599,18 @@ function getName() {
   return name;
 }
 
-for (const btn of document.querySelectorAll(".mode")) {
+// Two pickers on the home screen: game type (classic/blitz) and mode (teams/one phone).
+for (const btn of document.querySelectorAll(".mode-pick .mode")) {
   btn.onclick = () => {
-    createMode = btn.dataset.mode;
-    for (const b of document.querySelectorAll(".mode")) {
+    for (const b of btn.parentElement.querySelectorAll(".mode")) {
       b.classList.toggle("on", b === btn);
       b.setAttribute("aria-checked", String(b === btn));
     }
+    if (btn.dataset.mode) createMode = btn.dataset.mode;
+    if (btn.dataset.style) createStyle = btn.dataset.style;
     $("teams-row").hidden = createMode === "solo";
+    $("target-label").hidden = createStyle === "blitz";
+    $("rounds-label").hidden = createStyle !== "blitz";
   };
 }
 
@@ -572,7 +627,7 @@ $("create-btn").onclick = async () => {
     const password = $("password").value;
     const res = await api("/api/rooms", {
       name, lang: $("lang").value, teams: Number($("teams").value), target: Number($("target").value), password,
-      mode: createMode,
+      mode: createMode, style: createStyle, rounds: Number($("rounds").value),
     });
     if (password) store.set("password", password);
     enterRoom(res.code, res.player_id);

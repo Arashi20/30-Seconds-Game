@@ -16,6 +16,12 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 TURN_SECONDS = 30
+# Blitz!: one long turn per team in which you clear as many cards as you can.
+STYLES = ("classic", "blitz")
+BLITZ_SECONDS = 120
+SKIP_PENALTY_SECONDS = 3  # cards are hidden this long after a skip
+SET_BONUS = 3  # extra points for guessing all 5 cards of a set
+DEFAULT_ROUNDS = 3  # blitz with teams: turns per team
 WORDS_PER_CARD = 5
 DIE_FACES = (0, 0, 1, 1, 2, 2)  # the original die: two blanks, two 1s, two 2s
 DEFAULT_TARGET = 30
@@ -107,6 +113,11 @@ class Turn:
     phase: str = "ready"  # ready | running | review
     ends_at: float | None = None
     score: int = 0
+    # Blitz only: points and words from earlier sets in this turn.
+    banked: int = 0
+    words_guessed: int = 0
+    full_sets: int = 0
+    blocked_until: float | None = None  # skip penalty: new cards hidden until then
 
 
 class Room:
@@ -118,9 +129,15 @@ class Room:
         target: int = DEFAULT_TARGET,
         rng: random.Random | None = None,
         mode: str = "teams",
+        style: str = "classic",
+        rounds: int = DEFAULT_ROUNDS,
     ):
         if mode not in MODES:
             raise GameError("Unknown game mode")
+        if style not in STYLES:
+            raise GameError("Unknown game type")
+        if not 1 <= rounds <= 10:
+            raise GameError("Choose 1 to 10 rounds")
         if mode == "solo":
             num_teams = 1  # one phone, no teams: just rounds and a running total
         elif not 2 <= num_teams <= 4:
@@ -130,8 +147,12 @@ class Room:
         self.code = code
         self.lang = lang
         self.mode = mode
+        self.style = style
+        self.rounds = rounds
         self.num_teams = num_teams
         self.target = target
+        self.turns_played = [0] * num_teams  # blitz with teams
+        self.tie = False
         self.rng = rng or random.Random()
         self.private_deck = rng is not None  # tests: private, reproducible deck
         self.themes: tuple[str, ...] | None = None  # None = all themes
@@ -235,6 +256,9 @@ class Room:
     def set_themes(self, player_id: str, themes: list[str] | None) -> None:
         """Pick which themes the cards come from. None (or all of them) = everything."""
         self._require_host(player_id)
+        if self.style == "blitz":
+            # A blitz turn goes through dozens of cards: small themes would repeat.
+            raise GameError("Blitz always uses all themes")
         if self.phase == "playing":
             raise GameError("Choose themes before the game starts")
         if themes:
@@ -267,7 +291,9 @@ class Room:
         self.phase = "playing"
         self.positions = [0] * self.num_teams
         self.round_scores = []
+        self.turns_played = [0] * self.num_teams
         self.winner = None
+        self.tie = False
         self.next_team = 0
         self.describer_index = [0] * self.num_teams
         self._new_turn()
@@ -279,21 +305,62 @@ class Room:
         if player_id != turn.describer_id:
             raise GameError("Only the describer can start")
         turn.phase = "running"
-        turn.ends_at = (now or time.time()) + TURN_SECONDS
+        turn.ends_at = (now or time.time()) + self.turn_seconds
         return turn
 
-    def toggle_word(self, player_id: str, index: int) -> None:
+    @property
+    def turn_seconds(self) -> int:
+        return BLITZ_SECONDS if self.style == "blitz" else TURN_SECONDS
+
+    def _score(self, turn: Turn) -> int:
+        if self.style == "blitz":
+            # 1 point per word, +SET_BONUS when the current set is complete.
+            full = len(turn.hits) == WORDS_PER_CARD
+            return turn.banked + len(turn.hits) + (SET_BONUS if full else 0)
+        return max(0, len(turn.hits) - turn.die)
+
+    def toggle_word(self, player_id: str, index: int, now: float | None = None) -> None:
         turn = self._current_turn()
         if turn.phase not in ("running", "review"):
             raise GameError("The turn hasn't started")
         # Describer ticks words live; during review anyone may correct mistakes.
         if turn.phase == "running" and player_id != turn.describer_id:
             raise GameError("Only the describer can tick words")
+        if self._blocked(turn, now):
+            raise GameError("New cards are coming…")
         if not 0 <= index < len(turn.words):
             raise GameError("Invalid word")
         turn.hits ^= {index}
         if turn.phase == "review":
-            turn.score = max(0, len(turn.hits) - turn.die)
+            turn.score = self._score(turn)
+        elif self.style == "blitz" and len(turn.hits) == WORDS_PER_CARD:
+            # Whole set guessed: bank it with the bonus and deal a new set at once.
+            turn.banked += WORDS_PER_CARD + SET_BONUS
+            turn.words_guessed += WORDS_PER_CARD
+            turn.full_sets += 1
+            turn.words = self._draw(WORDS_PER_CARD)
+            turn.hits = set()
+
+    def skip_set(self, player_id: str, now: float | None = None) -> float:
+        """Blitz: give up on the current set. Guessed words still count; the new
+        set stays hidden for SKIP_PENALTY_SECONDS. Returns when it shows."""
+        if self.style != "blitz":
+            raise GameError("Skipping is only for Blitz")
+        turn = self._current_turn("running")
+        if player_id != turn.describer_id:
+            raise GameError("Only the describer can skip")
+        if self._blocked(turn, now):
+            raise GameError("New cards are coming…")
+        turn.banked += len(turn.hits)
+        turn.words_guessed += len(turn.hits)
+        turn.words = self._draw(WORDS_PER_CARD)
+        turn.hits = set()
+        turn.blocked_until = (now or time.time()) + SKIP_PENALTY_SECONDS
+        return turn.blocked_until
+
+    @staticmethod
+    def _blocked(turn: Turn, now: float | None = None) -> bool:
+        return turn.blocked_until is not None and (now or time.time()) < turn.blocked_until
 
     def finish_turn(self, turn_number: int | None = None) -> bool:
         """Stop the timer and go to review. Returns False if nothing changed
@@ -305,7 +372,8 @@ class Room:
             return False
         turn.phase = "review"
         turn.ends_at = None
-        turn.score = max(0, len(turn.hits) - turn.die)
+        turn.blocked_until = None
+        turn.score = self._score(turn)
         return True
 
     def stop_early(self, player_id: str) -> None:
@@ -333,6 +401,21 @@ class Room:
             # No finish line: keep a running total until the game master ends it.
             self.positions[0] += score
             self.round_scores.append(score)
+            self._new_turn()
+            return
+        if self.style == "blitz":
+            # Every team plays a fixed number of turns; highest total wins.
+            self.positions[turn.team] += score
+            self.turns_played[turn.team] += 1
+            active = [t for t in range(self.num_teams) if self.team_members(t)]
+            if all(self.turns_played[t] >= self.rounds for t in active):
+                best = max(self.positions[t] for t in active)
+                leaders = [t for t in active if self.positions[t] == best]
+                self.tie = len(leaders) > 1
+                self.winner = None if self.tie else leaders[0]
+                self.phase = "finished"
+                self.turn = None
+                return
             self._new_turn()
             return
         self.positions[turn.team] = min(self.target, self.positions[turn.team] + score)
@@ -374,7 +457,7 @@ class Room:
             team=team,
             describer_id=describer.id,
             describer_name=describer.name,
-            die=self.rng.choice(DIE_FACES),
+            die=0 if self.style == "blitz" else self.rng.choice(DIE_FACES),
             words=self._draw(WORDS_PER_CARD),
         )
 
@@ -396,6 +479,9 @@ class Room:
             show_words = t.phase == "review" or (
                 t.phase == "running" and (is_describer or not on_turn_team)
             )
+            blocked = max(0.0, t.blocked_until - now) if self._blocked(t, now) else None
+            if blocked:
+                show_words = False  # skip penalty: nobody sees the new set yet
             turn_state = {
                 "number": t.number,
                 "team": t.team,
@@ -407,6 +493,10 @@ class Room:
                 "words": t.words if show_words else None,
                 "hits": sorted(t.hits),
                 "score": t.score,
+                "live_score": self._score(t),
+                "words_guessed": t.words_guessed + len(t.hits),
+                "full_sets": t.full_sets,
+                "blocked": blocked,
                 "remaining": max(0.0, t.ends_at - now) if t.ends_at else None,
             }
         return {
@@ -414,6 +504,12 @@ class Room:
             "lang": self.lang,
             "phase": self.phase,
             "mode": self.mode,
+            "style": self.style,
+            "rounds": self.rounds,
+            "turns_played": self.turns_played,
+            "tie": self.tie,
+            "set_bonus": SET_BONUS,
+            "skip_penalty": SKIP_PENALTY_SECONDS,
             "themes": list(self.themes) if self.themes else None,
             "theme_counts": self.theme_counts,
             "deck_size": len(self.all_words),
@@ -429,7 +525,7 @@ class Room:
             "positions": self.positions,
             "winner": self.winner,
             "turn": turn_state,
-            "turn_seconds": TURN_SECONDS,
+            "turn_seconds": self.turn_seconds,
         }
 
     # ----- helpers -----

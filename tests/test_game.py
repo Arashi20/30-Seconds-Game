@@ -421,3 +421,103 @@ def test_all_or_no_themes_means_the_full_deck():
     assert room.themes is None and len(room.all_words) == len(load_words("en"))
     with pytest.raises(GameError):
         room.set_themes(ids[0], ["bogus"])
+
+
+# ----- Blitz! -----
+
+def make_blitz(players=4, rounds=2, mode="teams", seed=1):
+    room = Room("BLTZ", lang="en", mode=mode, style="blitz", rounds=rounds, rng=random.Random(seed))
+    ids = [room.add_player(f"P{i}").id for i in range(1 if mode == "solo" else players)]
+    for p in room.players.values():
+        p.connected = True
+    return room, ids
+
+
+def test_blitz_full_set_scores_bonus_and_deals_new_cards_at_once():
+    from app.game import SET_BONUS
+
+    room, ids = make_blitz()
+    room.start_game(ids[0])
+    turn = room.turn
+    assert turn.die == 0
+    room.start_timer(turn.describer_id, now=1000)
+    assert turn.ends_at == 1000 + 120
+    first = list(turn.words)
+    for i in range(5):
+        room.toggle_word(turn.describer_id, i, now=1001)
+    assert turn.banked == 5 + SET_BONUS and turn.full_sets == 1
+    assert turn.words != first and turn.hits == set()  # fresh set, no penalty
+    assert turn.blocked_until is None
+
+
+def test_blitz_skip_keeps_guessed_words_and_blocks_for_a_few_seconds():
+    from app.game import SKIP_PENALTY_SECONDS
+
+    room, ids = make_blitz()
+    room.start_game(ids[0])
+    turn = room.turn
+    d = turn.describer_id
+    room.start_timer(d, now=1000)
+    first = list(turn.words)
+    room.toggle_word(d, 0, now=1001)
+    room.toggle_word(d, 3, now=1001)
+    room.skip_set(d, now=1002)
+    assert turn.banked == 2 and turn.words_guessed == 2  # no bonus
+    assert not set(turn.words) & set(first)  # the old set is gone for good
+    with pytest.raises(GameError):
+        room.toggle_word(d, 0, now=1002 + SKIP_PENALTY_SECONDS - 0.1)  # still hidden
+    teammate = next(p.id for p in room.team_members(turn.team) if p.id != d)
+    state = room.state_for(d, now=1003)
+    assert state["turn"]["words"] is None and state["turn"]["blocked"] > 0
+    room.toggle_word(d, 0, now=1002 + SKIP_PENALTY_SECONDS + 0.1)
+    assert room.state_for(d, now=1006)["turn"]["words"] == turn.words
+    assert room.state_for(teammate, now=1006)["turn"]["words"] is None  # guessers still can't peek
+    room.finish_turn()
+    assert turn.score == 3  # 2 from the skipped set + 1
+
+
+def test_blitz_teams_play_fixed_rounds_and_highest_total_wins():
+    room, ids = make_blitz(rounds=2)
+    room.start_game(ids[0])
+    scores = {0: [8, 3], 1: [2, 4]}
+    for r in range(2):
+        for team in (0, 1):
+            turn = room.turn
+            assert turn.team == team
+            room.start_timer(turn.describer_id)
+            turn.banked = scores[team][r]
+            room.finish_turn()
+            room.next_turn(turn.describer_id)
+    assert room.phase == "finished"
+    assert room.positions == [11, 6] and room.winner == 0 and not room.tie
+
+
+def test_blitz_tie():
+    room, ids = make_blitz(rounds=1)
+    room.start_game(ids[0])
+    for _ in range(2):
+        room.next_turn(room.host_id)  # host skips: both teams 0 points
+    assert room.phase == "finished" and room.tie and room.winner is None
+
+
+def test_blitz_has_no_themes_and_skip_is_blitz_only():
+    room, ids = make_blitz()
+    with pytest.raises(GameError, match="all themes"):
+        room.set_themes(ids[0], ["food"])
+    classic, cids = make_room()
+    classic.start_game(cids[0])
+    classic.start_timer(classic.turn.describer_id)
+    with pytest.raises(GameError):
+        classic.skip_set(classic.turn.describer_id)
+
+
+def test_blitz_one_phone_keeps_a_running_total():
+    room, ids = make_blitz(mode="solo")
+    room.start_game(ids[0])
+    room.start_timer(ids[0])
+    for i in range(5):
+        room.toggle_word(ids[0], i)
+    room.toggle_word(ids[0], 0)
+    room.finish_turn()
+    room.next_turn(ids[0])
+    assert room.positions == [9] and room.phase == "playing"

@@ -17,7 +17,15 @@ from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
-from app.game import DEFAULT_TARGET, TURN_SECONDS, GameError, Room, new_room_code
+from app.game import (
+    BLITZ_SECONDS,
+    DEFAULT_ROUNDS,
+    DEFAULT_TARGET,
+    TURN_SECONDS,
+    GameError,
+    Room,
+    new_room_code,
+)
 
 STATIC_DIR = Path(__file__).parent.parent / "static"
 # A room with no real action (joining, starting a turn, ticking words, ...) for
@@ -89,6 +97,8 @@ class CreateRoom(BaseModel):
     target: int = DEFAULT_TARGET
     password: str = ""
     mode: str = "teams"
+    style: str = "classic"
+    rounds: int = DEFAULT_ROUNDS
 
 
 def create_password() -> str:
@@ -117,7 +127,13 @@ async def create_room(body: CreateRoom):
         raise HTTPException(403, "Wrong password")
     try:
         room = Room(
-            new_room_code(rooms), lang=body.lang, num_teams=body.teams, target=body.target, mode=body.mode
+            new_room_code(rooms),
+            lang=body.lang,
+            num_teams=body.teams,
+            target=body.target,
+            mode=body.mode,
+            style=body.style,
+            rounds=body.rounds,
         )
         player = room.add_player(body.name)
     except GameError as e:
@@ -198,9 +214,15 @@ async def broadcast(room: Room) -> None:
 
 
 async def expire_turn(room: Room, turn_number: int) -> None:
-    await asyncio.sleep(TURN_SECONDS)
+    await asyncio.sleep(BLITZ_SECONDS if room.style == "blitz" else TURN_SECONDS)
     if room.finish_turn(turn_number):
         await broadcast(room)
+
+
+async def reveal_after_skip(room: Room, shows_at: float) -> None:
+    """Blitz: show everyone the new set once the skip penalty is over."""
+    await asyncio.sleep(max(0.0, shows_at - time.time()) + 0.05)
+    await broadcast(room)
 
 
 def handle(room: Room, player_id: str, msg: dict) -> None:
@@ -214,6 +236,9 @@ def handle(room: Room, player_id: str, msg: dict) -> None:
     elif action == "start_timer":
         turn = room.start_timer(player_id)
         asyncio.create_task(expire_turn(room, turn.number))
+    elif action == "skip_set":
+        shows_at = room.skip_set(player_id)
+        asyncio.create_task(reveal_after_skip(room, shows_at))
     elif action == "toggle_word":
         room.toggle_word(player_id, int(msg["index"]))
     elif action == "stop_early":
