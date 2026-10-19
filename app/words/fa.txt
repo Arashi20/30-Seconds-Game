@@ -1,0 +1,915 @@
+# Finglish (Persian in Latin letters): one word per line. Lines starting with # are ignored.
+# A line '## theme' puts all words below it in that theme (see THEMES in app/game.py).
+# Finglish spelling varies (kh/gh/sh/ch, oo or u); we use the most common, readable one.
+# Feel free to add your own (names of relatives, family inside jokes, ...).
+
+## people
+# Khanandeh-ha (singers)
+Googoosh
+Dariush
+Ebi
+Hayedeh
+Mahasti
+Moein
+Vigen
+Sattar
+Andy
+Shahram Shabpareh
+Leila Forouhar
+Siavash Ghomayshi
+Shadmehr Aghili
+Mohsen Yeganeh
+Mohsen Chavoshi
+Behnam Bani
+Reza Sadeghi
+Hamed Homayoun
+Sasy
+Arash
+Marzieh
+Mohammad Reza Shajarian
+Homayoun Shajarian
+Shahram Nazeri
+Kayhan Kalhor
+Hassan Shamaizadeh
+Omid
+Kourosh Yaghmaei
+Faramarz Aslani
+Shohreh Solati
+Morteza Pashaei
+Benyamin Bahadori
+Siamak Abbasi
+# Bazigar-ha va kargardan-ha (actors and directors)
+Mehran Modiri
+Reza Attaran
+Parviz Parastui
+Bahram Radan
+Mohammad Reza Golzar
+Shahab Hosseini
+Asghar Farhadi
+Abbas Kiarostami
+Golshifteh Farahani
+Leila Hatami
+Hedieh Tehrani
+Taraneh Alidoosti
+Niki Karimi
+Behrouz Vossoughi
+Ezzatollah Entezami
+Ali Nasirian
+Akbar Abdi
+Jamshid Hashempour
+Reza Rooygari
+Siamak Ansari
+Javad Rezvanian
+Mohammad Bahrami
+# Varzeshkar-ha (athletes)
+Ali Daei
+Ali Karimi
+Mehdi Mahdavikia
+Sardar Azmoun
+Mehdi Taremi
+Alireza Beiranvand
+Hassan Yazdani
+Hossein Rezazadeh
+Gholamreza Takhti
+Kimia Alizadeh
+Andre Agassi
+Anousheh Ansari
+Maryam Mirzakhani
+Ali Parvin
+Nasser Hejazi
+# Shaer-ha va bozorgan (poets and greats)
+Ferdowsi
+Hafez
+Saadi
+Molavi
+Khayyam
+Attar
+Nezami
+Ebn-e Sina
+Razi
+Kourosh-e Kabir
+Dariush-e Bozorg
+Forough Farrokhzad
+Sohrab Sepehri
+Ahmad Shamlou
+Sadegh Hedayat
+Fereydoun Moshiri
+Shahriar
+Parvin Etesami
+Kamal-ol-Molk
+Mahmoud Farshchian
+# Jahani (worldwide)
+Einstein
+Charli Chaplin
+Mister Bean
+Michael Jackson
+Messi
+Ronaldo
+Jackie Chan
+Bruce Lee
+Napoleon
+Leonardo DiCaprio
+Tom Cruise
+Shakira
+Elon Musk
+Bill Gates
+Steve Jobs
+
+## characters
+Rostam
+Sohrab
+Tahmineh
+Rakhsh
+Zal
+Rudabeh
+Simorgh
+Div-e Sefid
+Zahhak
+Kaveh Ahangar
+Fereydoun
+Siavash
+Esfandiar
+Arash-e Kamangir
+Bijan o Manijeh
+Leili o Majnoon
+Shirin o Farhad
+Amoo Norooz
+Haji Firuz
+Naneh Sarma
+Mollah Nasreddin
+Kadoo Ghelgheleh Zan
+Shangool o Mangool
+Hassan Kachal
+Khaleh Sooskeh
+Agha Mooshe
+Kolah Ghermezi
+Ali Baba
+Chehel Dozd
+Aladdin
+Cheragh-e Jadoo
+Sinbad
+Shahrzad
+Hezar-o-yek Shab
+Div
+Pari
+Jen
+Lulu
+Ghoul
+Malavan Zabel
+Tom o Jerry
+Palang-e Soorati
+Pinokio
+Sefid Barfi
+Cinderella
+Heidi
+Fotbalist-ha
+Batman
+Superman
+Spider-Man
+Mickey Mouse
+Babanoel
+Boz-e Zangooleh Pa
+Hanzel o Gretel
+Shir Shah
+Shrek
+
+## places
+# Iran
+Tehran
+Esfahan
+Shiraz
+Tabriz
+Mashhad
+Yazd
+Kerman
+Kashan
+Rasht
+Ramsar
+Shomal
+Kish
+Gheshm
+Hormoz
+Bandar Abbas
+Chabahar
+Hamedan
+Kermanshah
+Ahvaz
+Abadan
+Ghazvin
+Zanjan
+Ardabil
+Sari
+Babolsar
+Chalus
+Masuleh
+Abyaneh
+Kandovan
+Takht-e Jamshid
+Pasargad
+Naghsh-e Rostam
+Meydan-e Naghsh-e Jahan
+Si-o-se Pol
+Pol-e Khajoo
+Borj-e Milad
+Borj-e Azadi
+Damavand
+Darband
+Tochal
+Darakeh
+Bazar-e Bozorg
+Tajrish
+Vanak
+Khiaboon-e Valiasr
+Shemiran
+Karaj
+Lavasan
+Dizin
+Shemshak
+Kooh-e Alborz
+Zagros
+Daryaye Khazar
+Khalij-e Fars
+Bagh-e Eram
+Hafezieh
+Saadieh
+Bagh-e Fin
+Arg-e Bam
+Dasht-e Lut
+Kalut
+Ghaleh Rudkhan
+Ganjnameh
+Bisotun
+Chogha Zanbil
+Shush
+Daryacheh-ye Urmia
+Jadeh Chalus
+Park-e Mellat
+Park-e Laleh
+# Jahan (world)
+Dubai
+Estanbol
+Antalya
+Los Anjeles
+Tehrangeles
+London
+Paris
+Amrika
+Kanada
+Almaan
+Faranseh
+Engelis
+Torkiyeh
+Armanestan
+Gorjestan
+Afghanestan
+Hend
+Chin
+Japon
+Mesr
+Ahram-e Mesr
+Borj-e Eiffel
+Mojasameh-ye Azadi
+Toronto
+Vancouver
+Hamburg
+Stockholm
+Sydney
+Moskow
+Italia
+Espania
+Yunan
+Holand
+
+## food
+# Ghaza-ha (dishes)
+Chelo kabab
+Kabab koobideh
+Joojeh kabab
+Kabab barg
+Kabab soltani
+Chenjeh
+Kabab torsh
+Ghormeh sabzi
+Gheimeh
+Fesenjoon
+Kashk-e bademjan
+Mirza ghasemi
+Baghali polo
+Sabzi polo mahi
+Zereshk polo
+Albaloo polo
+Adas polo
+Lubia polo
+Shirin polo
+Estamboli polo
+Kalam polo
+Reshteh polo
+Morgh polo
+Tahchin
+Tahdig
+Dami
+Kateh
+Abgoosht
+Dizi
+Ash reshteh
+Ash-e jo
+Ash-e anar
+Ash-e doogh
+Halim
+Kaleh pacheh
+Kotlet
+Kuku sabzi
+Kuku sibzamini
+Shami
+Dolmeh
+Khoresh bademjan
+Khoresh karafs
+Khoresh alu
+Eshkeneh
+Olivieh
+Salad shirazi
+Sosis bandari
+Kalbas
+Jigar
+Del o jigar
+Kabab tabei
+Sambooseh
+Felafel
+Hamberger
+Pitza
+Makaroni
+# Shirini-ha (sweets)
+Sholeh zard
+Shir berenj
+Fereni
+Halva
+Sohan
+Gaz
+Pashmak
+Nan berenji
+Nan nokhodchi
+Koloocheh
+Baghlava
+Zoolbia
+Bamieh
+Faloodeh
+Bastani sonnati
+Ranginak
+Cake yazdi
+Noghl
+Ghotab
+Nan-e khamei
+Shirini-e tar
+Shirini-e khoshk
+Samanu
+Nabat
+Ghand
+# Ajil va mive (nuts and fruit)
+Ajil
+Tokhmeh
+Pesteh
+Badam
+Gerdoo
+Fandogh
+Keshmesh
+Khorma
+Toot
+Lavashak
+Alucheh
+Gojeh sabz
+Zereshk
+Anar
+Hendevaneh
+Kharbozeh
+Sib
+Golabi
+Porteghal
+Narengi
+Moz
+Angoor
+Gilas
+Albaloo
+Holoo
+Zardaloo
+Anjir
+Toot farangi
+Limoo shirin
+Beh
+# Sabzi va chashni (vegetables and seasoning)
+Khiar
+Gojeh farangi
+Sibzamini
+Piaz
+Sir
+Bademjan
+Torshi
+Sir torshi
+Mast-o-khiar
+Mast-o-musir
+Sabzi khordan
+Kashk
+Ghooreh
+Golpar
+Zaferoon
+Somagh
+Limoo amani
+Advieh
+Pofak namaki
+# Nan va nooshidani (bread and drinks)
+Nan sangak
+Nan barbari
+Nan lavash
+Nan taftoon
+Paneer
+Mast
+Kareh
+Asal
+Morabba
+Doogh
+Sharbat
+Chai
+Chai nabat
+Ghahveh
+Shir
+Ab-e porteghal
+Nooshabeh
+Delester
+
+## animals
+Gorbeh
+Sag
+Asb
+Khar
+Gav
+Gusfand
+Boz
+Morgh
+Khoroos
+Joojeh
+Ordak
+Ghaz
+Kabootar
+Kalagh
+Gonjeshk
+Tooti
+Bolbol
+Oghab
+Joghd
+Shotor
+Fil
+Shir-e jangal
+Babr
+Palang
+Yuzpalang-e Irani
+Gorg
+Roobah
+Khers
+Meymoon
+Zarafeh
+Gooreh khar
+Kargadan
+Asb-e abi
+Timsah
+Lakposht
+Moosh
+Khargoosh
+Sanjab
+Tavoos
+Shotormorgh
+Panguan
+Delfin
+Nahang
+Kooseh
+Mahi
+Mahi ghermez
+Kharchang
+Meygoo
+Hasht-pa
+Halazoon
+Kerm
+Ankaboot
+Aghrab
+Zanboor
+Zanboor asal
+Magas
+Pasheh
+Parvaneh
+Kafshdoozak
+Moorcheh
+Malakh
+Soosk
+Ghoorbagheh
+Mar
+Marmoolak
+Khafash
+Kangoroo
+Panda
+Khers-e ghotbi
+Gavmish
+Ahoo
+Gavazn
+Boz-e kuhi
+Ghoo
+Laklak
+Morgh-e daryaei
+Shahin
+Kabk
+Dinasor
+
+## sports
+Football
+Koshti
+Varzesh-e bastani
+Zoorkhaneh
+Meel
+Chogan
+Volleyball
+Basketball
+Futsal
+Tennis
+Ping pong
+Badminton
+Shena
+Docharkheh savari
+Kooh-navardi
+Ski
+Boks
+Taekwondo
+Karate
+Judo
+Vazneh bardari
+Do-o-meydani
+Gol
+Penalti
+Kart-e ghermez
+Jam-e Jahani
+Esteghlal
+Persepolis
+Tim-e meli
+Darbi
+Varzeshgah-e Azadi
+Shatranj
+Takhteh nard
+Pasoor
+Hokm
+Mench
+Mafia
+Esm-o-famil
+Gol ya pooch
+Ghayem moshak
+Tanab keshi
+Tila bazi
+Badbadak
+Alak dolak
+Haft sang
+Yoga
+Bashgah
+Tanab bazi
+Varzesh-e sobhgahi
+Domino
+
+## everyday
+# Khanevadeh (family)
+Maman bozorg
+Baba bozorg
+Ammeh
+Khaleh
+Amoo
+Dayi
+Pesar khaleh
+Dokhtar ammeh
+Zan-e dayi
+Shohar khaleh
+Jari
+Arous
+Damad
+Madar shohar
+Madar zan
+Naveh
+Dogholoo
+# Khaneh (home)
+Samovar
+Ghoori
+Estekan
+Naalbaki
+Ghand-dan
+Sofreh
+Farsh-e Irani
+Ghalicheh
+Pashti
+Korsi
+Bokhari
+Kooler abi
+Panke
+Yakhchal
+Ojagh gaz
+Polopaz
+Zoodpaz
+Jaroo
+Dastmal kaghazi
+Aftabeh
+Shir-e ab
+Hammam
+Kiseh
+Ghalyoon
+Atr
+Sormeh
+Hana
+Shaneh
+Ayneh
+Balesh
+Patoo
+Takhtekhab
+Mobl
+Pardeh
+Cheragh ghovveh
+Kelid
+Zang-e dar
+Hayat
+Hoz
+Pashe-band
+Zirzamin
+Poshtbam
+# Lebas (clothes)
+Roosari
+Manto
+Shalvar
+Pirahan
+Kot-shalvar
+Kravat
+Kafsh
+Dampaei
+Jooraab
+Kolah
+Shal-gardan
+Dastkesh
+Kif
+Kif-e pool
+Saat
+Gardanband
+Gooshvareh
+Angoshtar
+Eynak
+Eynak aftabi
+Chatr
+Kolah-gis
+# Madreseh va kar (school and work)
+Madreseh
+Moalem
+Daneshgah
+Konkoor
+Emtehan
+Karnameh
+Mashgh-e shab
+Nazem
+Zang-e tafrih
+Takhteh siah
+Gach
+Medad
+Pak-kon
+Taraash
+Khat-kesh
+Daftar
+Ketab
+Kif-e madreseh
+Sarbazi
+Edareh
+Rais
+Hoghoogh
+Bazneshastegi
+Ezafe kari
+# Shoghl-ha (jobs)
+Doktor
+Dandoon-pezeshk
+Parastar
+Mohandes
+Vakil
+Ghazi
+Polis
+Atash-neshan
+Ranandeh taxi
+Nanva
+Ghassab
+Baghal
+Sabzi-forush
+Mive-forush
+Arayeshgar
+Khayat
+Najjar
+Loleh-kesh
+Barghkar
+Keshavarz
+Mahigir
+Postchi
+Roftegar
+Ashpaz
+Garson
+Mekanik
+Moshaver amlak
+# Vasileh-ha (transport and tech)
+Mashin
+Peykan
+Pride
+Samand
+Taxi
+Otoboos
+Metro
+Motor
+Docharkheh
+Ghatar
+Havapeyma
+Kashti
+Helikopter
+Vanet
+Ambolans
+Mobile
+Telefon
+Televizion
+Mahvareh
+Filter-shekan
+Internet
+Kompyuter
+Laptop
+Telegram
+Instagram
+WhatsApp
+Charger
+Powerbank
+# Pool va kar-e roozaneh (money and daily life)
+Pool
+Toman
+Rial
+Ghest
+Vam
+Chek
+Kart-e banki
+Sekkeh-ye tala
+Tala
+Saf-e noon
+Terafik
+Kooche
+Bazarche
+Supermarket
+# Rasm-ha (customs)
+Taarof
+Cheshm-zakhm
+Esfand dood kardan
+Ghahr
+Ashti
+Ghaybat
+Khastegari
+Mehmooni
+Shab-neshini
+Arousi
+Aghd
+Sofreh aghd
+Jahiziyeh
+Mehriyeh
+Pagosha
+Rooz-e madar
+Aberoo
+Hamsayeh
+Sobhaneh
+Nahar
+Shaam
+Chort
+Khamyazeh
+Atseh
+Sekseh
+Kabus
+Sarmakhordegi
+
+## fun
+# Jashn-ha (celebrations)
+Nowruz
+Haft sin
+Sabzeh
+Senjed
+Serkeh
+Tokhm-e morgh-e rangi
+Chaharshanbe Suri
+Targhe
+Sizdah bedar
+Gereh zadan-e sabzeh
+Shab-e Yalda
+Fal-e Hafez
+Divan-e Hafez
+Fal-e ghahveh
+Eid didani
+Eidi
+Khaneh tekani
+Tahvil-e sal
+Mehregan
+Jashn-e Sadeh
+Tirgan
+Tavalod
+Keik-e tavalod
+Sham-e tavalod
+Hediyeh
+# Moosighi va raghs (music and dance)
+Raghs
+Bandari
+Baba Karam
+Raghs-e Irani
+Tar
+Setar
+Santoor
+Kamancheh
+Daf
+Tombak
+Ney
+Oud
+Gitar
+Piano
+Karaoke
+Konsert
+# Tafrih (outings)
+Piknik
+Kooh raftan
+Safar-e shomal
+Safar
+Hotel
+Villa
+Sinama
+Teatr
+Park
+Shahr-e bazi
+Bazar
+Pasaj
+Ghahvekhaneh
+Sofrekhaneh sonnati
+Restooran
+Kafe
+Hammam-e omoomi
+Bagh-e vahsh
+Estakhr
+Daryakenar
+Kamping
+Atash bazi
+# Televizion va internet (TV and internet)
+Paytakht
+Shabhaye Barareh
+Zir-e Asemoon-e Shahr
+Khandevaneh
+Madar-e Shahr
+Ghahveh Talkh
+Selfie
+Story
+Live-e Instagram
+Video call
+Film-e Hendi
+Serial-e Torki
+Bazi-e kompyuteri
+
+## nature
+Barf
+Baran
+Tagarg
+Raad o bargh
+Toofan
+Rangin kaman
+Aftab
+Mah
+Setareh
+Khorshid gereftegi
+Zelzeleh
+Atashfeshan
+Biaban
+Jangal
+Roodkhaneh
+Darya
+Daryacheh
+Abshar
+Ghar
+Kooh
+Tappeh
+Jazireh
+Sahel
+Shen
+Sang
+Derakht
+Gol-e sorkh
+Laleh
+Narges
+Yas
+Banafsheh
+Aftabgardan
+Kaj
+Chenar
+Sarv
+Nakhl
+Kaktoos
+Gharch
+Barg
+Paeez
+Bahar
+Tabestan
+Zemestan
+Gard o khak
+Mah-e kamel
+Aloodegi-e hava
+Meh
+Shabnam
+Ghandil-e yakh
+Barf-o-bazi
+Adam barfi

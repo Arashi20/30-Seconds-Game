@@ -308,6 +308,9 @@ def test_new_rooms_continue_the_shared_deck():
     assert len(seen) == len(set(seen))  # no word came back across all those games
 
 
+MIN_WORDS = {"nl": 1000, "en": 1000, "fa": 700}
+
+
 def test_word_lists_have_no_near_duplicates():
     import re
     import unicodedata
@@ -318,7 +321,7 @@ def test_word_lists_have_no_near_duplicates():
 
     for lang in LANGUAGES:
         words = load_words(lang)
-        assert len(words) >= 1000
+        assert len(words) >= MIN_WORDS[lang]
         keys = [key(w) for w in words]
         assert len(keys) == len(set(keys)), [w for w, k in zip(words, keys) if keys.count(k) > 1]
 

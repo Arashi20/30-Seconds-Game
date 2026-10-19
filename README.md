@@ -3,7 +3,7 @@
 A free, home-made version of the party game **30 Seconds** that you play in the browser.
 Everyone joins on their **own phone**: no app to install, no account, nothing to pay for.
 
-- 🇳🇱 Dutch and 🇬🇧 English word decks (about 1,600 Dutch and 1,400 English words; add your own easily)
+- 🇳🇱 Dutch, 🇬🇧 English and 🇮🇷 **Finglish** word decks (about 1,600 Dutch, 1,400 English and 870 Finglish words; add your own easily)
 - 📱 Every player uses their own phone, and the game stays in sync live
 - 🏠 Play on your home Wi-Fi from your laptop, **or** host it online on Railway
 
@@ -67,7 +67,7 @@ Don't feel like having everyone join? Under **Start a new game**, choose **📱 
 
 **Game settings** (chosen when creating the room)
 - **Mode:** Teams (everyone joins on their own phone) or One phone (a game master describes, everyone guesses)
-- **Word language:** Nederlands or English
+- **Word language:** Nederlands, English or Finglish (Persian written in Latin letters, e.g. *chelo kabab*, *mehmooni*, *taarof*). Phones set to Persian pick Finglish automatically.
 - **Number of teams:** 2, 3 or 4 (teams mode)
 - **Points to win:** 5 to 100 (default 30, teams mode)
 
@@ -239,7 +239,7 @@ python -m pytest -v
 ```
 
 What's covered:
-- word lists load, have over 1,000 words each, and have no duplicates or near-duplicates (different capitals, accents or spacing count as the same word)
+- word lists load, have over 1,000 words each (Dutch and English) or over 700 (Finglish), and have no duplicates or near-duplicates (different capitals, accents or spacing count as the same word)
 - new games continue the shared deck: no word comes back across 160 games in a row
 - joining, unique names, auto-balanced teams, the host role
 - the game won't start until every team has 2 or more players
@@ -289,10 +289,11 @@ The words are plain text files, **one word per line**:
 
 - `app/words/nl.txt`: Dutch
 - `app/words/en.txt`: English
+- `app/words/fa.txt`: Finglish (Persian in Latin letters). Finglish spelling varies (*kh/gh/sh/ch*, *oo* or *u*), so the list uses the most common, readable spelling. The duplicate check ignores capitals, accents, spaces and hyphens, but two different spellings of the same word (e.g. *Ghormeh* and *Qormeh*) aren't caught, so check before adding.
 
 A line like `## food` starts a **theme**: every word below it belongs to that theme, until the next `## ...` line. The theme ids are `people`, `characters`, `places`, `food`, `animals`, `sports`, `everyday`, `fun` and `nature` (listed in `THEMES` in `app/game.py`). Put new words under the theme they fit. Other lines starting with `#` are comments and are ignored. Duplicates are removed automatically. Add your friends' names, inside jokes, favourite series… then restart the server (or push, if you're on Railway). Run `python -m pytest` afterwards as a quick sanity check.
 
-Want a third language? Add `app/words/de.txt` and add `"de"` to `LANGUAGES` in `app/game.py` and to the language dropdown in `static/index.html`.
+Want another language? Add for example `app/words/de.txt` (with the same `## theme` sections) and add `"de"` to `LANGUAGES` in `app/game.py` and to the language dropdown in `static/index.html`.
 
 ---
 

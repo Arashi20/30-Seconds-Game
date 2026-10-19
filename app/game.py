@@ -19,7 +19,7 @@ TURN_SECONDS = 30
 WORDS_PER_CARD = 5
 DIE_FACES = (0, 0, 1, 1, 2, 2)  # the original die: two blanks, two 1s, two 2s
 DEFAULT_TARGET = 30
-LANGUAGES = ("nl", "en")
+LANGUAGES = ("nl", "en", "fa")  # fa = Finglish: Persian in Latin letters
 WORDS_DIR = Path(__file__).parent / "words"
 # Theme ids, as used after "## " in the word files. The page shows their names.
 THEMES = ("people", "characters", "places", "food", "animals", "sports", "everyday", "fun", "nature")
