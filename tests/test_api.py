@@ -338,3 +338,23 @@ def test_finglish_game():
         from app.game import load_themes
 
         assert set(state["turn"]["words"]) <= set(load_themes("fa")["food"])
+
+
+def test_blitz_skip_over_websocket(monkeypatch):
+    import app.main as main
+
+    monkeypatch.setattr("app.game.SKIP_PENALTY_SECONDS", 0.2)
+    res = client.post("/api/rooms", json={"name": "GM", "lang": "nl", "mode": "solo", "style": "blitz"}).json()
+    code, gm = res["code"], res["player_id"]
+    with client.websocket_connect(f"/ws/{code}/{gm}") as ws:
+        state = receive_state(ws)
+        assert state["style"] == "blitz" and state["turn_seconds"] == 120
+        ws.send_json({"action": "start_game"})
+        ws.send_json({"action": "start_timer"})
+        drain(ws, lambda s: s["phase"] == "playing" and s["turn"]["phase"] == "running")
+        ws.send_json({"action": "toggle_word", "index": 0})
+        ws.send_json({"action": "skip_set"})
+        state = drain(ws, lambda s: s["turn"]["blocked"])
+        assert state["turn"]["words"] is None and state["turn"]["live_score"] == 1
+        state = drain(ws, lambda s: s["turn"]["words"])  # revealed after the penalty
+        assert len(state["turn"]["words"]) == 5

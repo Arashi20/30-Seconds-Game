@@ -187,7 +187,7 @@ input:focus, select:focus { outline: none; border-color: var(--bg-2); }
   background: var(--soft); border-radius: 10px; overflow: hidden;
   background-image: repeating-linear-gradient(90deg, transparent 0 calc(10% - 2px), var(--line) calc(10% - 2px) 10%);
 }
-.track .fill { height: 100%; background: var(--team-color); border-radius: 10px; transition: width 0.8s cubic-bezier(.3, 1.5, .5, 1); }
+.track .fill { display: block; height: 100%; background: var(--team-color); border-radius: 10px; transition: width 0.8s cubic-bezier(.3, 1.5, .5, 1); }
 .you-tag {
   display: inline-block; vertical-align: 1px; margin-left: 2px;
   padding: 0 7px; border-radius: 999px; font-size: 0.75rem;
@@ -269,6 +269,21 @@ input:focus, select:focus { outline: none; border-color: var(--bg-2); }
 .dialog h2 { font-size: 1.5rem; margin-bottom: 8px; }
 .dialog-body { color: var(--muted); margin-bottom: 18px; }
 .dialog-body p { margin: 0 0 8px; }
+
+/* ---------- Blitz ---------- */
+.live-score {
+  display: inline-block; margin: 0 0 6px; padding: 4px 14px; border-radius: 999px;
+  background: var(--night); color: #fff; font-weight: 700; font-size: 1.15rem;
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.25);
+}
+.blocked {
+  display: grid; place-items: center; min-height: 290px; margin: 14px 0;
+  border-radius: 16px; background: var(--soft); border: 3px dashed var(--line);
+  font-size: 1.3rem; font-weight: 700; color: var(--muted);
+  animation: pulse 1s ease-in-out infinite;
+}
+.blitz-hint { margin: 12px 0 4px; }
+.round-line { text-align: center; font-weight: 700; color: var(--bg-2); }
 
 /* ---------- Finished ---------- */
 .trophy { font-size: 5rem; animation: wobble 2s ease-in-out infinite; }
