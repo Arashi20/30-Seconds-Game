@@ -1,7 +1,8 @@
-# English words — one per line. Lines starting with # are ignored.
+# English words: one per line. Lines starting with # are ignored.
+# A line '## theme' puts all words below it in that theme (see THEMES in app/game.py).
 # Feel free to add your own (friends' names, inside jokes, ...).
 
-# Famous people & characters
+## people
 Albert Einstein
 Napoleon
 Cleopatra
@@ -52,314 +53,6 @@ Brad Pitt
 Meryl Streep
 Charlie Chaplin
 Marilyn Monroe
-Harry Potter
-Hermione Granger
-Sherlock Holmes
-James Bond
-Darth Vader
-Yoda
-Batman
-Superman
-Spider-Man
-Wonder Woman
-Shrek
-Mickey Mouse
-SpongeBob
-Homer Simpson
-Pikachu
-Mario
-Sonic the Hedgehog
-Santa Claus
-Easter Bunny
-Tooth Fairy
-Robin Hood
-Cinderella
-Snow White
-Peter Pan
-Winnie the Pooh
-Frankenstein
-Dracula
-
-# Places
-London
-Big Ben
-Paris
-Eiffel Tower
-New York
-Statue of Liberty
-Times Square
-Rome
-Colosseum
-Venice
-Amsterdam
-Barcelona
-Berlin
-Tokyo
-Beijing
-Great Wall of China
-Egypt
-Pyramids
-Australia
-Sydney Opera House
-Grand Canyon
-Niagara Falls
-Mount Everest
-Sahara
-Amazon Rainforest
-North Pole
-Antarctica
-Hawaii
-Las Vegas
-Hollywood
-Disneyland
-Silicon Valley
-Iceland
-Switzerland
-Mexico
-Brazil
-India
-Taj Mahal
-Dubai
-Ibiza
-Stonehenge
-Buckingham Palace
-White House
-Mount Rushmore
-Golden Gate Bridge
-Machu Picchu
-Atlantis
-Area 51
-Bermuda Triangle
-Hogwarts
-
-# Food & drink
-Pizza
-Hamburger
-Hot dog
-French fries
-Sushi
-Taco
-Burrito
-Spaghetti
-Lasagne
-Pancake
-Waffle
-Croissant
-Bagel
-Donut
-Cupcake
-Cheesecake
-Brownie
-Ice cream
-Popcorn
-Cotton candy
-Peanut butter
-Avocado toast
-Fish and chips
-Full English breakfast
-Scrambled eggs
-Bacon
-Chicken nuggets
-Barbecue
-Fondue
-Curry
-Kebab
-Dumplings
-Ramen
-Smoothie
-Milkshake
-Cappuccino
-Espresso
-Champagne
-Cocktail
-Lemonade
-Bubble tea
-Hot chocolate
-Pineapple
-Watermelon
-Banana
-Coconut
-Brussels sprouts
-Garlic
-Chili pepper
-Birthday cake
-
-# Things & concepts
-Umbrella
-Rainbow
-Thunderstorm
-Snowman
-Sunscreen
-Beach towel
-Sandcastle
-Tent
-Campfire
-Caravan
-Road trip
-Traffic jam
-Speeding ticket
-Roundabout
-Driving test
-Airport
-Passport
-Jet lag
-Suitcase
-Hotel
-Dentist
-Hospital
-Fire truck
-Police car
-Ambulance
-Supermarket
-Shopping cart
-Receipt
-ATM
-Credit card
-Washing machine
-Vacuum cleaner
-Microwave
-Remote control
-Smartphone
-Charger
-Wi-Fi
-Password
-Selfie
-Emoji
-Podcast
-Netflix
-TikTok
-Instagram
-YouTube
-Spotify
-Video game
-Board game
-Jigsaw puzzle
-Crossword
-Chess
-Dice
-Playing cards
-Birthday party
-Wedding
-Bachelor party
-Baby shower
-Hangover
-Alarm clock
-Monday morning
-Happy hour
-Working from home
-Meeting
-Job interview
-Salary
-Taxes
-Mortgage
-Moving house
-IKEA
-Allen key
-Power drill
-Haunted house
-Time machine
-Treasure map
-Magic wand
-Crystal ball
-Fortune cookie
-Horoscope
-Halloween
-Christmas tree
-Fireworks
-New Year's Eve
-Valentine's Day
-Thanksgiving
-Bicycle
-Windmill
-Tulip
-Wooden shoes
-
-# Animals
-Cow
-Sheep
-Goat
-Pig
-Horse
-Donkey
-Chicken
-Rooster
-Duck
-Swan
-Owl
-Parrot
-Penguin
-Flamingo
-Ostrich
-Eagle
-Lion
-Tiger
-Elephant
-Giraffe
-Zebra
-Hippo
-Rhino
-Crocodile
-Kangaroo
-Koala
-Panda
-Polar bear
-Wolf
-Fox
-Hedgehog
-Squirrel
-Rabbit
-Hamster
-Goldfish
-Shark
-Dolphin
-Whale
-Seal
-Jellyfish
-Octopus
-Crab
-Lobster
-Snail
-Spider
-Mosquito
-Bee
-Butterfly
-Ladybug
-Unicorn
-Dragon
-
-# Sports & hobbies
-Football
-Hockey
-Ice skating
-Cycling
-Tennis
-Golf
-Darts
-Volleyball
-Basketball
-Baseball
-Formula 1
-Marathon
-Swimming
-Surfing
-Skiing
-Snowboarding
-Boxing
-Judo
-Yoga
-Gym
-Bowling
-Mini golf
-Karaoke
-Knitting
-Gardening
-Fishing
-Pub quiz
-Escape room
-Skateboarding
-Rock climbing
-
-# Famous people (extra)
 Isaac Newton
 Charles Darwin
 Galileo
@@ -453,7 +146,34 @@ Marco Polo
 Martin Garrix
 Tiësto
 
-# Characters (extra)
+## characters
+Harry Potter
+Hermione Granger
+Sherlock Holmes
+James Bond
+Darth Vader
+Yoda
+Batman
+Superman
+Spider-Man
+Wonder Woman
+Shrek
+Mickey Mouse
+SpongeBob
+Homer Simpson
+Pikachu
+Mario
+Sonic the Hedgehog
+Santa Claus
+Easter Bunny
+Tooth Fairy
+Robin Hood
+Cinderella
+Snow White
+Peter Pan
+Winnie the Pooh
+Frankenstein
+Dracula
 Voldemort
 Dumbledore
 Gandalf
@@ -545,7 +265,57 @@ Dora the Explorer
 Miffy
 Lucky Luke
 
-# Places (extra)
+## places
+London
+Big Ben
+Paris
+Eiffel Tower
+New York
+Statue of Liberty
+Times Square
+Rome
+Colosseum
+Venice
+Amsterdam
+Barcelona
+Berlin
+Tokyo
+Beijing
+Great Wall of China
+Egypt
+Pyramids
+Australia
+Sydney Opera House
+Grand Canyon
+Niagara Falls
+Mount Everest
+Sahara
+Amazon Rainforest
+North Pole
+Antarctica
+Hawaii
+Las Vegas
+Hollywood
+Disneyland
+Silicon Valley
+Iceland
+Switzerland
+Mexico
+Brazil
+India
+Taj Mahal
+Dubai
+Ibiza
+Stonehenge
+Buckingham Palace
+White House
+Mount Rushmore
+Golden Gate Bridge
+Machu Picchu
+Atlantis
+Area 51
+Bermuda Triangle
+Hogwarts
 Bangkok
 Bali
 Istanbul
@@ -665,7 +435,57 @@ Giethoorn
 Keukenhof
 Efteling
 
-# Food and drink (extra)
+## food
+Pizza
+Hamburger
+Hot dog
+French fries
+Sushi
+Taco
+Burrito
+Spaghetti
+Lasagne
+Pancake
+Waffle
+Croissant
+Bagel
+Donut
+Cupcake
+Cheesecake
+Brownie
+Ice cream
+Popcorn
+Cotton candy
+Peanut butter
+Avocado toast
+Fish and chips
+Full English breakfast
+Scrambled eggs
+Bacon
+Chicken nuggets
+Barbecue
+Fondue
+Curry
+Kebab
+Dumplings
+Ramen
+Smoothie
+Milkshake
+Cappuccino
+Espresso
+Champagne
+Cocktail
+Lemonade
+Bubble tea
+Hot chocolate
+Pineapple
+Watermelon
+Banana
+Coconut
+Brussels sprouts
+Garlic
+Chili pepper
+Birthday cake
 Macaroni and cheese
 Mashed potatoes
 Baked beans
@@ -818,515 +638,58 @@ KFC
 Starbucks
 Coca-Cola
 
-# At home
-Fridge
-Freezer
-Oven
-Kettle
-Coffee machine
-Toaster
-Air fryer
-Blender
-Dishwasher
-Iron
-Ironing board
-Clothes peg
-Broom
-Mop
-Bucket
-Feather duster
-Trash can
-Toilet paper
-Toothbrush
-Toothpaste
-Shampoo
-Shower
-Bathtub
-Hairdryer
-Razor
-Comb
-Mirror
-Lipstick
-Nail polish
-Perfume
-Deodorant
-Soap
-Bathrobe
-Pajamas
-Slippers
-Pillow
-Blanket
-Mattress
-Bunk bed
-Hammock
-Sofa
-Rocking chair
-Desk
-Bookcase
-Curtains
-Lamp
-Candle
-Fireplace
-Smoke alarm
-Doorbell
-Padlock
-Mailbox
-Stairs
-Elevator
-Escalator
-Attic
-Basement
-Garden shed
-Lawn mower
-Wheelbarrow
-Watering can
-Garden gnome
-Trampoline
-Swing
-Slide
-Sandbox
-Swimming pool
-Hot tub
-Sauna
-
-# Clothes and accessories
-Raincoat
-Jeans
-Shorts
-Skirt
-Sweater
-Hoodie
-Tie
-Bow tie
-Socks
-Sneakers
-Boots
-High heels
-Beanie
-Baseball cap
-Scarf
-Gloves
-Mittens
-Belt
-Suspenders
-Handbag
-Backpack
-Wallet
-Watch
-Necklace
-Earrings
-Engagement ring
-Glasses
-Contact lenses
-Tattoo
-Piercing
-Wedding dress
-Tuxedo
-Kilt
-Crown
-Cowboy hat
-Top hat
-Sombrero
-Sunglasses
-Flip-flops
-Swimsuit
-Air mattress
-
-# School and work
-Blackboard
-Chalk
-Eraser
-Pencil sharpener
-Ruler
-Calculator
-Report card
-Diploma
-Exam
-Homework
-School trip
-Summer camp
-Gym class
-Recess
-Teacher
-Principal
-Janitor
-Cafeteria
-Lunchbox
-School bus
-Detention
-Graduation
-Internship
-Promotion
-Coffee break
-Office
-Boss
-Video call
-Spreadsheet
-Email
-Deadline
-Overtime
-Day off
-Sick day
-Coworker
-Team building
-
-# Jobs and characters
-Pilot
-Flight attendant
-Firefighter
-Police officer
-Doctor
-Nurse
-Vet
-Baker
-Butcher
-Chef
-Waiter
-Hairdresser
-Painter
-Carpenter
-Plumber
-Electrician
-Farmer
-Fisherman
-Postman
-Bus driver
-Taxi driver
-Garbage collector
-Lawyer
-Judge
-Journalist
-Photographer
-Influencer
-YouTuber
-DJ
-Magician
-Clown
-Acrobat
-Butler
-Detective
-Spy
-Pirate
-Knight
-Princess
-King
-Emperor
-Witch
-Wizard
-Vampire
-Zombie
-Ghost
-Werewolf
-Mermaid
-Giant
-Dwarf
-Elf
-Fairy
-Angel
-Devil
-Ninja
-Samurai
-Cowboy
-Viking
-Gladiator
-Pharaoh
-Mummy
-Superhero
-Astronaut
-Scientist
-Lifeguard
-Referee
-Cheerleader
-Bodyguard
-Babysitter
-
-# Outings, celebrations and places
-Christmas
-Easter
-Mother's Day
-Father's Day
-Carnival
-Funfair
-Ferris wheel
-Roller coaster
-Bumper cars
-Merry-go-round
-Circus
-Zoo
-Theme park
-Cinema
-Theater
-Concert
-Music festival
-Musical
-Opera
-Ballet
-Museum
-Library
-Church
-Castle
-Town hall
-Prison
-Train station
-Bus stop
-Gas station
-Parking garage
-Pub
-Nightclub
-Hostel
-Campsite
-Ski resort
-Ski lift
-Après-ski
-Summer vacation
-Backpacking
-Customs
-Baggage claim
-Boarding pass
-Postcard
-Souvenir
-Sunburn
-Mosquito bite
-Hay fever
-Common cold
-Flu
-Hiccups
-Sneeze
-Snoring
-Sleepwalking
-Nightmare
-Daydreaming
-Déjà vu
-Homesick
-Stage fright
-Butterflies in your stomach
-Goosebumps
-Bruise
-Band-Aid
-Plaster cast
-Crutches
-Wheelchair
-Thermometer
-Stethoscope
-X-ray
-Vaccination
-Lighthouse
-Pier
-Sailboat
-Canoe
-Ferry
-Cruise ship
-Submarine
-Airplane
-Helicopter
-Hot air balloon
-Rocket
-Moon
-Sun
-Shooting star
-Comet
-Planet
-Black hole
-UFO
-Alien
-Robot
-
-# Tech and games
-Laptop
-Tablet
-Keyboard
-Computer mouse
-Printer
-Headphones
-Earbuds
-Power bank
-Bluetooth
-PlayStation
-Nintendo
-Fortnite
-Minecraft
-Pokémon
-Tetris
-Candy Crush
-Snapchat
-Google
-Facebook
-WhatsApp
-Uber
-Amazon
-Monopoly
-Scrabble
-Cluedo
-Pictionary
-Uno
-Poker
-Blackjack
-Bingo
-Lottery
-Scratch card
-Hide and seek
-Jump rope
-Hopscotch
-Marbles
-Kite
-Sidewalk chalk
-Water gun
-Tamagotchi
-Yo-yo
-Fidget spinner
-Rubik's Cube
-Lego
-Teddy bear
-Dollhouse
-Coloring book
-Comic book
-Checkers
-Twister
-Jenga
-Charades
-Tug of war
-Sack race
-Musical chairs
-Hula hoop
-
-# Music
-Guitar
-Piano
-Drums
-Violin
-Trumpet
-Saxophone
-Flute
-Recorder
-Harp
-Accordion
-Harmonica
-Bagpipes
-Triangle
-Xylophone
-Ukulele
-Double bass
-Microphone
-Record player
-Cassette tape
-Walkman
-CD
-Radio
-Television
-Jukebox
-Air guitar
-Conductor
-Choir
-Boy band
-Rapper
-
-# Nature and weather
-Hail
-Snow
-Snowball fight
-Fog
-Storm
-Hurricane
-Tornado
-Heatwave
-Lightning
-Thunder
-Sunset
-Northern Lights
-Earthquake
-Volcano
-Tsunami
-Flood
-Waterfall
-Cave
-Desert
-Jungle
-Island
-Glacier
-Iceberg
-River
-Canal
-Bridge
-Tunnel
-Mountain
-Forest
-Tree house
-Four-leaf clover
-Sunflower
-Cactus
-Palm tree
-Stinging nettle
-Beach
-Sand dune
-Seashell
-
-# Sports (extra)
-Horse riding
-Karate
-Taekwondo
-Kickboxing
-Wrestling
-Fencing
-Archery
-Rowing
-Kayaking
-Sailing
-Kitesurfing
-Scuba diving
-Snorkeling
-Water polo
-Badminton
-Table tennis
-Squash
-Padel
-Rugby
-American football
-Cricket
-Ice hockey
-Curling
-Ski jumping
-Bobsled
-Figure skating
-Gymnastics
-Pole vault
-High jump
-Long jump
-Shot put
-Javelin
-Hurdles
-Relay race
-Triathlon
-Mountain biking
-BMX
-Parkour
-Paragliding
-Skydiving
-Bungee jumping
-Billiards
-Snooker
-Foosball
-Air hockey
-Olympics
-World Cup
-Super Bowl
-Tour de France
-Champions League
-Penalty
-Red card
-Offside
-Hat-trick
-Slam dunk
-Hole in one
-Checkmate
-Knockout
-Gold medal
-Trophy
-Mascot
-Stadium
-Mexican wave
-Self-defense
-
-# Animals (extra)
+## animals
+Cow
+Sheep
+Goat
+Pig
+Horse
+Donkey
+Chicken
+Rooster
+Duck
+Swan
+Owl
+Parrot
+Penguin
+Flamingo
+Ostrich
+Eagle
+Lion
+Tiger
+Elephant
+Giraffe
+Zebra
+Hippo
+Rhino
+Crocodile
+Kangaroo
+Koala
+Panda
+Polar bear
+Wolf
+Fox
+Hedgehog
+Squirrel
+Rabbit
+Hamster
+Goldfish
+Shark
+Dolphin
+Whale
+Seal
+Jellyfish
+Octopus
+Crab
+Lobster
+Snail
+Spider
+Mosquito
+Bee
+Butterfly
+Ladybug
+Unicorn
+Dragon
 Mouse
 Rat
 Mole
@@ -1425,3 +788,619 @@ Firefly
 T. rex
 Mammoth
 Sabre-toothed tiger
+
+## sports
+Football
+Hockey
+Ice skating
+Cycling
+Tennis
+Golf
+Darts
+Volleyball
+Basketball
+Baseball
+Formula 1
+Marathon
+Swimming
+Surfing
+Skiing
+Snowboarding
+Boxing
+Judo
+Yoga
+Gym
+Bowling
+Mini golf
+Karaoke
+Knitting
+Gardening
+Fishing
+Pub quiz
+Escape room
+Skateboarding
+Rock climbing
+Horse riding
+Karate
+Taekwondo
+Kickboxing
+Wrestling
+Fencing
+Archery
+Rowing
+Kayaking
+Sailing
+Kitesurfing
+Scuba diving
+Snorkeling
+Water polo
+Badminton
+Table tennis
+Squash
+Padel
+Rugby
+American football
+Cricket
+Ice hockey
+Curling
+Ski jumping
+Bobsled
+Figure skating
+Gymnastics
+Pole vault
+High jump
+Long jump
+Shot put
+Javelin
+Hurdles
+Relay race
+Triathlon
+Mountain biking
+BMX
+Parkour
+Paragliding
+Skydiving
+Bungee jumping
+Billiards
+Snooker
+Foosball
+Air hockey
+Olympics
+World Cup
+Super Bowl
+Tour de France
+Champions League
+Penalty
+Red card
+Offside
+Hat-trick
+Slam dunk
+Hole in one
+Checkmate
+Knockout
+Gold medal
+Trophy
+Mascot
+Stadium
+Mexican wave
+Self-defense
+
+## everyday
+Umbrella
+Rainbow
+Thunderstorm
+Snowman
+Sunscreen
+Beach towel
+Sandcastle
+Tent
+Campfire
+Caravan
+Road trip
+Traffic jam
+Speeding ticket
+Roundabout
+Driving test
+Airport
+Passport
+Jet lag
+Suitcase
+Hotel
+Dentist
+Hospital
+Fire truck
+Police car
+Ambulance
+Supermarket
+Shopping cart
+Receipt
+ATM
+Credit card
+Washing machine
+Vacuum cleaner
+Microwave
+Remote control
+Smartphone
+Charger
+Wi-Fi
+Password
+Selfie
+Emoji
+Podcast
+Netflix
+TikTok
+Instagram
+YouTube
+Spotify
+Video game
+Board game
+Jigsaw puzzle
+Crossword
+Chess
+Dice
+Playing cards
+Birthday party
+Wedding
+Bachelor party
+Baby shower
+Hangover
+Alarm clock
+Monday morning
+Happy hour
+Working from home
+Meeting
+Job interview
+Salary
+Taxes
+Mortgage
+Moving house
+IKEA
+Allen key
+Power drill
+Haunted house
+Time machine
+Treasure map
+Magic wand
+Crystal ball
+Fortune cookie
+Horoscope
+Halloween
+Christmas tree
+Fireworks
+New Year's Eve
+Valentine's Day
+Thanksgiving
+Bicycle
+Windmill
+Tulip
+Wooden shoes
+Fridge
+Freezer
+Oven
+Kettle
+Coffee machine
+Toaster
+Air fryer
+Blender
+Dishwasher
+Iron
+Ironing board
+Clothes peg
+Broom
+Mop
+Bucket
+Feather duster
+Trash can
+Toilet paper
+Toothbrush
+Toothpaste
+Shampoo
+Shower
+Bathtub
+Hairdryer
+Razor
+Comb
+Mirror
+Lipstick
+Nail polish
+Perfume
+Deodorant
+Soap
+Bathrobe
+Pajamas
+Slippers
+Pillow
+Blanket
+Mattress
+Bunk bed
+Hammock
+Sofa
+Rocking chair
+Desk
+Bookcase
+Curtains
+Lamp
+Candle
+Fireplace
+Smoke alarm
+Doorbell
+Padlock
+Mailbox
+Stairs
+Elevator
+Escalator
+Attic
+Basement
+Garden shed
+Lawn mower
+Wheelbarrow
+Watering can
+Garden gnome
+Trampoline
+Swing
+Slide
+Sandbox
+Swimming pool
+Hot tub
+Sauna
+Raincoat
+Jeans
+Shorts
+Skirt
+Sweater
+Hoodie
+Tie
+Bow tie
+Socks
+Sneakers
+Boots
+High heels
+Beanie
+Baseball cap
+Scarf
+Gloves
+Mittens
+Belt
+Suspenders
+Handbag
+Backpack
+Wallet
+Watch
+Necklace
+Earrings
+Engagement ring
+Glasses
+Contact lenses
+Tattoo
+Piercing
+Wedding dress
+Tuxedo
+Kilt
+Crown
+Cowboy hat
+Top hat
+Sombrero
+Sunglasses
+Flip-flops
+Swimsuit
+Air mattress
+Blackboard
+Chalk
+Eraser
+Pencil sharpener
+Ruler
+Calculator
+Report card
+Diploma
+Exam
+Homework
+School trip
+Summer camp
+Gym class
+Recess
+Teacher
+Principal
+Janitor
+Cafeteria
+Lunchbox
+School bus
+Detention
+Graduation
+Internship
+Promotion
+Coffee break
+Office
+Boss
+Video call
+Spreadsheet
+Email
+Deadline
+Overtime
+Day off
+Sick day
+Coworker
+Team building
+Pilot
+Flight attendant
+Firefighter
+Police officer
+Doctor
+Nurse
+Vet
+Baker
+Butcher
+Chef
+Waiter
+Hairdresser
+Painter
+Carpenter
+Plumber
+Electrician
+Farmer
+Fisherman
+Postman
+Bus driver
+Taxi driver
+Garbage collector
+Lawyer
+Judge
+Journalist
+Photographer
+Influencer
+YouTuber
+DJ
+Magician
+Clown
+Acrobat
+Butler
+Detective
+Spy
+Pirate
+Knight
+Princess
+King
+Emperor
+Witch
+Wizard
+Vampire
+Zombie
+Ghost
+Werewolf
+Mermaid
+Giant
+Dwarf
+Elf
+Fairy
+Angel
+Devil
+Ninja
+Samurai
+Cowboy
+Viking
+Gladiator
+Pharaoh
+Mummy
+Superhero
+Astronaut
+Scientist
+Lifeguard
+Referee
+Cheerleader
+Bodyguard
+Babysitter
+
+## fun
+Christmas
+Easter
+Mother's Day
+Father's Day
+Carnival
+Funfair
+Ferris wheel
+Roller coaster
+Bumper cars
+Merry-go-round
+Circus
+Zoo
+Theme park
+Cinema
+Theater
+Concert
+Music festival
+Musical
+Opera
+Ballet
+Museum
+Library
+Church
+Castle
+Town hall
+Prison
+Train station
+Bus stop
+Gas station
+Parking garage
+Pub
+Nightclub
+Hostel
+Campsite
+Ski resort
+Ski lift
+Après-ski
+Summer vacation
+Backpacking
+Customs
+Baggage claim
+Boarding pass
+Postcard
+Souvenir
+Sunburn
+Mosquito bite
+Hay fever
+Common cold
+Flu
+Hiccups
+Sneeze
+Snoring
+Sleepwalking
+Nightmare
+Daydreaming
+Déjà vu
+Homesick
+Stage fright
+Butterflies in your stomach
+Goosebumps
+Bruise
+Band-Aid
+Plaster cast
+Crutches
+Wheelchair
+Thermometer
+Stethoscope
+X-ray
+Vaccination
+Lighthouse
+Pier
+Sailboat
+Canoe
+Ferry
+Cruise ship
+Submarine
+Airplane
+Helicopter
+Hot air balloon
+Rocket
+Moon
+Sun
+Shooting star
+Comet
+Planet
+Black hole
+UFO
+Alien
+Robot
+Laptop
+Tablet
+Keyboard
+Computer mouse
+Printer
+Headphones
+Earbuds
+Power bank
+Bluetooth
+PlayStation
+Nintendo
+Fortnite
+Minecraft
+Pokémon
+Tetris
+Candy Crush
+Snapchat
+Google
+Facebook
+WhatsApp
+Uber
+Amazon
+Monopoly
+Scrabble
+Cluedo
+Pictionary
+Uno
+Poker
+Blackjack
+Bingo
+Lottery
+Scratch card
+Hide and seek
+Jump rope
+Hopscotch
+Marbles
+Kite
+Sidewalk chalk
+Water gun
+Tamagotchi
+Yo-yo
+Fidget spinner
+Rubik's Cube
+Lego
+Teddy bear
+Dollhouse
+Coloring book
+Comic book
+Checkers
+Twister
+Jenga
+Charades
+Tug of war
+Sack race
+Musical chairs
+Hula hoop
+Guitar
+Piano
+Drums
+Violin
+Trumpet
+Saxophone
+Flute
+Recorder
+Harp
+Accordion
+Harmonica
+Bagpipes
+Triangle
+Xylophone
+Ukulele
+Double bass
+Microphone
+Record player
+Cassette tape
+Walkman
+CD
+Radio
+Television
+Jukebox
+Air guitar
+Conductor
+Choir
+Boy band
+Rapper
+
+## nature
+Hail
+Snow
+Snowball fight
+Fog
+Storm
+Hurricane
+Tornado
+Heatwave
+Lightning
+Thunder
+Sunset
+Northern Lights
+Earthquake
+Volcano
+Tsunami
+Flood
+Waterfall
+Cave
+Desert
+Jungle
+Island
+Glacier
+Iceberg
+River
+Canal
+Bridge
+Tunnel
+Mountain
+Forest
+Tree house
+Four-leaf clover
+Sunflower
+Cactus
+Palm tree
+Stinging nettle
+Beach
+Sand dune
+Seashell

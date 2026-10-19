@@ -121,6 +121,42 @@ input:focus, select:focus { outline: none; border-color: var(--bg-2); }
 .link { font: 500 0.95rem var(--font); background: none; border: 0; color: rgba(255, 255, 255, 0.7); text-decoration: underline; cursor: pointer; padding: 6px 8px; }
 .card .link { color: var(--muted); }
 
+/* ---------- Game mode picker ---------- */
+.mode-pick { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+.mode {
+  font: inherit; color: var(--text); cursor: pointer; text-align: center;
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  background: var(--soft); border: 3px solid var(--line); border-radius: 16px;
+  padding: 12px 8px;
+  box-shadow: 0 4px 0 var(--line);
+  transition: transform 0.06s, box-shadow 0.06s;
+}
+.mode:active { transform: translateY(4px); box-shadow: none; }
+.mode strong { font-size: 1.05rem; }
+.mode small { color: var(--muted); font-size: 0.8rem; line-height: 1.25; }
+.mode.on { border-color: var(--bg-2); background: #ece6ff; box-shadow: 0 4px 0 var(--bg-2); }
+.mode-icon { font-size: 1.8rem; line-height: 1.1; }
+.mode-icon.big { font-size: 3rem; margin-bottom: 4px; }
+
+/* ---------- Theme chips ---------- */
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+.chip {
+  font: 600 0.92rem var(--font); color: var(--text); cursor: pointer;
+  background: var(--soft); border: 2px solid var(--line); border-radius: 999px;
+  padding: 7px 12px;
+}
+.chip .count { color: var(--muted); font-weight: 500; font-size: 0.8rem; }
+.chip.on { background: var(--bg-2); border-color: var(--bg-2); color: #fff; }
+.chip.on .count { color: rgba(255, 255, 255, 0.75); }
+.chip:disabled { cursor: default; opacity: 0.75; }
+#themes-card .hint { text-align: left; }
+
+/* ---------- One-phone score ---------- */
+.solo-score { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+.solo-total { font-size: 1.6rem; font-weight: 700; color: var(--bg-2); }
+.solo-score.final { flex-direction: column; align-items: center; margin: 6px 0 16px; }
+.solo-score.final .solo-total { font-size: 2.6rem; }
+
 /* ---------- Lobby ---------- */
 .big-code { font-size: 3.2rem; font-weight: 700; letter-spacing: 0.22em; margin: 2px 0 14px; color: var(--bg-2); }
 .teams { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }

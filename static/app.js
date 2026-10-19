@@ -10,7 +10,8 @@ const STRINGS = {
     rulesText:
       "Split into teams. Each turn one player is the describer: they see 5 words and have 30 seconds to make their team guess as many as possible — without saying the word itself.\n\n" +
       "The describer taps every word their team guesses. Before the turn a die is rolled (0, 1 or 2) — that many points are subtracted from the turn's score.\n\n" +
-      "Teams take turns and the describer rotates. The first team to reach the finish wins!",
+      "Teams take turns and the describer rotates. The first team to reach the finish wins!\n\n" +
+      "No time for everyone to join? Choose \"One phone\": a game master describes, the rest guesses out loud, and you just play rounds for a total score.",
     shareLink: "Share invite link", pickTeam: "Tap a team to join it", shuffle: "Shuffle teams",
     startGame: "Start game", waitHost: "Waiting for the host to start…", team: "Team",
     you: "you", yourTurn: "You're describing!",
@@ -23,6 +24,19 @@ const STRINGS = {
     waitConfirm: (n) => `Waiting for ${n} to confirm…`, wins: (t) => `${t} wins!`,
     playAgain: "Play again", leave: "Leave game", copied: "Link copied!",
     password: "Password (only to create a game)", wrongPassword: "Wrong password",
+    modeTeams: "Teams", modeTeamsHint: "Everyone joins on their own phone",
+    modeSolo: "One phone", modeSoloHint: "A game master describes, everyone guesses",
+    soloTitle: "One-phone game",
+    soloIntro: "You're the game master: you see the words and describe them, everyone else shouts their guesses. Pass the phone around if you like. No joining, no teams: just rounds and a running total.",
+    themesTitle: "Words", allThemes: "All themes", themesHostOnly: "The host picks the themes",
+    deckSize: (n) => `${n} words in the deck`,
+    th_people: "Famous people", th_characters: "Characters", th_places: "Places", th_food: "Food & drink",
+    th_animals: "Animals", th_sports: "Sports & hobbies", th_everyday: "Everyday life",
+    th_fun: "Outings, parties & games", th_nature: "Nature & weather",
+    soloTurn: "Describe! Everyone guesses 🗣️", round: (n) => `Round ${n}`, points: (n) => `${n} point${n === 1 ? "" : "s"}`,
+    nextRound: "Next round", endGame: "End game", gameOver: "Game over!",
+    soloStats: (rounds, best) => `${rounds} round${rounds === 1 ? "" : "s"} played · best round: ${best}`,
+    leaveSolo: "This ends the one-phone game.",
     leaveTitle: "Leave the game?",
     leaveBody: "Your team keeps its points. Join again with the same name to get back on your team.",
     leaveHost: "You're the host: another player will take over.",
@@ -45,7 +59,8 @@ const STRINGS = {
     rulesText:
       "Verdeel je in teams. Elke beurt is één speler de omschrijver: die ziet 5 woorden en heeft 30 seconden om zijn team er zoveel mogelijk te laten raden — zonder het woord zelf te zeggen.\n\n" +
       "De omschrijver tikt elk geraden woord aan. Vóór de beurt wordt er gegooid met een dobbelsteen (0, 1 of 2) — dat aantal punten gaat van de score van de beurt af.\n\n" +
-      "Teams zijn om de beurt en de omschrijver wisselt steeds. Het eerste team bij de finish wint!",
+      "Teams zijn om de beurt en de omschrijver wisselt steeds. Het eerste team bij de finish wint!\n\n" +
+      "Geen zin om iedereen te laten meedoen? Kies \"Eén telefoon\": een spelleider omschrijft, de rest raadt hardop, en jullie spelen gewoon rondes voor een totaalscore.",
     shareLink: "Deel uitnodigingslink", pickTeam: "Tik op een team om erbij te gaan", shuffle: "Teams husselen",
     startGame: "Start spel", waitHost: "Wachten tot de host het spel start…", team: "Team",
     you: "jij", yourTurn: "Jij mag omschrijven!",
@@ -58,6 +73,19 @@ const STRINGS = {
     waitConfirm: (n) => `Wachten tot ${n} bevestigt…`, wins: (t) => `${t} wint!`,
     playAgain: "Nog een keer", leave: "Spel verlaten", copied: "Link gekopieerd!",
     password: "Wachtwoord (alleen om een spel aan te maken)", wrongPassword: "Verkeerd wachtwoord",
+    modeTeams: "Teams", modeTeamsHint: "Iedereen doet mee op z'n eigen telefoon",
+    modeSolo: "Eén telefoon", modeSoloHint: "Een spelleider omschrijft, iedereen raadt",
+    soloTitle: "Spel op één telefoon",
+    soloIntro: "Jij bent de spelleider: jij ziet de woorden en omschrijft ze, de rest roept wat ze denken. Geef de telefoon gerust door. Niemand hoeft mee te doen, geen teams: gewoon rondes en een totaalscore.",
+    themesTitle: "Woorden", allThemes: "Alle thema's", themesHostOnly: "De host kiest de thema's",
+    deckSize: (n) => `${n} woorden in het spel`,
+    th_people: "Bekende mensen", th_characters: "Figuren", th_places: "Plaatsen", th_food: "Eten & drinken",
+    th_animals: "Dieren", th_sports: "Sport & hobby's", th_everyday: "Dagelijks leven",
+    th_fun: "Uitjes, feest & spel", th_nature: "Natuur & weer",
+    soloTurn: "Omschrijven maar! Iedereen raadt 🗣️", round: (n) => `Ronde ${n}`, points: (n) => `${n} punt${n === 1 ? "" : "en"}`,
+    nextRound: "Volgende ronde", endGame: "Stoppen", gameOver: "Klaar!",
+    soloStats: (rounds, best) => `${rounds} ronde${rounds === 1 ? "" : "s"} gespeeld · beste ronde: ${best}`,
+    leaveSolo: "Hiermee stopt het spel op één telefoon.",
     leaveTitle: "Spel verlaten?",
     leaveBody: "Je team houdt zijn punten. Doe opnieuw mee met dezelfde naam om terug in je team te komen.",
     leaveHost: "Jij bent de host: een andere speler neemt het over.",
@@ -100,6 +128,8 @@ let hitsTurn = null;      // turn number prevHits belongs to
 let lastTickSecond = null;
 let soundOn = store.get("sound") !== false;
 let celebrated = false;
+let createMode = "teams"; // home screen choice: "teams" or "solo"
+const THEMES = ["people", "characters", "places", "food", "animals", "sports", "everyday", "fun", "nature"];
 
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
@@ -118,7 +148,7 @@ function toast(msg, ms = 3000) {
 function show(screen) {
   for (const el of document.querySelectorAll(".screen")) el.hidden = el.id !== `screen-${screen}`;
   $("leave-btn").hidden = screen === "home";
-  $("host-line").hidden = screen === "home" || !state;
+  $("host-line").hidden = screen === "home" || !state || isSolo();
 }
 
 function applyStaticText() {
@@ -249,8 +279,8 @@ function askDialog({ title, lines, yes, no }) {
 }
 
 async function confirmLeave() {
-  const lines = [t("leaveBody")];
-  if (state && isHost() && state.players.length > 1) lines.push(t("leaveHost"));
+  const lines = [isSolo() ? t("leaveSolo") : t("leaveBody")];
+  if (state && !isSolo() && isHost() && state.players.length > 1) lines.push(t("leaveHost"));
   if (state?.turn?.phase === "running" && state.turn.describer_id === state.me) lines.push(t("leaveDescriber"));
   if (await askDialog({ title: t("leaveTitle"), lines, yes: t("leaveYes"), no: t("leaveNo") })) leave();
 }
@@ -273,6 +303,7 @@ const teamName = (i) => `${t("team")} ${i + 1}`;
 const playerName = (id) => (state.players.find((p) => p.id === id) || { name: "?" }).name;
 const me = () => state.players.find((p) => p.id === state.me);
 const isHost = () => state.host_id === state.me;
+const isSolo = () => state?.mode === "solo";
 
 function render() {
   if (!state) return;
@@ -283,6 +314,10 @@ function render() {
 }
 
 function renderLobby() {
+  const solo = isSolo();
+  $("solo-intro").hidden = !solo;
+  for (const id of ["code-card", "pick-team", "lobby-teams", "shuffle-btn"]) $(id).hidden = solo;
+  renderThemes();
   $("lobby-code").textContent = state.code;
   const myTeam = me()?.team;
   let html = "";
@@ -298,7 +333,37 @@ function renderLobby() {
   $("wait-host").hidden = isHost();
 }
 
+// Theme chips: "All themes" (no filter) or any mix of themes. Only the host can change them.
+function renderThemes() {
+  const chosen = state.themes; // null = all themes
+  const host = isHost();
+  let html = `<button class="chip ${chosen ? "" : "on"}" data-theme="all" ${host ? "" : "disabled"}>${t("allThemes")}</button>`;
+  for (const id of THEMES) {
+    const on = chosen && chosen.includes(id);
+    html += `<button class="chip ${on ? "on" : ""}" data-theme="${id}" ${host ? "" : "disabled"}>${t(`th_${id}`)} <span class="count">${state.theme_counts[id]}</span></button>`;
+  }
+  $("theme-chips").innerHTML = html;
+  $("deck-size").textContent = t("deckSize", state.deck_size) + (host ? "" : ` · ${t("themesHostOnly")}`);
+}
+
+function toggleTheme(id) {
+  let chosen = state.themes ? [...state.themes] : [];
+  if (id === "all") chosen = [];
+  else if (chosen.includes(id)) chosen = chosen.filter((x) => x !== id);
+  else chosen.push(id);
+  send("set_themes", { themes: chosen.length ? chosen : null });
+}
+
 function renderBoard(el) {
+  if (isSolo()) {
+    // No teams: just the round number and the running total.
+    const round = state.round_scores.length + (state.phase === "playing" ? 1 : 0);
+    el.innerHTML = `<div class="solo-score">
+      <span class="label-small">${t("round", round)}</span>
+      <span class="solo-total">${t("points", state.positions[0])}</span>
+    </div>`;
+    return;
+  }
   const active = state.turn?.team;
   let html = "";
   for (let i = 0; i < state.num_teams; i++) {
@@ -353,7 +418,7 @@ function renderTurn() {
   prevHits = turn.hits;
 
   let html = `<div class="turn-title">${amDescriber
-    ? `<strong>${t("yourTurn")}</strong>`
+    ? `<strong>${isSolo() ? t("soloTurn") : t("yourTurn")}</strong>`
     : `<span class="team-pill t${turn.team}">${teamName(turn.team)}</span> ${t("describes", describer)}`}</div>`;
 
   if (turn.phase !== "running") {
@@ -364,6 +429,7 @@ function renderTurn() {
     if (amDescriber) html += `<div class="stack" style="margin-top:16px"><button class="btn primary big" data-action="start_timer">${t("startTimer")}</button></div>`;
     else html += `<p class="hint" style="margin-top:16px">${t("waitDescriber", describer)}</p>`;
     if (isHost() && !amDescriber) html += `<button class="link" data-action="next_turn" style="margin-top:6px">${t("skip")}</button>`;
+    if (isSolo() && isHost()) html += `<button class="link" data-action="end_game" style="margin-top:6px">${t("endGame")}</button>`;
   } else if (turn.phase === "running") {
     html += `<div id="timer-ring" class="timer-ring">
       <svg viewBox="0 0 170 170"><circle class="ring-bg" cx="85" cy="85" r="72"/><circle id="ring" class="ring-fg" cx="85" cy="85" r="72" stroke-dasharray="${RING}" stroke-dashoffset="0"/></svg>
@@ -383,7 +449,8 @@ function renderTurn() {
     html += `<div class="score-calc">${t("turnScore", turn.hits.length, turn.die)}</div>`;
     html += `<p class="hint" style="margin-bottom:12px">${t("fixHint")}</p>`;
     if (turn.describer_left) html += `<p class="note">${t("describerLeft", describer, teamName(turn.team))}</p>`;
-    if (amDescriber) html += `<button class="btn primary big" data-action="next_turn">${t("confirm")}</button>`;
+    if (amDescriber) html += `<button class="btn primary big" data-action="next_turn">${isSolo() ? t("nextRound") : t("confirm")}</button>`;
+    if (isSolo() && isHost()) html += `<button class="link" data-action="end_game" style="margin-top:8px">${t("endGame")}</button>`;
     else if (isHost()) html += `<button class="btn primary big" data-action="next_turn">${turn.describer_left ? t("confirmFor", teamName(turn.team)) : t("confirm")}</button>`;
     else html += `<p class="hint">${t("waitConfirm", turn.describer_left ? esc(playerName(state.host_id)) : describer)}</p>`;
   }
@@ -401,9 +468,21 @@ function wordsHtml(turn, clickable, newHits) {
 function renderFinished() {
   stopTimerLoop();
   const winner = $("winner-text");
-  winner.textContent = t("wins", teamName(state.winner));
-  winner.className = `winner t${state.winner}`;
-  renderBoard($("final-board"));
+  if (isSolo()) {
+    const rounds = state.round_scores.length;
+    $("trophy").textContent = "🎉";
+    winner.textContent = t("gameOver");
+    winner.className = "winner";
+    $("final-board").innerHTML = `<div class="solo-score final">
+      <span class="solo-total">${t("points", state.positions[0])}</span>
+      <span class="label-small">${t("soloStats", rounds, rounds ? Math.max(...state.round_scores) : 0)}</span>
+    </div>`;
+  } else {
+    $("trophy").textContent = "🏆";
+    winner.textContent = t("wins", teamName(state.winner));
+    winner.className = `winner t${state.winner}`;
+    renderBoard($("final-board"));
+  }
   $("again-btn").hidden = !isHost();
   $("wait-host-again").hidden = isHost();
   if (!celebrated) {
@@ -469,6 +548,22 @@ function getName() {
   return name;
 }
 
+for (const btn of document.querySelectorAll(".mode")) {
+  btn.onclick = () => {
+    createMode = btn.dataset.mode;
+    for (const b of document.querySelectorAll(".mode")) {
+      b.classList.toggle("on", b === btn);
+      b.setAttribute("aria-checked", String(b === btn));
+    }
+    $("teams-row").hidden = createMode === "solo";
+  };
+}
+
+$("theme-chips").onclick = (e) => {
+  const chip = e.target.closest("[data-theme]");
+  if (chip && !chip.disabled) toggleTheme(chip.dataset.theme);
+};
+
 $("create-btn").onclick = async () => {
   const name = getName();
   if (!name) return;
@@ -477,6 +572,7 @@ $("create-btn").onclick = async () => {
     const password = $("password").value;
     const res = await api("/api/rooms", {
       name, lang: $("lang").value, teams: Number($("teams").value), target: Number($("target").value), password,
+      mode: createMode,
     });
     if (password) store.set("password", password);
     enterRoom(res.code, res.player_id);

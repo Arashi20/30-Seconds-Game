@@ -321,3 +321,100 @@ def test_word_lists_have_no_near_duplicates():
         assert len(words) >= 1000
         keys = [key(w) for w in words]
         assert len(keys) == len(set(keys)), [w for w, k in zip(words, keys) if keys.count(k) > 1]
+
+
+# ----- one-phone mode -----
+
+def make_solo(seed=1):
+    room = Room("SOLO", lang="en", mode="solo", rng=random.Random(seed))
+    host = room.add_player("Arash").id
+    return room, host
+
+
+def test_solo_starts_with_just_the_game_master_and_nobody_can_join():
+    room, host = make_solo()
+    with pytest.raises(GameError, match="one phone"):
+        room.add_player("Sam")
+    room.start_game(host)
+    assert room.turn.describer_id == host
+    assert room.num_teams == 1
+
+
+def test_solo_keeps_a_running_total_until_the_game_master_ends_it():
+    room, host = make_solo()
+    room.start_game(host)
+    total = 0
+    for hits in (5, 3, 0, 4):
+        turn = room.turn
+        turn.die = 1
+        room.start_timer(host)
+        for i in range(hits):
+            room.toggle_word(host, i)
+        room.finish_turn()
+        room.next_turn(host)
+        total += max(0, hits - 1)
+    assert room.phase == "playing"  # no finish line, even past the target
+    assert room.round_scores == [4, 2, 0, 3]
+    assert room.positions == [total]
+
+    turn = room.turn  # the last round is counted when ending from review
+    turn.die = 0
+    room.start_timer(host)
+    room.toggle_word(host, 0)
+    room.finish_turn()
+    room.end_game(host)
+    assert room.phase == "finished"
+    assert room.round_scores[-1] == 1 and room.positions == [total + 1]
+    room.start_game(host)  # play again
+    assert room.positions == [0] and room.round_scores == []
+
+
+def test_end_game_is_only_for_one_phone_mode():
+    room, ids = make_room()
+    room.start_game(ids[0])
+    with pytest.raises(GameError):
+        room.end_game(ids[0])
+
+
+# ----- themes -----
+
+def test_every_word_has_a_known_theme_and_themes_are_not_tiny():
+    from app.game import THEMES, load_themes
+
+    for lang in LANGUAGES:
+        by_theme = load_themes(lang)
+        assert set(by_theme) == set(THEMES)
+        assert all(len(words) >= 30 for words in by_theme.values())
+        assert sum(len(w) for w in by_theme.values()) == len(load_words(lang))
+
+
+def test_host_can_filter_themes_before_the_game():
+    from app.game import load_themes
+
+    room, ids = make_room()
+    animals = set(load_themes("en")["animals"])
+    food = set(load_themes("en")["food"])
+    with pytest.raises(GameError):
+        room.set_themes(ids[1], ["animals"])  # not the host
+    room.set_themes(ids[0], ["animals", "food"])
+    assert room.themes == ("food", "animals")  # stored in THEMES order
+    assert set(room.all_words) == animals | food
+    room.start_game(ids[0])
+    for _ in range(20):
+        assert set(room.turn.words) <= animals | food
+        room.next_turn(ids[0])  # host skips
+    with pytest.raises(GameError, match="before the game"):
+        room.set_themes(ids[0], None)
+
+
+def test_all_or_no_themes_means_the_full_deck():
+    from app.game import THEMES
+
+    room, ids = make_room()
+    room.set_themes(ids[0], list(THEMES))
+    assert room.themes is None
+    room.set_themes(ids[0], ["food"])
+    room.set_themes(ids[0], [])
+    assert room.themes is None and len(room.all_words) == len(load_words("en"))
+    with pytest.raises(GameError):
+        room.set_themes(ids[0], ["bogus"])

@@ -302,3 +302,23 @@ def test_installable_as_home_screen_app():
     for tag in ('rel="manifest"', 'rel="apple-touch-icon"', 'apple-mobile-web-app-capable'):
         assert tag in page
     assert client.get("/static/apple-touch-icon.png").status_code == 200
+
+
+def test_one_phone_game_over_websocket():
+    res = client.post("/api/rooms", json={"name": "GM", "lang": "en", "mode": "solo"}).json()
+    code, gm = res["code"], res["player_id"]
+    assert client.post(f"/api/rooms/{code}/join", json={"name": "Sam"}).status_code == 400
+    with client.websocket_connect(f"/ws/{code}/{gm}") as ws:
+        state = receive_state(ws)
+        assert state["mode"] == "solo" and state["themes"] is None
+        ws.send_json({"action": "set_themes", "themes": ["animals"]})
+        state = drain(ws, lambda s: s["themes"] == ["animals"])
+        assert state["deck_size"] == state["theme_counts"]["animals"]
+        ws.send_json({"action": "start_game"})
+        drain(ws, lambda s: s["phase"] == "playing")
+        ws.send_json({"action": "start_timer"})
+        state = drain(ws, lambda s: s["turn"]["phase"] == "running")
+        assert len(state["turn"]["words"]) == 5  # the game master sees the card
+        ws.send_json({"action": "end_game"})
+        state = drain(ws, lambda s: s["phase"] == "finished")
+        assert state["positions"] == [0]

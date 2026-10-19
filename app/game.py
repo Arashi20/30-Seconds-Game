@@ -21,18 +21,39 @@ DIE_FACES = (0, 0, 1, 1, 2, 2)  # the original die: two blanks, two 1s, two 2s
 DEFAULT_TARGET = 30
 LANGUAGES = ("nl", "en")
 WORDS_DIR = Path(__file__).parent / "words"
+# Theme ids, as used after "## " in the word files. The page shows their names.
+THEMES = ("people", "characters", "places", "food", "animals", "sports", "everyday", "fun", "nature")
+MODES = ("teams", "solo")  # solo = one phone: a game master describes, everyone guesses
 
 
 class GameError(Exception):
     """Raised on an invalid action; the message is shown to the player."""
 
 
-def load_words(lang: str) -> list[str]:
+def load_themes(lang: str) -> dict[str, list[str]]:
+    """Words per theme. A line "## <theme>" starts a theme; other # lines are comments."""
     if lang not in LANGUAGES:
         raise GameError(f"Unknown language: {lang}")
-    lines = (WORDS_DIR / f"{lang}.txt").read_text(encoding="utf-8").splitlines()
-    words = [w.strip() for w in lines if w.strip() and not w.startswith("#")]
-    return list(dict.fromkeys(words))  # dedupe, keep order
+    themes: dict[str, list[str]] = {t: [] for t in THEMES}
+    current = None
+    for line in (WORDS_DIR / f"{lang}.txt").read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if line.startswith("## "):
+            current = line[3:].strip()
+            if current not in themes:
+                raise ValueError(f"{lang}.txt: unknown theme {current!r}")
+        elif line and not line.startswith("#"):
+            if current is None:
+                raise ValueError(f"{lang}.txt: {line!r} comes before any '## theme' line")
+            themes[current].append(line)
+    return {t: list(dict.fromkeys(ws)) for t, ws in themes.items()}
+
+
+def load_words(lang: str, themes: tuple[str, ...] | None = None) -> list[str]:
+    """All words of a language, or only those of the given themes."""
+    by_theme = load_themes(lang)
+    picked = [w for t in (themes or THEMES) for w in by_theme[t]]
+    return list(dict.fromkeys(picked))  # dedupe, keep order
 
 
 class Deck:
@@ -52,16 +73,17 @@ class Deck:
         return drawn
 
 
-# One deck per language, shared by all rooms: a new game carries on where the
-# previous one stopped instead of reshuffling, so words don't come back night
-# after night. (A server restart or Serverless sleep starts a fresh shuffle.)
-_shared_decks: dict[str, Deck] = {}
+# One deck per language (and theme selection), shared by all rooms: a new game
+# carries on where the previous one stopped instead of reshuffling, so words
+# don't come back night after night. (A restart or Serverless sleep reshuffles.)
+_shared_decks: dict[tuple, Deck] = {}
 
 
-def shared_deck(lang: str) -> Deck:
-    if lang not in _shared_decks:
-        _shared_decks[lang] = Deck(load_words(lang), random.Random())
-    return _shared_decks[lang]
+def shared_deck(lang: str, themes: tuple[str, ...] | None = None) -> Deck:
+    key = (lang, themes)
+    if key not in _shared_decks:
+        _shared_decks[key] = Deck(load_words(lang, themes), random.Random())
+    return _shared_decks[key]
 
 
 @dataclass
@@ -95,19 +117,27 @@ class Room:
         num_teams: int = 2,
         target: int = DEFAULT_TARGET,
         rng: random.Random | None = None,
+        mode: str = "teams",
     ):
-        if not 2 <= num_teams <= 4:
+        if mode not in MODES:
+            raise GameError("Unknown game mode")
+        if mode == "solo":
+            num_teams = 1  # one phone, no teams: just rounds and a running total
+        elif not 2 <= num_teams <= 4:
             raise GameError("Choose 2 to 4 teams")
         if not 5 <= target <= 100:
             raise GameError("Target must be between 5 and 100")
         self.code = code
         self.lang = lang
+        self.mode = mode
         self.num_teams = num_teams
         self.target = target
         self.rng = rng or random.Random()
-        # A room with its own rng (tests) gets a private, reproducible deck.
-        self.deck = Deck(load_words(lang), self.rng) if rng else shared_deck(lang)
-        self.all_words = self.deck.words
+        self.private_deck = rng is not None  # tests: private, reproducible deck
+        self.themes: tuple[str, ...] | None = None  # None = all themes
+        self.theme_counts = {t: len(ws) for t, ws in load_themes(lang).items()}
+        self._build_deck()
+        self.round_scores: list[int] = []  # solo mode: points per round
         self.players: dict[str, Player] = {}
         self.left_teams: dict[str, int] = {}  # lowercased name -> team, for players who left
         self.host_id: str | None = None
@@ -134,6 +164,8 @@ class Room:
             # browser forgot the game): take their seat back, team and all.
             self.touch()
             return existing
+        if self.mode == "solo" and self.players:
+            raise GameError("This game is played on one phone: nobody can join")
         player = Player(id=secrets.token_urlsafe(12), name=name)
         if name.lower() in self.left_teams:
             # Someone who left and comes back returns to their old team.
@@ -200,6 +232,27 @@ class Room:
         self.host_id = candidate.id
         return candidate.id
 
+    def set_themes(self, player_id: str, themes: list[str] | None) -> None:
+        """Pick which themes the cards come from. None (or all of them) = everything."""
+        self._require_host(player_id)
+        if self.phase == "playing":
+            raise GameError("Choose themes before the game starts")
+        if themes:
+            if any(t not in THEMES for t in themes):
+                raise GameError("Unknown theme")
+            picked = tuple(t for t in THEMES if t in themes)  # canonical order
+            self.themes = None if len(picked) == len(THEMES) else picked
+        else:
+            self.themes = None
+        self._build_deck()
+
+    def _build_deck(self) -> None:
+        if self.private_deck:
+            self.deck = Deck(load_words(self.lang, self.themes), self.rng)
+        else:
+            self.deck = shared_deck(self.lang, self.themes)
+        self.all_words = self.deck.words
+
     def team_members(self, team: int) -> list[Player]:
         return [p for p in self.players.values() if p.team == team]
 
@@ -207,11 +260,13 @@ class Room:
         self._require_host(player_id)
         if self.phase == "playing":
             raise GameError("Game already started")
-        for t in range(self.num_teams):
-            if len(self.team_members(t)) < 2:
-                raise GameError(f"Team {t + 1} needs at least 2 players")
+        if self.mode == "teams":
+            for t in range(self.num_teams):
+                if len(self.team_members(t)) < 2:
+                    raise GameError(f"Team {t + 1} needs at least 2 players")
         self.phase = "playing"
         self.positions = [0] * self.num_teams
+        self.round_scores = []
         self.winner = None
         self.next_team = 0
         self.describer_index = [0] * self.num_teams
@@ -274,6 +329,12 @@ class Room:
         else:
             raise GameError("Only the host can skip a turn")
 
+        if self.mode == "solo":
+            # No finish line: keep a running total until the game master ends it.
+            self.positions[0] += score
+            self.round_scores.append(score)
+            self._new_turn()
+            return
         self.positions[turn.team] = min(self.target, self.positions[turn.team] + score)
         if self.positions[turn.team] >= self.target:
             self.winner = turn.team
@@ -281,6 +342,19 @@ class Room:
             self.turn = None
             return
         self._new_turn()
+
+    def end_game(self, player_id: str) -> None:
+        """One-phone mode: the game master stops and sees the totals."""
+        self._require_host(player_id)
+        if self.mode != "solo":
+            raise GameError("Not possible in a team game")
+        turn = self._current_turn()
+        if turn.phase == "review":
+            # Count the round that was just played before stopping.
+            self.positions[0] += turn.score
+            self.round_scores.append(turn.score)
+        self.phase = "finished"
+        self.turn = None
 
     def _new_turn(self) -> None:
         # Find the next team that has players (someone may have left).
@@ -339,6 +413,11 @@ class Room:
             "code": self.code,
             "lang": self.lang,
             "phase": self.phase,
+            "mode": self.mode,
+            "themes": list(self.themes) if self.themes else None,
+            "theme_counts": self.theme_counts,
+            "deck_size": len(self.all_words),
+            "round_scores": self.round_scores,
             "num_teams": self.num_teams,
             "target": self.target,
             "host_id": self.host_id,

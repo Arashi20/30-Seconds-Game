@@ -1,7 +1,8 @@
-# Nederlandse woorden — één per regel. Regels die met # beginnen worden genegeerd.
+# Nederlandse woorden: één per regel. Regels die met # beginnen worden genegeerd.
+# Een regel '## thema' zet alle woorden eronder in dat thema (zie THEMES in app/game.py).
 # Voeg gerust eigen woorden toe (namen van vrienden, inside jokes, ...).
 
-# Bekende personen
+## people
 Max Verstappen
 Johan Cruijff
 Rembrandt van Rijn
@@ -46,323 +47,6 @@ Cristiano Ronaldo
 Lionel Messi
 Barack Obama
 Elon Musk
-Harry Potter
-Sinterklaas
-Zwarte Piet
-Kerstman
-Nijntje
-Dikkie Dik
-Bassie en Adriaan
-Kabouter Plop
-Paulus de Boskabouter
-Pipo de Clown
-Sherlock Holmes
-Pippi Langkous
-Shrek
-Mickey Mouse
-SpongeBob
-Pikachu
-Mario
-Batman
-Spider-Man
-Darth Vader
-
-# Plaatsen
-Amsterdam
-Rotterdam
-Den Haag
-Utrecht
-Maastricht
-Groningen
-Eindhoven
-Giethoorn
-Volendam
-Texel
-Schiermonnikoog
-Zandvoort
-Scheveningen
-Kinderdijk
-Keukenhof
-Efteling
-Madurodam
-Afsluitdijk
-Waddenzee
-Veluwe
-De Dam
-Rijksmuseum
-Anne Frank Huis
-Erasmusbrug
-Euromast
-Schiphol
-Parijs
-Eiffeltoren
-Londen
-Big Ben
-New York
-Vrijheidsbeeld
-Rome
-Colosseum
-Barcelona
-Berlijn
-Brussel
-Antwerpen
-Egypte
-Piramides
-Australië
-Japan
-China
-Chinese Muur
-IJsland
-Ibiza
-Hawaï
-Mount Everest
-Sahara
-Amazone
-Noordpool
-Disneyland
-Las Vegas
-Hollywood
-Venetië
-Zwitserland
-Marokko
-Suriname
-Curaçao
-Indonesië
-
-# Eten en drinken
-Stroopwafel
-Bitterbal
-Kroket
-Frikandel
-Patatje oorlog
-Haring
-Kibbeling
-Hagelslag
-Pindakaas
-Erwtensoep
-Stamppot
-Boerenkool
-Poffertjes
-Pannenkoek
-Oliebol
-Appelflap
-Tompouce
-Drop
-Speculaas
-Pepernoten
-Kaassoufflé
-Gouda
-Advocaat
-Jenever
-Chocomel
-Karnemelk
-Sushi
-Pizza
-Lasagne
-Spaghetti
-Hamburger
-Taco
-Shoarma
-Döner kebab
-Croissant
-Wafel
-Popcorn
-Suikerspin
-Milkshake
-Cappuccino
-Champagne
-Bubbelthee
-Avocado
-Ananas
-Watermeloen
-Spruitjes
-Knoflook
-Zuurkool
-Satésaus
-Nasi goreng
-Rijsttafel
-Bami
-Loempia
-Ontbijtkoek
-
-# Dingen en begrippen
-Klompen
-Tulp
-Windmolen
-Fiets
-Bakfiets
-Grachtenpand
-Woonboot
-Dijk
-Polder
-Koningsdag
-Elfstedentocht
-Oranje
-Carnaval
-Pakjesavond
-Oud en Nieuw
-Vuurwerk
-Sinterklaasgedicht
-Gezelligheid
-Paraplu
-Regenboog
-Onweer
-Zonnebrand
-Strandstoel
-Tent
-Camping
-Caravan
-Treinkaartje
-Vertraging
-OV-chipkaart
-Rijbewijs
-Parkeerboete
-Flitspaal
-Rotonde
-Snelweg
-Tandarts
-Huisarts
-Ziekenhuis
-Brandweer
-Politie
-Supermarkt
-Kassabon
-Statiegeld
-Pinautomaat
-Zelfscankassa
-Wasmachine
-Stofzuiger
-Magnetron
-Afstandsbediening
-Smartphone
-Oplader
-Wifi
-Wachtwoord
-Selfie
-Emoji
-Podcast
-Netflix
-TikTok
-Instagram
-WhatsApp
-Spotify
-Videogame
-Bordspel
-Legpuzzel
-Sudoku
-Kruiswoordpuzzel
-Schaakbord
-Dobbelsteen
-Speelkaart
-Verjaardag
-Bruiloft
-Vrijgezellenfeest
-Babyshower
-Kater
-Wekker
-Maandagochtend
-Vrijdagmiddagborrel
-Thuiswerken
-Vergadering
-Sollicitatie
-Salaris
-Belastingaangifte
-Hypotheek
-Verhuizing
-IKEA
-Bouwpakket
-Inbussleutel
-Boormachine
-
-# Dieren
-Koe
-Schaap
-Geit
-Varken
-Paard
-Pony
-Ezel
-Kip
-Haan
-Eend
-Zwaan
-Ooievaar
-Reiger
-Meeuw
-Duif
-Uil
-Papegaai
-Pinguïn
-Flamingo
-Struisvogel
-Leeuw
-Tijger
-Olifant
-Giraffe
-Zebra
-Nijlpaard
-Neushoorn
-Krokodil
-Kangoeroe
-Koala
-Panda
-IJsbeer
-Wolf
-Vos
-Egel
-Eekhoorn
-Konijn
-Hamster
-Cavia
-Goudvis
-Haai
-Dolfijn
-Walvis
-Zeehond
-Kwal
-Octopus
-Krab
-Kreeft
-Slak
-Spin
-Mug
-Bij
-Vlinder
-Lieveheersbeestje
-
-# Sport en hobby's
-Voetbal
-Hockey
-Schaatsen
-Wielrennen
-Tennis
-Golf
-Darts
-Korfbal
-Volleybal
-Basketbal
-Formule 1
-Marathon
-Zwemmen
-Surfen
-Skiën
-Snowboarden
-Boksen
-Judo
-Yoga
-Fitness
-Bowlen
-Midgetgolf
-Karaoke
-Paaseieren zoeken
-Breien
-Tuinieren
-Vissen
-Kamperen
-Pubquiz
-Escaperoom
-
-# Bekende Nederlanders (extra)
 Johan Derksen
 René van der Gijp
 Wilfred Genee
@@ -443,8 +127,6 @@ Dick Advocaat
 Nikkie de Jager
 Glennis Grace
 Rolf Sanchez
-
-# Wereldberoemd (extra)
 Isaac Newton
 Charles Darwin
 Galileo Galilei
@@ -534,7 +216,27 @@ Marco Polo
 David Attenborough
 Gordon Ramsay
 
-# Figuren uit films, boeken en tekenfilms
+## characters
+Harry Potter
+Sinterklaas
+Zwarte Piet
+Kerstman
+Nijntje
+Dikkie Dik
+Bassie en Adriaan
+Kabouter Plop
+Paulus de Boskabouter
+Pipo de Clown
+Sherlock Holmes
+Pippi Langkous
+Shrek
+Mickey Mouse
+SpongeBob
+Pikachu
+Mario
+Batman
+Spider-Man
+Darth Vader
 Hermione Griffel
 Voldemort
 Perkamentus
@@ -640,7 +342,67 @@ Alfred J. Kwak
 Sesamstraat
 Pino
 
-# Nederland (extra)
+## places
+Amsterdam
+Rotterdam
+Den Haag
+Utrecht
+Maastricht
+Groningen
+Eindhoven
+Giethoorn
+Volendam
+Texel
+Schiermonnikoog
+Zandvoort
+Scheveningen
+Kinderdijk
+Keukenhof
+Efteling
+Madurodam
+Afsluitdijk
+Waddenzee
+Veluwe
+De Dam
+Rijksmuseum
+Anne Frank Huis
+Erasmusbrug
+Euromast
+Schiphol
+Parijs
+Eiffeltoren
+Londen
+Big Ben
+New York
+Vrijheidsbeeld
+Rome
+Colosseum
+Barcelona
+Berlijn
+Brussel
+Antwerpen
+Egypte
+Piramides
+Australië
+Japan
+China
+Chinese Muur
+IJsland
+Ibiza
+Hawaï
+Mount Everest
+Sahara
+Amazone
+Noordpool
+Disneyland
+Las Vegas
+Hollywood
+Venetië
+Zwitserland
+Marokko
+Suriname
+Curaçao
+Indonesië
 Haarlem
 Leiden
 Delft
@@ -698,8 +460,6 @@ Limburg
 Brabant
 Drenthe
 Randstad
-
-# Wereld (extra)
 Tokio
 Peking
 Bangkok
@@ -812,7 +572,61 @@ Dode Zee
 Groenland
 Transsylvanië
 
-# Eten en drinken (extra)
+## food
+Stroopwafel
+Bitterbal
+Kroket
+Frikandel
+Patatje oorlog
+Haring
+Kibbeling
+Hagelslag
+Pindakaas
+Erwtensoep
+Stamppot
+Boerenkool
+Poffertjes
+Pannenkoek
+Oliebol
+Appelflap
+Tompouce
+Drop
+Speculaas
+Pepernoten
+Kaassoufflé
+Gouda
+Advocaat
+Jenever
+Chocomel
+Karnemelk
+Sushi
+Pizza
+Lasagne
+Spaghetti
+Hamburger
+Taco
+Shoarma
+Döner kebab
+Croissant
+Wafel
+Popcorn
+Suikerspin
+Milkshake
+Cappuccino
+Champagne
+Bubbelthee
+Avocado
+Ananas
+Watermeloen
+Spruitjes
+Knoflook
+Zuurkool
+Satésaus
+Nasi goreng
+Rijsttafel
+Bami
+Loempia
+Ontbijtkoek
 Kapsalon
 Broodje kroket
 Tosti
@@ -990,7 +804,345 @@ Heineken
 McDonald's
 Febo
 
-# In huis
+## animals
+Koe
+Schaap
+Geit
+Varken
+Paard
+Pony
+Ezel
+Kip
+Haan
+Eend
+Zwaan
+Ooievaar
+Reiger
+Meeuw
+Duif
+Uil
+Papegaai
+Pinguïn
+Flamingo
+Struisvogel
+Leeuw
+Tijger
+Olifant
+Giraffe
+Zebra
+Nijlpaard
+Neushoorn
+Krokodil
+Kangoeroe
+Koala
+Panda
+IJsbeer
+Wolf
+Vos
+Egel
+Eekhoorn
+Konijn
+Hamster
+Cavia
+Goudvis
+Haai
+Dolfijn
+Walvis
+Zeehond
+Kwal
+Octopus
+Krab
+Kreeft
+Slak
+Spin
+Mug
+Bij
+Vlinder
+Lieveheersbeestje
+Muis
+Rat
+Mol
+Das
+Otter
+Bever
+Hert
+Everzwijn
+Haas
+Kikker
+Pad
+Salamander
+Hagedis
+Slang
+Schildpad
+Kameleon
+Leguaan
+Gekko
+Alligator
+Bruine beer
+Wasbeer
+Stinkdier
+Luiaard
+Miereneter
+Gordeldier
+Lama
+Alpaca
+Kameel
+Bizon
+Antilope
+Gazelle
+Jachtluipaard
+Luipaard
+Jaguar
+Lynx
+Hyena
+Gorilla
+Chimpansee
+Orang-oetan
+Aap
+Baviaan
+Lemuur
+Stokstaartje
+Vleermuis
+Kat
+Hond
+Puppy
+Kanarie
+Parkiet
+Pauw
+Kalkoen
+Gans
+Fazant
+Specht
+Kraai
+Ekster
+Mus
+Roodborstje
+Zwaluw
+Kolibrie
+Toekan
+Pelikaan
+Adelaar
+Valk
+Gier
+Emoe
+Walrus
+Zeeleeuw
+Orka
+Narwal
+Zeepaardje
+Zeester
+Zee-egel
+Rog
+Paling
+Snoek
+Karper
+Clownvis
+Piranha
+Zwaardvis
+Regenworm
+Duizendpoot
+Schorpioen
+Sprinkhaan
+Krekel
+Libelle
+Mier
+Wesp
+Hommel
+Vlieg
+Kakkerlak
+Vlo
+Teek
+Rups
+Glimworm
+Dinosaurus
+T-rex
+Mammoet
+Sabeltandtijger
+
+## sports
+Voetbal
+Hockey
+Schaatsen
+Wielrennen
+Tennis
+Golf
+Darts
+Korfbal
+Volleybal
+Basketbal
+Formule 1
+Marathon
+Zwemmen
+Surfen
+Skiën
+Snowboarden
+Boksen
+Judo
+Yoga
+Fitness
+Bowlen
+Midgetgolf
+Karaoke
+Paaseieren zoeken
+Breien
+Tuinieren
+Vissen
+Kamperen
+Pubquiz
+Escaperoom
+Paardrijden
+Karate
+Taekwondo
+Kickboksen
+Worstelen
+Schermen
+Boogschieten
+Roeien
+Zeilen
+Kitesurfen
+Duiken
+Snorkelen
+Waterpolo
+Badminton
+Tafeltennis
+Squash
+Padel
+Honkbal
+Rugby
+American football
+Cricket
+IJshockey
+Curling
+Schansspringen
+Bobsleeën
+Kunstschaatsen
+Turnen
+Polsstokhoogspringen
+Hoogspringen
+Verspringen
+Kogelstoten
+Speerwerpen
+Hordelopen
+Estafette
+Triatlon
+Mountainbiken
+BMX
+Skateboarden
+Klimmen
+Paragliding
+Parachutespringen
+Bungeejumpen
+Jeu de boules
+Biljart
+Tafelvoetbal
+Airhockey
+Olympische Spelen
+WK voetbal
+Tour de France
+Champions League
+Penalty
+Rode kaart
+Buitenspel
+Hattrick
+Slam dunk
+Hole-in-one
+Schaakmat
+Knock-out
+Gouden medaille
+Beker
+Mascotte
+Stadion
+Wave
+Zelfverdediging
+
+## everyday
+Klompen
+Tulp
+Windmolen
+Fiets
+Bakfiets
+Grachtenpand
+Woonboot
+Dijk
+Polder
+Koningsdag
+Elfstedentocht
+Oranje
+Carnaval
+Pakjesavond
+Oud en Nieuw
+Vuurwerk
+Sinterklaasgedicht
+Gezelligheid
+Paraplu
+Regenboog
+Onweer
+Zonnebrand
+Strandstoel
+Tent
+Camping
+Caravan
+Treinkaartje
+Vertraging
+OV-chipkaart
+Rijbewijs
+Parkeerboete
+Flitspaal
+Rotonde
+Snelweg
+Tandarts
+Huisarts
+Ziekenhuis
+Brandweer
+Politie
+Supermarkt
+Kassabon
+Statiegeld
+Pinautomaat
+Zelfscankassa
+Wasmachine
+Stofzuiger
+Magnetron
+Afstandsbediening
+Smartphone
+Oplader
+Wifi
+Wachtwoord
+Selfie
+Emoji
+Podcast
+Netflix
+TikTok
+Instagram
+WhatsApp
+Spotify
+Videogame
+Bordspel
+Legpuzzel
+Sudoku
+Kruiswoordpuzzel
+Schaakbord
+Dobbelsteen
+Speelkaart
+Verjaardag
+Bruiloft
+Vrijgezellenfeest
+Babyshower
+Kater
+Wekker
+Maandagochtend
+Vrijdagmiddagborrel
+Thuiswerken
+Vergadering
+Sollicitatie
+Salaris
+Belastingaangifte
+Hypotheek
+Verhuizing
+IKEA
+Bouwpakket
+Inbussleutel
+Boormachine
 Koelkast
 Vriezer
 Oven
@@ -1067,8 +1219,6 @@ Zandbak
 Zwembad
 Jacuzzi
 Sauna
-
-# Kleding en spullen
 Regenjas
 Spijkerbroek
 Korte broek
@@ -1114,8 +1264,6 @@ Badpak
 Zwembroek
 Strandlaken
 Luchtbed
-
-# School en werk
 Schoolbord
 Krijt
 Gum
@@ -1155,8 +1303,6 @@ Vakantiedagen
 Baas
 Collega
 Teamuitje
-
-# Beroepen en figuren
 Piloot
 Stewardess
 Brandweerman
@@ -1230,7 +1376,7 @@ Brandweerauto
 Politieauto
 Ambulance
 
-# Uitjes, feesten en plekken
+## fun
 Kerstmis
 Kerstboom
 Pasen
@@ -1334,8 +1480,6 @@ Zwart gat
 Ufo
 Alien
 Robot
-
-# Techniek en spellen
 Laptop
 Tablet
 Toetsenbord
@@ -1409,8 +1553,6 @@ Zaklopen
 Eierlopen
 Stoelendans
 Hoela-hoep
-
-# Muziek
 Gitaar
 Piano
 Drumstel
@@ -1442,7 +1584,7 @@ Koor
 Boyband
 Rapper
 
-# Natuur en weer
+## nature
 Hagel
 Sneeuw
 Sneeuwpop
@@ -1483,170 +1625,3 @@ Cactus
 Palmboom
 Kerstster
 Brandnetel
-
-# Sport (extra)
-Paardrijden
-Karate
-Taekwondo
-Kickboksen
-Worstelen
-Schermen
-Boogschieten
-Roeien
-Zeilen
-Kitesurfen
-Duiken
-Snorkelen
-Waterpolo
-Badminton
-Tafeltennis
-Squash
-Padel
-Honkbal
-Rugby
-American football
-Cricket
-IJshockey
-Curling
-Schansspringen
-Bobsleeën
-Kunstschaatsen
-Turnen
-Polsstokhoogspringen
-Hoogspringen
-Verspringen
-Kogelstoten
-Speerwerpen
-Hordelopen
-Estafette
-Triatlon
-Mountainbiken
-BMX
-Skateboarden
-Klimmen
-Paragliding
-Parachutespringen
-Bungeejumpen
-Jeu de boules
-Biljart
-Tafelvoetbal
-Airhockey
-Olympische Spelen
-WK voetbal
-Tour de France
-Champions League
-Penalty
-Rode kaart
-Buitenspel
-Hattrick
-Slam dunk
-Hole-in-one
-Schaakmat
-Knock-out
-Gouden medaille
-Beker
-Mascotte
-Stadion
-Wave
-Zelfverdediging
-
-# Dieren (extra)
-Muis
-Rat
-Mol
-Das
-Otter
-Bever
-Hert
-Everzwijn
-Haas
-Kikker
-Pad
-Salamander
-Hagedis
-Slang
-Schildpad
-Kameleon
-Leguaan
-Gekko
-Alligator
-Bruine beer
-Wasbeer
-Stinkdier
-Luiaard
-Miereneter
-Gordeldier
-Lama
-Alpaca
-Kameel
-Bizon
-Antilope
-Gazelle
-Jachtluipaard
-Luipaard
-Jaguar
-Lynx
-Hyena
-Gorilla
-Chimpansee
-Orang-oetan
-Aap
-Baviaan
-Lemuur
-Stokstaartje
-Vleermuis
-Kat
-Hond
-Puppy
-Kanarie
-Parkiet
-Pauw
-Kalkoen
-Gans
-Fazant
-Specht
-Kraai
-Ekster
-Mus
-Roodborstje
-Zwaluw
-Kolibrie
-Toekan
-Pelikaan
-Adelaar
-Valk
-Gier
-Emoe
-Walrus
-Zeeleeuw
-Orka
-Narwal
-Zeepaardje
-Zeester
-Zee-egel
-Rog
-Paling
-Snoek
-Karper
-Clownvis
-Piranha
-Zwaardvis
-Regenworm
-Duizendpoot
-Schorpioen
-Sprinkhaan
-Krekel
-Libelle
-Mier
-Wesp
-Hommel
-Vlieg
-Kakkerlak
-Vlo
-Teek
-Rups
-Glimworm
-Dinosaurus
-T-rex
-Mammoet
-Sabeltandtijger
